@@ -28,13 +28,19 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
 
       var user = $scope.user;
 
-      user.$update(function () {
-        $state.go('admin.user', {
-          userId: user._id
+      // Can't be a guest and something else at the same time
+      if(user.roles.indexOf('guest') > -1 && user.roles.length>1){
+        $scope.error = "A user cannot be a guest and something else at the same time.";
+      }
+      else{
+        user.$update(function () {
+          $state.go('admin.user', {
+            userId: user._id
+          });
+        }, function (errorResponse) {
+          $scope.error = errorResponse.data.message;
         });
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
+      }
     };
   }
 ]);

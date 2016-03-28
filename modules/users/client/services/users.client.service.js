@@ -22,4 +22,24 @@ angular.module('users.admin').factory('Admin', ['$resource',
       }
     });
   }
+]).factory('AdminGuests', ['$resource',
+  function ($resource) {
+    return $resource('api/guests/:guestId', {
+      userId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+]).factory('AdminAdmins', ['$resource',
+  function ($resource) {
+    return $resource('api/admins/:adminId', {
+      userId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
 ]);
