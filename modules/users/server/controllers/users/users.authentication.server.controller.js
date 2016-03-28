@@ -41,13 +41,15 @@ exports.signup = function (req, res) {
       user.password = undefined;
       user.salt = undefined;
 
+      res.status(400).send({ processing: true });
+      /*
       req.login(user, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
           res.json(user);
         }
-      });
+      });*/
     }
   });
 };
@@ -59,15 +61,19 @@ exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
       res.status(400).send(info);
-    } else {
+    }
+    else if (user.roles.indexOf('guest') > -1){
+      res.status(400).send({ processing: true });
+    }
+    else {
       // Remove sensitive data before login
       user.password = undefined;
       user.salt = undefined;
-
       req.login(user, function (err) {
         if (err) {
           res.status(400).send(err);
-        } else {
+        }
+        else {
           res.json(user);
         }
       });

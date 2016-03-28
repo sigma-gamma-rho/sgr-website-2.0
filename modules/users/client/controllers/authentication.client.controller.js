@@ -29,7 +29,12 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (response) {
-        $scope.error = response.message;
+        if (response.processing){
+          $state.go('authentication.processing');
+        }else{
+          $scope.error = response.message;
+        }
+        //$scope.error = response.message;
       });
     };
 
@@ -43,13 +48,21 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }
 
       $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+        console.log('Successful signin. Redirecting to ' + $state.previous.state.name || 'home');
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
 
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+
       }).error(function (response) {
-        $scope.error = response.message;
+        if (response.processing){
+          $state.go('authentication.processing');
+        }else{
+          $scope.error = response.message;
+        }
+        //$scope.error = response.message;
       });
     };
 
