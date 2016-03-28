@@ -59,7 +59,7 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({ roles: "user"}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({ roles: 'user' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
   //User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
@@ -74,7 +74,7 @@ exports.list = function (req, res) {
  * List of Guests
  */
 exports.guestlist = function (req, res) {
-  User.find({ roles: "guest"}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({ roles: 'guest' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -89,7 +89,7 @@ exports.guestlist = function (req, res) {
  */
 exports.adminlist = function (req, res) {
   console.log('hallo!');
-  User.find({ roles: "admin"}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({ roles: 'admin' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
