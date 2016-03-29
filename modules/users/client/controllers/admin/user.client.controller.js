@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'Notifications', 'AdminGuestsCount',
+  function ($scope, $state, Authentication, userResolve, Notifications, AdminGuestsCount) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
@@ -33,7 +33,14 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         $scope.error = 'A user cannot be a guest and something else at the same time.';
       }
       else{
+
         user.$update(function () {
+          AdminGuestsCount.get(function (data) {
+            Notifications.countChange(data.count);
+          }, function(error){
+            console.log(error);
+          });
+
           $state.go('admin.user', {
             userId: user._id
           });

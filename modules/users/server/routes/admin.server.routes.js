@@ -10,17 +10,20 @@ module.exports = function (app) {
   // User route registration first. Ref: #713
   require('./users.server.routes.js')(app);
 
-  // Users collection routes
+  app.route('/api/guestcount')
+    .get(adminPolicy.isAllowed, admin.guestcount);
+
+  // Guests collection routes
   app.route('/api/guests')
     .get(adminPolicy.isAllowed, admin.guestlist);
+
+  // Admins collection routes
+  app.route('/api/admins')
+    .get(adminPolicy.isAllowed, admin.adminlist);
 
   // Users collection routes
   app.route('/api/users')
     .get(adminPolicy.isAllowed, admin.list);
-
-    // Users collection routes
-  app.route('/api/admins')
-    .get(adminPolicy.isAllowed, admin.adminlist);
 
   // Single user routes
   app.route('/api/users/:userId')

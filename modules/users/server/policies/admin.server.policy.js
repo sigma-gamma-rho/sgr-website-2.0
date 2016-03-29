@@ -21,6 +21,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/guests',
       permissions: '*'
     },{
+      resources: '/api/guestcount',
+      permissions: '*'
+    },{
       resources: '/api/admins',
       permissions: '*'
     },{

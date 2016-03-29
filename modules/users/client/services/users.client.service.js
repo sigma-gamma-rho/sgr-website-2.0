@@ -32,6 +32,16 @@ angular.module('users.admin').factory('Admin', ['$resource',
       }
     });
   }
+]).factory('AdminGuestsCount', ['$resource',
+  function ($resource) {
+    return $resource('api/guestcount', {
+      userId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
 ]).factory('AdminAdmins', ['$resource',
   function ($resource) {
     return $resource('api/admins/:adminId', {
