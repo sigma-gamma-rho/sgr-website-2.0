@@ -23,7 +23,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
 
     Socket.on('load:old:messages', function (docs) {
       for (var i = docs.length - 1; i >= 0; i--) {
-        console.log(docs[i].msg);
+        // Adds messages to local angular Array for posting
         $scope.messages.push({
           username: docs[i].name,
           text: docs[i].msg,
