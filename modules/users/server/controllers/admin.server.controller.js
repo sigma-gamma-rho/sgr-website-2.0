@@ -54,12 +54,12 @@ exports.delete = function (req, res) {
     res.json(user);
   });
 };
-
 /**
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({ roles: 'user' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  //User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -69,7 +69,49 @@ exports.list = function (req, res) {
     res.json(users);
   });
 };
+/**
+ * List of Guests
+ */
+exports.guestlist = function (req, res) {
+  User.find({ roles: 'guest' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
 
+    res.json(users);
+  });
+};
+/**
+ * Count of Guests
+ */
+exports.guestcount = function (req, res) {
+  User.count({ roles: 'guest' }, function (err, count) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    res.json({ 'count' : count });
+    //res.json([count]);
+  });
+};
+/**
+ * List of Guests
+ */
+exports.adminlist = function (req, res) {
+  console.log('hallo!');
+  User.find({ roles: 'admin' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+
+    res.json(users);
+  });
+};
 /**
  * User middleware
  */

@@ -1,10 +1,23 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus',
-  function ($scope, $state, Authentication, Menus) {
+angular.module('core').controller('HeaderController', ['$scope', '$state', 'Authentication', 'Menus', 'AdminGuestsCount', 'Notifications',
+  function ($scope, $state, Authentication, Menus, AdminGuestsCount, Notifications) {
     // Expose view variables
     $scope.$state = $state;
     $scope.authentication = Authentication;
+
+    // Watch the number of guest requests
+    // These change as we approve / deny guests
+    Notifications.update();
+    $scope.notifications = Notifications.count;
+    $scope.$watch(
+      function(){ return Notifications.count; },
+
+      function(newVal) {
+        console.log('Notifications count has changed to: ' + newVal);
+        $scope.notifications= newVal;
+      }
+    );
 
     // Get the topbar menu
     $scope.menu = Menus.getMenu('topbar');

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Menus', 'AdminGuestsCount', 'Notifications',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, Menus, AdminGuestsCount, Notifications) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
@@ -29,7 +29,12 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (response) {
-        $scope.error = response.message;
+        if (response.processing){
+          $state.go('authentication.processing');
+        }else{
+          $scope.error = response.message;
+        }
+        //$scope.error = response.message;
       });
     };
 
@@ -46,10 +51,20 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
 
+        // Get the number of notifications if they are an admin
+        Notifications.update();
+
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+
       }).error(function (response) {
-        $scope.error = response.message;
+        if (response.processing){
+          $state.go('authentication.processing');
+        }else{
+          $scope.error = response.message;
+        }
+        //$scope.error = response.message;
       });
     };
 
