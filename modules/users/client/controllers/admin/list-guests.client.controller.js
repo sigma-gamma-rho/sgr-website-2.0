@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserGuestController', ['$scope', '$filter', 'AdminGuests',
-  function ($scope, $filter, AdminGuests) {
+angular.module('users.admin').controller('UserGuestController', ['$scope', '$filter', 'AdminGuests', '$state',
+  function ($scope, $filter, AdminGuests, $state) {
     AdminGuests.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
@@ -27,5 +27,18 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
     };
+
+    $scope.approve = function () {
+      console.log('approving!');
+    };
+
+    $scope.deny = function () {
+      console.log('denied');
+    };
+
+    $scope.info = function (userId) {
+      $state.go('admin.user', {userId: userId});
+    };
+
   }
 ]);
