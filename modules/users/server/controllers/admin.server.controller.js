@@ -54,7 +54,6 @@ exports.delete = function (req, res) {
     res.json(user);
   });
 };
-
 /**
  * List of Users
  */

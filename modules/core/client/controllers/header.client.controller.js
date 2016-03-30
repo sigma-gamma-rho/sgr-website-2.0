@@ -13,36 +13,13 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       function(){ return Notifications.count; },
 
       function(newVal) {
+        console.log('Notifications count has changed to: ' + newVal);
         $scope.notifications= newVal;
       }
     );
 
     // Get the topbar menu
     $scope.menu = Menus.getMenu('topbar');
-
-    // Get the number of guests
-    $scope.getCount = function(){
-      AdminGuestsCount.get(function (data) {
-        $scope.notifications = data.count;
-      }, function(error){
-        console.log(error);
-      });
-    };
-
-    // Iterate through the menu items
-    // If the admin item is a menu item
-    // And we have permissions to see it
-    // Get the number of guest requests
-    for (var i = 0; i < $scope.menu.items.length; i ++){
-      var obj = $scope.menu.items[i];
-      for (var prop in obj){
-        if (obj.hasOwnProperty(prop) && obj[prop] === 'Admin') {
-          if (obj.shouldRender(Authentication.user)){
-            $scope.getCount();
-          }
-        }
-      }
-    }
 
     // Toggle the menu items
     $scope.isCollapsed = false;

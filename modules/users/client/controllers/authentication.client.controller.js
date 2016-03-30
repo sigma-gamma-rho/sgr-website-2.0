@@ -38,15 +38,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       });
     };
 
-    // Get the number of guests
-    $scope.getCount = function(){
-      AdminGuestsCount.get(function (data) {
-        Notifications.count = data.count;
-      }, function(error){
-        console.log(error);
-      });
-    };
-
     $scope.signin = function (isValid) {
       $scope.error = null;
 
@@ -57,29 +48,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }
 
       $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
-        console.log('Successful signin. Redirecting to ' + $state.previous.state.name || 'home');
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
 
-
-        // Get the topbar menu
-        $scope.menu = Menus.getMenu('topbar');
-
-        // Iterate through the menu items
-        // If the admin item is a menu item
-        // And we have permissions to see it
-        // Get the number of guest requests
-        for (var i = 0; i < $scope.menu.items.length; i ++){
-          var obj = $scope.menu.items[i];
-          for (var prop in obj){
-            if (obj.hasOwnProperty(prop) && obj[prop] === 'Admin') {
-              if (obj.shouldRender(Authentication.user)){
-                $scope.getCount();
-              }
-            }
-          }
-        }
-
+        // Get the number of notifications if they are an admin
+        Notifications.update();
 
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);

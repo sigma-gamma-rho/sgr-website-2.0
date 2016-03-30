@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserAdminController', ['$scope', '$filter', 'AdminAdmins',
-  function ($scope, $filter, AdminAdmins) {
+angular.module('users.admin').controller('UserAdminController', ['$scope', '$filter', 'AdminAdmins', '$state',
+  function ($scope, $filter, AdminAdmins, $state) {
     AdminAdmins.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
@@ -26,6 +26,10 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
 
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
+    };
+
+    $scope.info = function (userId) {
+      $state.go('admin.user', { userId: userId });
     };
   }
 ]);

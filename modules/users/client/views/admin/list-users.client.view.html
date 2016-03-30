@@ -10,10 +10,15 @@
     </div>
   </div>
   <div class="list-group">
-    <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
+    <a ng-repeat="user in pagedItems" class="list-group-item">
+      <button type="button" class="btn btn-info pull-right" ng-click="info(user._id);">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-      <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
       <p class="list-group-item-text" ng-bind="user.email"></p>
+      <p ng-if="!user.email" class="list-group-item-text">(no email provided)</p>
+      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>-->
     </a>
   </div>
 
