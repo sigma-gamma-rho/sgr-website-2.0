@@ -20,6 +20,8 @@ angular.module('core').service('Menus', [
         for (var userRoleIndex in user.roles) {
           for (var roleIndex in this.roles) {
             if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                //this.menus[menuId].items.push({
+
               return true;
             }
           }
@@ -78,12 +80,11 @@ angular.module('core').service('Menus', [
     };
 
     // Add menu item object
+    //THIS ADDS MENUID = TOPBAR
     this.addMenuItem = function (menuId, options) {
       options = options || {};
-
       // Validate that the menu exists
       this.validateMenuExistance(menuId);
-
       // Push new menu item
       this.menus[menuId].items.push({
         title: options.title || '',
@@ -95,7 +96,6 @@ angular.module('core').service('Menus', [
         items: [],
         shouldRender: shouldRender
       });
-
       // Add submenu items
       if (options.items) {
         for (var i in options.items) {

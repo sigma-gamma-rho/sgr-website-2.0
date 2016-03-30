@@ -17,7 +17,16 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/users',
       permissions: '*'
-    }, {
+    },{
+      resources: '/api/guests',
+      permissions: '*'
+    },{
+      resources: '/api/guestcount',
+      permissions: '*'
+    },{
+      resources: '/api/admins',
+      permissions: '*'
+    },{
       resources: '/api/users/:userId',
       permissions: '*'
     }]
