@@ -1,0 +1,29 @@
+<section ng-controller="ChaptersController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="chapter.title"></h1>
+  </div>
+
+    Eboard:<p></p>
+    President: <p class= "lead" ng-bind="chapter.president"></p>
+    President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
+    Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
+   Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
+    
+    Location:
+    <p class="lead" ng-bind="chapter.location"></p>
+  <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
+    <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+    Description:
+  <p class="lead" ng-bind="chapter.content"></p>
+  <small>
+    <em class="text-muted">
+      
+    </em>
+  </small>
+</section>
