@@ -1,0 +1,15 @@
+<section ng-controller="ChaptersController" ng-init="find()">
+  <div class="page-header">
+    <h1>Chapters</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="chapter in chapters" ui-sref="chapters.view({chapterId: chapter._id})" class="list-group-item">
+      
+      <h4 class="list-group-item-heading" ng-bind="chapter.title"></h4>
+      <p class="list-group-item-text" ng-bind="chapter.location"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="chapters.$resolved && !chapters.length">
+    No chapters yet, why don't you <a ui-sref="chapters.create">create one</a>?
+  </div>
+</section>
