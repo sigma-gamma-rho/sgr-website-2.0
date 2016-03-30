@@ -8,6 +8,7 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
 
     // Watch the number of guest requests
     // These change as we approve / deny guests
+    Notifications.update();
     $scope.notifications = Notifications.count;
     $scope.$watch(
       function(){ return Notifications.count; },

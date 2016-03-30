@@ -44,8 +44,8 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
               Notifications.update();
             });
           });
-        };
-      };
+        }
+      }
     };
 
     // Deny the guests request to join

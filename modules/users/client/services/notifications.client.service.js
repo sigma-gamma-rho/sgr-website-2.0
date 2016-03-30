@@ -34,6 +34,6 @@ angular.module('users').service('Notifications', ['Menus', 'Authentication', 'Ad
           }
         }
       }
-    }
+    };
   }
 ]);
