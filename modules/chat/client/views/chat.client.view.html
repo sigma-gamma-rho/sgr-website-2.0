@@ -4,14 +4,14 @@
   <div class="page-header">
     <h1>Sigma Gamma Rho Regional</h1>
   </div>
-  <div class="row">
+  <div class="row regional-div">
   <!-- Chat Wrapper -->
     <div class="col-md-8 chat-wrapper">
       <!-- Chat Text Area -->
       <div class="text-area">
         <ul class="list-unstyled">
           <!-- List all messages -->
-          <li class="col-xs-12 col-md-offset-0 col-md-10 chat-message" ng-repeat="message in messages">
+          <li class="col-xs-12 col-md-offset-0 col-md-12 chat-message" ng-repeat="message in messages">
             <small class="pull-right text-muted" ng-bind="message.created | date:'mediumTime'"></small>
             <img ng-src="{{message.profileImageURL}}" alt="{{message.username}}" class="pull-left chat-profile-image" />
             <div class="pull-left chat-message-details">
@@ -23,7 +23,14 @@
         </ul>
       </div>
 
-      <!-- The message form -->
+      </div>
+    <!-- News Feed Wrapper -->
+    <div class="news-wrapper col-md-4">
+      <feed url="http://news.google.com/news?cf=all&hl=en&pz=1&ned=us&output=rss" summary="true"></feed>
+    </div>
+  </div>
+  <div class='row'>
+    <!-- The message form -->
       <form class="col-xs-12 col-md-offset-1 col-md-10" ng-submit="sendMessage();">
         <fieldset class="row">
           <div class="input-group">
@@ -34,10 +41,5 @@
           </div>
         </fieldset>
       </form>
-      </div>
-    <!-- News Feed Wrapper -->
-    <div class="news-wrapper col-md-4">
-      <feed url="http://news.google.com/news?cf=all&hl=en&pz=1&ned=us&output=rss"></feed>
-    </div>
   </div>
 </section>

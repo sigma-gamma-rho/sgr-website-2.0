@@ -15,18 +15,25 @@
 }
 
 .chat-wrapper{
+  display: block;
+  height: inherit;
   border-radius: 25px;
   border: 2px solid #f2f2f2;
 }
 
 .text-area{
-  height: 400px;
+  height: inherit;
   overflow-y: scroll;
 }
 
 .news-wrapper{
+  display: block;
+  height: inherit;
   border-radius: 25px;
   border: 2px solid #f2f2f2;
-  max-height: 430px;
   overflow-y: scroll; 
+}
+
+.regional-div{
+  height: 580px;
 }
