@@ -54,6 +54,13 @@
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
+<!-- Angular Feeds - Google API-->  
+  <script type="text/javascript" src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
+  
+  <!-- Angular Feeds - Files -->
+  <script src="http://siddii.github.io/angular-feeds/app/angular-feeds/angular-feeds.js"></script>
+
+
   {% if livereload %}
   <!--Livereload script rendered -->
   <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>

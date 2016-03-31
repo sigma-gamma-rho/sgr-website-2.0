@@ -13,3 +13,20 @@
   width: 28px;
   border-radius: 50%;
 }
+
+.chat-wrapper{
+  border-radius: 25px;
+  border: 2px solid #f2f2f2;
+}
+
+.text-area{
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.news-wrapper{
+  border-radius: 25px;
+  border: 2px solid #f2f2f2;
+  max-height: 430px;
+  overflow-y: scroll; 
+}

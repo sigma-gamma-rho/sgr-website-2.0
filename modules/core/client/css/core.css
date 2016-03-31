@@ -54,12 +54,3 @@ a:hover .header-profile-image {
   padding-bottom: 20px;
 }
 
-
-/*****************************/
-
-.text-area{
-  height: 430px;
-  overflow-y: scroll;
-}
-
-/* .chat-container{} */
