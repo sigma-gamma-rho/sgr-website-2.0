@@ -54,10 +54,44 @@
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
+<!-- Angular Feeds - Google API-->  
+  <script type="text/javascript" src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
+  
+  <!-- Angular Feeds - Files -->
+  <script src="http://siddii.github.io/angular-feeds/app/angular-feeds/angular-feeds.js"></script>
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
   {% if livereload %}
   <!--Livereload script rendered -->
   <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
   {% endif %}
+  <footer class="footer-align">
+    <hr/>
+    <div class="container">
+       <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; Sigma Gamma Rho</span>
+          </div>
+          <div class="col-md-4">
+             <ul class="list-inline social-buttons">
+                <li><a href="https://twitter.com/sgrhoupdates/status/253878018810970114"><i class="fa fa-twitter fa-lg"></i></a>
+                </li>
+                <li><a href="https://www.facebook.com/SGRhoNE/"><i class="fa fa-facebook fa-lg"></i></a>
+                </li>
+                <li><a href="https://www.linkedin.com/in/sigma-gamma-rho-sorority-inc-82642891"><i class="fa fa-linkedin fa-lg"></i></a>
+                </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+             <ul class="list-inline">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Use</a></li>
+             </ul>
+          </div>
+      </div>
+    </div>
+  </footer>
 </body>
-
 </html>

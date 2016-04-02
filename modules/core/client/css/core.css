@@ -53,13 +53,17 @@ a:hover .header-profile-image {
 .element-padding{
   padding-bottom: 20px;
 }
-
-
-/*****************************/
-
-.text-area{
-  height: 430px;
-  overflow-y: scroll;
+section{
+   min-height: 530px
 }
 
-/* .chat-container{} */
+/* Footer */
+footer{
+  padding-top: 2%;
+  text-align: center;
+}
+
+footer li{
+  padding-top: 5px;
+}
+
