@@ -1,11 +1,11 @@
-<!-- The chat view -->
+  <!-- Content Wrapper -->
 <section class="container" ng-controller="ChatController">
   <!-- Site Header -->
   <div class="page-header">
     <h1>Sigma Gamma Rho Regional</h1>
   </div>
-  <div class="row regional-div">
-  <!-- Chat Wrapper -->
+  <div class="row content-wrapper">
+    <!-- Chat Wrapper -->
     <div class="col-md-8 chat-wrapper">
       <!-- Chat Text Area -->
       <div class="text-area">
@@ -22,24 +22,23 @@
           </li>
         </ul>
       </div>
-
-      </div>
-    <!-- News Feed Wrapper -->
-    <div class="news-wrapper col-md-4">
-      <feed url="http://news.google.com/news?cf=all&hl=en&pz=1&ned=us&output=rss" summary="true"></feed>
+        <!-- The message form -->
+        <div class="col-xs-12 col-md-12">
+          <form ng-submit="sendMessage();">
+            <fieldset class="row">
+              <div class="input-group">
+                <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary" ng-disabled="!messageText.length">Submit</button>
+                </span>
+              </div>
+            </fieldset>
+          </form>
+        </div>
     </div>
-  </div>
-  <div class='row'>
-    <!-- The message form -->
-      <form class="col-xs-12 col-md-offset-1 col-md-10" ng-submit="sendMessage();">
-        <fieldset class="row">
-          <div class="input-group">
-            <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-primary" ng-disabled="!messageText.length">Submit</button>
-            </span>
-          </div>
-        </fieldset>
-      </form>
+    <!-- News Feed Wrapper -->
+    <div class="col-md-4 news-wrapper">
+      <feed id="news-feed" url="http://news.google.com/news?cf=all&hl=en&pz=1&ned=us&output=rss" summary="true"></feed>
+    </div>
   </div>
 </section>

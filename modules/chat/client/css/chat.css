@@ -28,12 +28,12 @@
 
 .news-wrapper{
   display: block;
-  height: inherit;
+  height: 630px;
   border-radius: 25px;
   border: 2px solid #f2f2f2;
   overflow-y: scroll; 
 }
 
-.regional-div{
-  height: 580px;
+.content-wrapper{
+  height: 600px;
 }
