@@ -10,7 +10,7 @@
   </div>
   <h3 class="col-md-12 text-center">Or sign up using your email</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
-    <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
+    <form name="userForm" ng-submit="signup(userForm.$valid); sendMail()" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
           <label for="firstName">First Name</label>

@@ -22,6 +22,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
+
+
+
+
+
       $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
@@ -36,6 +41,30 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         }
         //$scope.error = response.message;
       });
+
+      this.sendMail = function(){
+
+
+        var data = ({
+          firstName: this.credentials.firstName,
+          lastName: this.credentials.lastName,
+          email: this.credentials.email
+        });
+
+        console.log(this.firstName);
+        console.log(this.credentials.email);
+
+        $http.post('api/auth/processing', data).
+          success(function(data,status,headers,config){
+            console.log('email should have been sent');
+          }).
+          error(function(data,status,headers,config){
+            console.log('shit fucked up');
+        });
+
+
+
+      };
     };
 
     $scope.signin = function (isValid) {

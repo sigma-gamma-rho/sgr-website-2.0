@@ -15,6 +15,9 @@ var noReturnUrls = [
   '/authentication/signup'
 ];
 
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport();
+
 /**
  * Signup
  */
@@ -247,4 +250,21 @@ exports.removeOAuthProvider = function (req, res, next) {
       });
     }
   });
+};
+
+exports.sendMail = function(req,res){
+
+  var data = req.body;
+
+  transporter.sendMail({
+    from: data.email,
+    to: "DNAndyB@gmail.com",
+    subject: 'A new user wants to sign up',
+    text: data.firstName + data.lastName + ' wants to join the website.'
+  },function(err){
+    if(err)
+        console.log("it actually doesn't send the mail lmao");
+});
+
+  res.json(data);
 };
