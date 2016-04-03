@@ -70,6 +70,10 @@ var UserSchema = new Schema({
     type: String,
     default: 'modules/users/client/img/profile/default.png'
   },
+  affiliation: {
+    type: String,
+    validate: [validateLocalStrategyProperty, 'Please choose your chapter affiliaton']
+  },
   provider: {
     type: String,
     required: 'Provider is required'

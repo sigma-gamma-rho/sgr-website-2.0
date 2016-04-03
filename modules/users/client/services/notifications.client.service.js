@@ -23,7 +23,7 @@ angular.module('users').service('Notifications', ['Menus', 'Authentication', 'Ad
       // Get the topbar menu
       self.menu = Menus.getMenu('topbar');
 
-      // If admin exists in the menu + and we have permissions, get the num  of notifications
+      // If admin exists in the menu + and we have permissions, get the num of notifications
       for (var i = 0; i < self.menu.items.length; i ++){
         var obj = self.menu.items[i];
         for (var prop in obj){

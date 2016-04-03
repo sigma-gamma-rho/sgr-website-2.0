@@ -1,3 +1,11 @@
+<div ng-if="!user.email" class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span>Please provide an email address.</span>
+</div>
+<div ng-if="!user.affiliation" class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span>Please choose your chapter affiliation.</span>
+</div>
 <section class="row" ng-controller="EditProfileController">
   <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
     <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
@@ -22,6 +30,19 @@
           <div ng-messages="userForm.email.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Email address is required.</p>
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="affiliation"> Chapter Affiliation: </label>
+            <select id="affiliation"
+                    class="form-control"
+                    name="affiliation"
+                    ng-model="user.affiliation"
+                    required>
+                    <option ng-repeat="option in data.availableOptions">{{option}}</option>
+            </select>
+          <div ng-messages="userForm.affiliation.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Affiliation is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
