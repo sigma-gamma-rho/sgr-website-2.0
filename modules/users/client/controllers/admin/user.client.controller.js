@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'Notifications', 'AdminGuestsCount', '$http',
-  function ($scope, $state, Authentication, userResolve, Notifications, AdminGuestsCount, $http) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'Notifications', 'AdminGuestsCount', '$http', '$location',
+  function ($scope, $state, Authentication, userResolve, Notifications, AdminGuestsCount, $http, $location) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 

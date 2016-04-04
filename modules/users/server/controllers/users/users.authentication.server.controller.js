@@ -179,6 +179,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 
             // And save the user
             user.save(function (err) {
+              console.log(err);
               return done(err, user);
             });
           });
