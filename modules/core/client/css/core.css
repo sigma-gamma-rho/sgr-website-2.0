@@ -50,6 +50,13 @@ a:hover .header-profile-image {
   text-align: center;
 }
 
+.home-slider{
+  margin-top:2px;
+  margin-bottom: 50px;
+  height: 305px;
+}
+
+
 .element-padding{
   padding-bottom: 20px;
 }
