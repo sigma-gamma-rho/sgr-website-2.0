@@ -1,9 +1,28 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'Notifications', 'AdminGuestsCount',
-  function ($scope, $state, Authentication, userResolve, Notifications, AdminGuestsCount) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'Notifications', 'AdminGuestsCount', '$http',
+  function ($scope, $state, Authentication, userResolve, Notifications, AdminGuestsCount, $http) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
+
+    // On load, get the list of chapters for which to populate the dropdown
+    $scope.data = { availableOptions: [] };
+    $http.get('api/chapters').success(function (response) {
+      // If no chapters exist, then do not allow signup until resolved
+      if (!response.length){
+        $location.path('/server-error');
+      }
+      // Populate the data array
+      else {
+        for (var i = 0; i < response.length; i ++){
+          $scope.data.availableOptions.push(response[i].title);
+        }
+      }
+    }).error(function (response) {
+      // If error on chapter fetch, do not allow signup until resolved
+      $location.path('/server-error');
+    });
+
 
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
