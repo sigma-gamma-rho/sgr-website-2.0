@@ -12,4 +12,7 @@ module.exports = function (app) {
 
   // Define application route
   app.route('/*').get(core.renderIndex);
+
+  //sends mail probably
+  app.route('/api/auth/signup').post(core.sendMail);
 };
