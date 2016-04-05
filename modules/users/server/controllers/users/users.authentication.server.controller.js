@@ -45,15 +45,14 @@ exports.signup = function (req, res) {
       user.password = undefined;
       user.salt = undefined;
 
-      res.status(400).send({ processing: true });
-      /*
+      //res.status(400).send({ processing: true });
       req.login(user, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
           res.json(user);
         }
-      });*/
+      });
     }
   });
 };
@@ -66,9 +65,14 @@ exports.signin = function (req, res, next) {
     if (err || !user) {
       res.status(400).send(info);
     }
-    else if (user.roles.indexOf('guest') > -1){
+    /*
+    else if (!user.email){
+      console.log('No email!');
       res.status(400).send({ processing: true });
     }
+    else if (user.roles.indexOf('guest') > -1){
+      res.status(400).send({ processing: true });
+    }*/
     else {
       // Remove sensitive data before login
       user.password = undefined;
@@ -180,6 +184,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 
             // And save the user
             user.save(function (err) {
+              console.log(err);
               return done(err, user);
             });
           });

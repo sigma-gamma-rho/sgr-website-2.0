@@ -16,7 +16,7 @@ exports.renderIndex = function (req, res) {
  */
 exports.renderServerError = function (req, res) {
   res.status(500).render('modules/core/server/views/500', {
-    error: 'Oops! Something went wrong...'
+    error: 'Oops! Something went wrong. Please hang tight while we work on this...'
   });
 };
 

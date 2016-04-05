@@ -6,7 +6,9 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a ui-sref="home" class="navbar-brand">Sigma Gamma Rho</a>
+    <a ui-sref="home" class="navbar-brand">
+      <span id="sgr-gold" class="glyphicon glyphicon-education"></span>
+      Sigma Gamma Rho</a>
   </div>
   <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
     <ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">
@@ -14,7 +16,7 @@
 
         <!-- Special case: Admin - due to requiring the # of notifications from the server-->
         <a ng-if="item.title === 'Admin' && notifications!==0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="label label-pill label-danger">{{notifications}}</span><span class="caret"></span></a>
-        <a ng-if="item.title === 'Admin' && notifications===0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="label label-pill label-success">{{notifications}}</span><span class="caret"></span></a>
+        <a ng-if="item.title === 'Admin' && notifications===0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
 
         <a ng-if="item.title !== 'Admin'" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
         <ul ng-switch-when="dropdown" class="dropdown-menu">
@@ -22,7 +24,7 @@
 
             <!-- Special case: Guests - due to requiring the # of notifications from the server-->
             <a ng-if="subitem.state === 'admin.guests' && notifications!==0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;<span class="label label-pill label-danger">{{notifications}}</span></a>
-            <a ng-if="subitem.state === 'admin.guests' && notifications===0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;<span class="label label-pill label-success">{{notifications}}</span></a>
+            <a ng-if="subitem.state === 'admin.guests' && notifications===0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;</a>
 
             <a ng-if="subitem.state !== 'admin.guests'" ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
           </li>
@@ -43,13 +45,34 @@
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
       <li class="dropdown" dropdown>
-        <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+
+        <!-- If they need to fill out their affiliation and email field-->
+        <a ng-if="!authentication.user.email || !authentication.user.affiliation" class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+          <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+          <span ng-bind="authentication.user.displayName"></span>
+          <span class="label label-pill label-danger"><i class="glyphicon glyphicon-alert"></i></span>
+          <b class="caret"></b>
+        </a>
+
+        <a ng-if="authentication.user.email && authentication.user.affiliation" class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
           <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
         </a>
+
+
         <ul class="dropdown-menu" role="menu">
           <li ui-sref-active="active">
-            <a ui-sref="settings.profile">Edit Profile</a>
+
+            <a ng-if="!authentication.user.email || !authentication.user.affiliation" ui-sref="settings.profile">
+              Edit Profile
+              <span class="label label-pill label-danger"><i class="glyphicon glyphicon-alert"></i></span>
+            </a>
+
+            <a ng-if="authentication.user.email && authentication.user.affiliation" ui-sref="settings.profile">
+              Edit Profile
+            </a>
+
+
           </li>
           <li ui-sref-active="active">
             <a ui-sref="settings.picture">Change Profile Picture</a>
