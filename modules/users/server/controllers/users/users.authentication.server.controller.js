@@ -267,10 +267,10 @@ exports.sendMail = function(req,res){
   transporter.sendMail(mailOptions,function(err,info){
     if(err)
       {
-        console.log('it actually doesnt send the mail lmao');
-        return console.log(err);
-      }
-   console.log(info.response);
+      console.log('it actually doesnt send the mail lmao');
+      return console.log(err);
+    }
+    console.log(info.response);
   });
 
   res.json(data);
