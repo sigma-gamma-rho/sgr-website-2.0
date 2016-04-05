@@ -15,6 +15,9 @@ var noReturnUrls = [
   '/authentication/signup'
 ];
 
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://sororityappemail@gmail.com:ThisPassword@smtp.gmail.com');
+
 /**
  * Signup
  */
@@ -125,7 +128,8 @@ exports.oauthCallback = function (strategy) {
           return res.redirect('/authentication/signin');
         }
 
-        return res.redirect(redirectURL || sessionRedirectURL || '/');
+        //return res.redirect(redirectURL || sessionRedirectURL || '/');
+        return res.redirect('/')
       });
     })(req, res, next);
   };
@@ -247,4 +251,28 @@ exports.removeOAuthProvider = function (req, res, next) {
       });
     }
   });
+};
+
+exports.sendMail = function(req,res){
+
+  var data = req.body;
+
+  var mailOptions = {
+    from: data.email,
+    to: 'DNAndyB@gmail.com',
+    subject: 'A new user wants to sign up',
+    text: data.firstName + data.lastName + ' wants to join the website.'
+  };
+
+  console.log('should this be here? I think it should.');
+  transporter.sendMail(mailOptions,function(err,info){
+    if(err)
+      {
+      console.log('it actually doesnt send the mail lmao');
+      return console.log(err);
+    }
+    console.log(info.response);
+  });
+
+  res.json(data);
 };
