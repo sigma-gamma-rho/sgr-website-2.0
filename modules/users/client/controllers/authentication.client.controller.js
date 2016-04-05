@@ -23,10 +23,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }
 
 
-
-
-
-
       $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         console.log('Testing 1 2 3');
@@ -60,7 +56,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             console.log('email should have been sent');
           }).
           error(function(data,status,headers,config){
-            console.log('shit fucked up');
+            console.log('email didnt send');
           });
 
       };

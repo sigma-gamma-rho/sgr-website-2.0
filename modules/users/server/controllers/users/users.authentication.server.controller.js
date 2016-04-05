@@ -7,6 +7,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
+  local = require(path.resolve('./config/env/local.js')),
   User = mongoose.model('User');
 
 // URLs for which user can't be redirected on signin
@@ -16,7 +17,7 @@ var noReturnUrls = [
 ];
 
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport('smtps://sororityappemail@gmail.com:ThisPassword@smtp.gmail.com');
+var transporter = nodemailer.createTransport(local.emailProtocol);
 
 /**
  * Signup
@@ -129,7 +130,7 @@ exports.oauthCallback = function (strategy) {
         }
 
         //return res.redirect(redirectURL || sessionRedirectURL || '/');
-        return res.redirect('/')
+        return res.redirect('/');
       });
     })(req, res, next);
   };
@@ -259,7 +260,7 @@ exports.sendMail = function(req,res){
 
   var mailOptions = {
     from: data.email,
-    to: 'DNAndyB@gmail.com',
+    to: local.email,
     subject: 'A new user wants to sign up',
     text: data.firstName + data.lastName + ' wants to join the website.'
   };
@@ -268,7 +269,7 @@ exports.sendMail = function(req,res){
   transporter.sendMail(mailOptions,function(err,info){
     if(err)
       {
-      console.log('it actually doesnt send the mail lmao');
+      console.log('it actually doesnt send the mail');
       return console.log(err);
     }
     console.log(info.response);
