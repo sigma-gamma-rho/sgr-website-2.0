@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-  function ($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('EditProfileController', ['$scope', '$http', '$location', 'Users', 'Authentication', '$interval',
+  function ($scope, $http, $location, Users, Authentication, $interval) {
+
     $scope.user = Authentication.user;
 
     // On load, get the list of chapters for which to populate the dropdown
@@ -20,9 +21,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     }).error(function (response) {
       // If error on chapter fetch, do not allow signup until resolved
       $location.path('/server-error');
-
     });
-
 
     // Update a user profile
     $scope.updateUserProfile = function (isValid) {
@@ -41,6 +40,8 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
         $scope.success = true;
         Authentication.user = response;
+
+
       }, function (response) {
         $scope.error = response.data.message;
       });

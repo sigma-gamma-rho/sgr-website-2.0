@@ -14,7 +14,7 @@
 
         <!-- Special case: Admin - due to requiring the # of notifications from the server-->
         <a ng-if="item.title === 'Admin' && notifications!==0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="label label-pill label-danger">{{notifications}}</span><span class="caret"></span></a>
-        <a ng-if="item.title === 'Admin' && notifications===0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="label label-pill label-success">{{notifications}}</span><span class="caret"></span></a>
+        <a ng-if="item.title === 'Admin' && notifications===0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
 
         <a ng-if="item.title !== 'Admin'" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
         <ul ng-switch-when="dropdown" class="dropdown-menu">
@@ -22,7 +22,7 @@
 
             <!-- Special case: Guests - due to requiring the # of notifications from the server-->
             <a ng-if="subitem.state === 'admin.guests' && notifications!==0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;<span class="label label-pill label-danger">{{notifications}}</span></a>
-            <a ng-if="subitem.state === 'admin.guests' && notifications===0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;<span class="label label-pill label-success">{{notifications}}</span></a>
+            <a ng-if="subitem.state === 'admin.guests' && notifications===0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;</a>
 
             <a ng-if="subitem.state !== 'admin.guests'" ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
           </li>
