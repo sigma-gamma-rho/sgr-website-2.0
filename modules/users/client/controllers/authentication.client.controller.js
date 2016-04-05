@@ -13,6 +13,26 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $location.path('/');
     }
 
+    // On load, get the list of chapters for which to populate the dropdown
+    $scope.data = { availableOptions: [] };
+    $http.get('api/chapters').success(function (response) {
+      // If no chapters exist, then do not allow signup until resolved
+      if (!response.length){
+        $location.path('/server-error');
+      }
+      // Populate the data array
+      else {
+        for (var i = 0; i < response.length; i ++){
+          $scope.data.availableOptions.push(response[i].title);
+        }
+      }
+    }).error(function (response) {
+      // If error on chapter fetch, do not allow signup until resolved
+      $location.path('/server-error');
+    });
+
+
+
     $scope.signup = function (isValid) {
       $scope.error = null;
 
@@ -60,12 +80,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
 
       }).error(function (response) {
+        /*
         if (response.processing){
           $state.go('authentication.processing');
         }else{
           $scope.error = response.message;
-        }
-        //$scope.error = response.message;
+        }*/
+        $scope.error = response.message;
       });
     };
 
