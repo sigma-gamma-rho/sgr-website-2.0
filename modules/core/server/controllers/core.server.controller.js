@@ -46,10 +46,10 @@ exports.renderNotFound = function (req, res) {
 exports.sendMail = function(req,res){
 
   var data = req.body;
-
+  console.log('uhh I shoul probably not be here.');
   transporter.sendMail({
-    from: data.Email,
-    to: "DNAndyB@gmail.com",
+    from: data.email,
+    to: 'DNAndyB@gmail.com',
     subject: 'A new user wants to sign up',
     text: data.firstName + data.lastName + ' wants to join the website.'
   });

@@ -60,9 +60,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
           }).
           error(function(data,status,headers,config){
             console.log('shit fucked up');
-        });
-
-
+          });
 
       };
     };

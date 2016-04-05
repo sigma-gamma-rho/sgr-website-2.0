@@ -16,7 +16,7 @@ var noReturnUrls = [
 ];
 
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport();
+var transporter = nodemailer.createTransport('smtps://sororityappemail@gmail.com:ThisPassword@smtp.gmail.com');
 
 /**
  * Signup
@@ -256,15 +256,22 @@ exports.sendMail = function(req,res){
 
   var data = req.body;
 
-  transporter.sendMail({
+  var mailOptions = {
     from: data.email,
-    to: "DNAndyB@gmail.com",
+    to: 'DNAndyB@gmail.com',
     subject: 'A new user wants to sign up',
     text: data.firstName + data.lastName + ' wants to join the website.'
-  },function(err){
+  };
+
+  console.log('should this be here? I think it should.');
+  transporter.sendMail(mailOptions,function(err,info){
     if(err)
-        console.log("it actually doesn't send the mail lmao");
-});
+      {
+        console.log('it actually doesnt send the mail lmao');
+        return console.log(err);
+      }
+   console.log(info.response);
+  });
 
   res.json(data);
 };
