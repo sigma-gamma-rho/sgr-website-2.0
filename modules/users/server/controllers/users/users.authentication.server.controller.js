@@ -19,6 +19,23 @@ var noReturnUrls = [
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport(local.emailProtocol);
 
+// Function to send mail
+var mailHelper = function(f, t, s, m){
+  var mailOptions = {
+    from: f,
+    to: t,
+    subject: s,
+    text: m
+  };
+
+  transporter.sendMail(mailOptions,function(err, info){
+    if(err){
+      return console.log('Error:' + err);
+    }
+    console.log('Message sent: ' + info.response);
+  });
+};
+
 /**
  * Signup
  */
@@ -65,14 +82,6 @@ exports.signin = function (req, res, next) {
     if (err || !user) {
       res.status(400).send(info);
     }
-    /*
-    else if (!user.email){
-      console.log('No email!');
-      res.status(400).send({ processing: true });
-    }
-    else if (user.roles.indexOf('guest') > -1){
-      res.status(400).send({ processing: true });
-    }*/
     else {
       // Remove sensitive data before login
       user.password = undefined;
@@ -182,9 +191,11 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
               providerData: providerUserProfile.providerData
             });
 
+            var copy = user;
             // And save the user
             user.save(function (err) {
               console.log(err);
+              mailHelper(local.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
               return done(err, user);
             });
           });
@@ -259,26 +270,7 @@ exports.removeOAuthProvider = function (req, res, next) {
   });
 };
 
-exports.sendMail = function(req,res){
-
-  var data = req.body;
-
-  var mailOptions = {
-    from: data.email,
-    to: local.email,
-    subject: 'A new user wants to sign up',
-    text: data.firstName + data.lastName + ' wants to join the website.'
-  };
-
-  console.log('should this be here? I think it should.');
-  transporter.sendMail(mailOptions,function(err,info){
-    if(err)
-      {
-      console.log('it actually doesnt send the mail');
-      return console.log(err);
-    }
-    console.log(info.response);
-  });
-
-  res.json(data);
+exports.sendMail = function(req, res){
+  mailHelper(req.body.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+  res.json({ message: data });
 };

@@ -75,17 +75,24 @@
 
         <ul class="dropdown-menu" role="menu">
           <li ui-sref-active="active">
-
-            <a ng-if="!authentication.user.email || !authentication.user.affiliation" ui-sref="settings.profile">
+            <a ng-if="!authentication.user.email ||
+                      !authentication.user.affiliation ||
+                      !authentication.user.firstName ||
+                      !authentication.user.lastName ||
+                      !authentication.user.username"
+                      ui-sref="settings.profile">
               Edit Profile
               <span class="label label-pill label-danger"><i class="glyphicon glyphicon-alert"></i></span>
             </a>
 
-            <a ng-if="authentication.user.email && authentication.user.affiliation" ui-sref="settings.profile">
+            <a ng-if="authentication.user.email &&
+                      authentication.user.affiliation &&
+                      authentication.user.firstName &&
+                      authentication.user.lastName &&
+                      authentication.user.username"
+                      ui-sref="settings.profile">
               Edit Profile
             </a>
-
-
           </li>
           <li ui-sref-active="active">
             <a ui-sref="settings.picture">Change Profile Picture</a>
