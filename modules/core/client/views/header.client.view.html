@@ -46,15 +46,28 @@
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
       <li class="dropdown" dropdown>
 
-        <!-- If they need to fill out their affiliation and email field-->
-        <a ng-if="!authentication.user.email || !authentication.user.affiliation" class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+
+        <!-- If they are missing profile information-->
+        <a ng-if="!authentication.user.email ||
+                  !authentication.user.affiliation ||
+                  !authentication.user.firstName ||
+                  !authentication.user.lastName ||
+                  !authentication.user.username"
+                  class="dropdown-toggle user-header-dropdown-toggle"
+                  dropdown-toggle role="button">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
           <span ng-bind="authentication.user.displayName"></span>
           <span class="label label-pill label-danger"><i class="glyphicon glyphicon-alert"></i></span>
           <b class="caret"></b>
         </a>
 
-        <a ng-if="authentication.user.email && authentication.user.affiliation" class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+        <a ng-if="authentication.user.email &&
+                  authentication.user.affiliation &&
+                  authentication.user.firstName &&
+                  authentication.user.lastName &&
+                  authentication.user.username"
+                  class="dropdown-toggle user-header-dropdown-toggle"
+                  dropdown-toggle role="button">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
           <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
         </a>
