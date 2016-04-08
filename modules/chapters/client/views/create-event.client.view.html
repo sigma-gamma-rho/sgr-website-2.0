@@ -1,0 +1,61 @@
+<section class="container" ng-controller="ChaptersController">
+  <div class="page-header">
+    <h1>Create New Event</h1>
+  </div>
+  <!-- Create Event Form -->
+  <div class="col-md-12">
+    <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">Event</label>
+          <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="eventForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Event title is required.</p>
+          </div>
+        </div>
+
+    <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="time">Time</label>
+          <input name="time" type="text" ng-model="time" id="time" class="form-control" placeholder="Time" required>
+          <div ng-messages="eventForm.time.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Event time is required.</p>
+          </div>
+        </div>
+
+    <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="location">Location</label>
+          <input name="location" type="text" ng-model="location" id="location" class="form-control" placeholder="Location" required>
+          <div ng-messages="eventForm.location.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Event location is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+
+        
+
+<!--
+        Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
+        <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+        <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
+
+-->
+        
+      </fieldset>
+    </form>
+  </div>
+  
+</section>

@@ -12,10 +12,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     var currIndex = 0;
 
     $scope.addSlide = function() {
-      var newWidth = 800 + slides.length + 1;
+      var newWidth = 1800 + slides.length + 1;
       console.log(newWidth);
       slides.push({
-        image: 'http://lorempixel.com/' + newWidth + '/300',
+        image: 'http://lorempixel.com/' + newWidth + '/600',
         text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
         id: currIndex++
       });
