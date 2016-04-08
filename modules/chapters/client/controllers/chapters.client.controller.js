@@ -94,7 +94,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     };
 
  // Events
-    $scope.test = "Hello World!";
+    $scope.test = 'Hello World!';
      // Create new Events
     $scope.createEvent = function (isValid) {
       $scope.error = null;
