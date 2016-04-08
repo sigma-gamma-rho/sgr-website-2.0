@@ -35,7 +35,7 @@ angular.module('users').service('Notifications', ['Menus', 'Authentication', 'Ad
         }
       }
     };
-    
+
     self.update = function(){
       self.updateCount();
     };
