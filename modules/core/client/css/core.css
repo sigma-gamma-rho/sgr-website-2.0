@@ -1,3 +1,20 @@
+/*Change these to edit the color of the navbar*/
+.navbar-inverse{
+  background-image: -webkit-linear-gradient(top, #002366 0%, #011133 100%) !important;
+  background-image: -o-linear-gradient(top, #002366 0%, #011133 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#002366), to(#011133));
+  background-image: linear-gradient(to bottom, #002366 0%, #011133 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#002366', endColorstr='#ff011133', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-radius: 4px;
+}
+/*Change these to edit the color of the navbar text and brand*/
+.navbar-nav > li > a, #sgr-gold, .navbar-brand {
+  color: #998100 !important;
+}
+
+
 .content {
   margin-top: 50px;
 }

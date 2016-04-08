@@ -47,9 +47,10 @@ var UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
+    sparse: true,
     lowercase: true,
     trim: true,
-    default: '',
+    //default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
   username: {
@@ -69,6 +70,10 @@ var UserSchema = new Schema({
   profileImageURL: {
     type: String,
     default: 'modules/users/client/img/profile/default.png'
+  },
+  affiliation: {
+    type: String,
+    validate: [validateLocalStrategyProperty, 'Please choose your chapter affiliaton']
   },
   provider: {
     type: String,

@@ -22,10 +22,47 @@
         <div class="form-group" show-errors>
           <label class="control-label" for="roles">Roles</label>
           <div class="controls">
+            <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple required >
+              <option value="guest">Guest</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <div ng-messages="userForm.roles.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+            </div>
+          </div>
+        </div>
+
+        <!--
+        <label for="roles"> Roles: </label><br>
+        <select name="roles" id="roles" ng-model="user.roles" multiple>
+          <option value="guest">Guest</option>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select><br>
+        <tt>multipleSelect = {{user.roles}}</tt><br/>-->
+
+        <!--
+        <div class="form-group" show-errors>
+          <label class="control-label" for="roles">Roles</label>
+          <div class="controls">
             <input class="form-control" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required />
             <div ng-messages="userForm.roles.$error" role="alert">
               <p class="help-block error-text" ng-message="required">At least one role is required.</p>
             </div>
+          </div>
+        </div>-->
+        <div class="form-group" show-errors>
+          <label for="affiliation"> Chapter Affiliation: </label>
+            <select id="affiliation"
+                    class="form-control"
+                    name="affiliation"
+                    ng-model="user.affiliation"
+                    required>
+                    <option ng-repeat="option in data.availableOptions">{{option}}</option>
+            </select>
+          <div ng-messages="userForm.affiliation.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Affiliation is required.</p>
           </div>
         </div>
         <div class="form-group">

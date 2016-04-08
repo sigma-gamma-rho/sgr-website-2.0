@@ -9,7 +9,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
- * Create a article
+ * Create a chapter
  */
 exports.create = function (req, res) {
   var chapter = new Chapter(req.body);
