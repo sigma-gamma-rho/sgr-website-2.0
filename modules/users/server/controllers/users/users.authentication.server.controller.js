@@ -272,5 +272,5 @@ exports.removeOAuthProvider = function (req, res, next) {
 
 exports.sendMail = function(req, res){
   mailHelper(req.body.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
-  res.json({ message: data });
+  res.json({ message: 'Response' });
 };
