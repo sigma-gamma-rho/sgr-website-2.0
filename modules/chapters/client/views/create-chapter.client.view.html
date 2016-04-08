@@ -1,9 +1,9 @@
 <section ng-controller="ChaptersController">
   <div class="page-header">
-    <h1>New Chapter</h1>
+    <h1>Create New Chapter</h1>
   </div>
   <div class="col-md-12">
-    <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+    <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="title">Chapter</label>
@@ -13,7 +13,7 @@
           </div>
         </div>
 
-        <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+        <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="president">Chapter President</label>
@@ -23,7 +23,7 @@
           </div>
         </div>
 
- <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+ <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="presidentemail">Chapter President Email</label>
@@ -33,7 +33,7 @@
           </div>
         </div>
 
-         <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+         <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="vice">Chapter Vice-President</label>
@@ -43,7 +43,7 @@
           </div>
         </div>
 
- <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+ <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="viceemail">Chapter Vice-President Email</label>
@@ -59,7 +59,7 @@
 <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
 <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
         
-    <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+    <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="location">Location</label>

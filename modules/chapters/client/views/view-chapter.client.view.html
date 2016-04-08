@@ -1,29 +1,62 @@
-<section ng-controller="ChaptersController" ng-init="findOne()">
-  <div class="page-header">
-    <h1 ng-bind="chapter.title"></h1>
+<section ng-controller="ChaptersController">
+
+  <div class="row">
+    <!-- Chapter Wrapper -->
+    <div class="col-sm-6 col-md-6 " ng-init="findOneChapter()">
+      <div class="page-header">
+        <h1 ng-bind="chapter.title"></h1>
+      </div>
+
+        Eboard:<p></p>
+        President: <p class= "lead" ng-bind="chapter.president"></p>
+        President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
+        Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
+       Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
+        
+        Location:
+        <p class="lead" ng-bind="chapter.location"></p>
+      <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
+        <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="removeChapter();">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+        Description:
+      <p class="lead" ng-bind="chapter.content"></p>
+    </div>
+
+    <!-- Events Wrapper -->
+    <div class="col-sm-6 col-md-6" ng-init="findEvent()">
+      <div class="page-header">
+        <h1>Events</h1>
+      </div>
+      {{events}}
+      <div class="pull-right" ng-show="authentication.user._id == events.user._id">
+        <a class="btn btn-primary" ui-sref="create-event">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+      </div>
+
+        <div class="list-group">
+          <a ng-repeat="events in events" ui-sref="view-events({eventId: event._id})" class="list-group-item">
+            <small class="list-group-item-text">
+              Posted on
+              <span ng-bind="event.created | date:'mediumDate'"></span>
+              by
+              <span ng-bind="event.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" ng-bind="event.title"></h4>
+            <p class="list-group-item-text" ng-bind="event.content"></p>
+          </a>
+        </div>
+        <div class="alert alert-warning text-center" ng-if="events.$resolved && !events.length">
+          No events yet, why don't you <a ui-sref="create-event">create one</a>?
+        </div>
+    </div>
+
+
   </div>
 
-    Eboard:<p></p>
-    President: <p class= "lead" ng-bind="chapter.president"></p>
-    President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
-    Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
-   Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
-    
-    Location:
-    <p class="lead" ng-bind="chapter.location"></p>
-  <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
-    <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-    Description:
-  <p class="lead" ng-bind="chapter.content"></p>
-  <small>
-    <em class="text-muted">
-      
-    </em>
-  </small>
 </section>

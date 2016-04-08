@@ -5,6 +5,18 @@ angular.module('chapters').config(['$stateProvider',
   function ($stateProvider) {
     // chapters state routing
     $stateProvider
+      .state('view-event', {
+        url: '/view-event',
+        templateUrl: 'modules/chapters/client/views/view-event.client.view.html',
+        controller: 'ChaptersController',
+        controllerAs: 'vm'
+      })
+      .state('create-event', {
+        url: '/create-event',
+        templateUrl: 'modules/chapters/client/views/create-event.client.view.html',
+        controller: 'ChaptersController',
+        controllerAs: 'vm'
+      })
       .state('chapters', {
         abstract: true,
         url: '/chapters',

@@ -18,8 +18,6 @@ module.exports = function (app) {
     .put(chapters.update)
     .delete(chapters.delete);
 
-    
-
   // Finish by binding the article middleware
   app.param('chapterId', chapters.chapterByID);
 };

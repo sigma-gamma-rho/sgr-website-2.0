@@ -1,9 +1,9 @@
-<section ng-controller="ChaptersController" ng-init="findOne()">
+<section ng-controller="ChaptersController" ng-init="findOneChapter()">
   <div class="page-header">
     <h1>Edit Chapter</h1>
   </div>
   <div class="col-md-12">
-    <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+    <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="title">Chapter</label>
@@ -14,7 +14,7 @@
         </div>
 
         
-    <form name="chapterForm" class="form-horizontal" ng-submit="create(chapterForm.$valid)" novalidate>
+    <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label for="location">Location</label>
