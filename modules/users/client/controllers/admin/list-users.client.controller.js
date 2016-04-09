@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin', '$state',
-  function ($scope, $filter, Admin, $state) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin', '$state', 'Notifications',
+  function ($scope, $filter, Admin, $state, Notifications) {
     Admin.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
@@ -26,6 +26,46 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
+    };
+
+    // Promote the user to an admin
+    $scope.promote = function (user) {
+      if (confirm('Are you sure you want to promote this account to "admin" privileges"?')){
+        if (user) {
+          $scope.entry = Admin.get({ userId: user._id }, function() {
+
+            // change the guests role to user
+            $scope.entry.roles = ['admin'];
+
+            // update the guest, rebuild the page, update the # of notificaitons
+            $scope.entry.$update(function() {
+              $scope.users.splice($scope.users.indexOf(user), 1);
+              $scope.buildPager();
+              Notifications.update();
+            });
+          });
+        }
+      }
+    };
+
+    // Deny the guests request to join
+    $scope.demote = function (user) {
+      if (confirm('Are you sure you want to demote this account to "guest" privileges?')){
+        if (user) {
+          $scope.entry = Admin.get({ userId: user._id }, function() {
+
+            // change the guests role to user
+            $scope.entry.roles = ['guest'];
+
+            // update the guest, rebuild the page, update the # of notificaitons
+            $scope.entry.$update(function() {
+              $scope.users.splice($scope.users.indexOf(user), 1);
+              $scope.buildPager();
+              Notifications.update();
+            });
+          });
+        }
+      }
     };
 
     $scope.info = function (userId) {

@@ -14,7 +14,7 @@ angular.module('users.admin').run(['Menus',
     Menus.addSubMenuItem('topbar', 'admin', {
       title: 'Manage Admins',
       state: 'admin.admins',
-      roles: ['admin']
+      roles: ['superadmin']
     });
   }
 ]);

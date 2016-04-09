@@ -1,10 +1,49 @@
 'use strict';
 
 // Create the 'chat' controller
-angular.module('chat').controller('ChatController', ['$scope', '$location', 'Authentication', 'Socket', '$http',
-  function ($scope, $location, Authentication, Socket, $http) {
+angular.module('chat').controller('ChatController', ['$scope', '$location', 'Authentication', 'Socket', '$http', 'FeedService',
+  function ($scope, $location, Authentication, Socket, $http, Feed) {
     // Create a messages array
     $scope.messages = [];
+
+    /* RSS Feed Links - Needs to go to DB schema */
+    $scope.RSSfeeds = [
+      { title:'Top Stories', content:'http://rss.cnn.com/rss/cnn_topstories.rss' },
+      { title:'World', content:'http://rss.cnn.com/rss/cnn_world.rss' },
+      { title:'US', content:'http://rss.cnn.com/rss/cnn_us.rss' },
+      { title:'Business', content:'http://rss.cnn.com/rss/money_latest.rss' },
+      { title:'Politics', content:'http://rss.cnn.com/rss/cnn_allpolitics.rss' },
+      { title:'Technology', content:'http://rss.cnn.com/rss/cnn_tech.rss' },
+      { title:'Health', content:'http://rss.cnn.com/rss/cnn_health.rss' },
+      { title:'Entertainment', content:'http://rss.cnn.com/rss/cnn_showbiz.rss' },
+      { title:'Travel', content:'http://rss.cnn.com/rss/cnn_travel.rss' },
+      { title:'Living', content:'http://rss.cnn.com/rss/cnn_living.rss' },
+    ];
+
+    $scope.feedDefault='Select Feed';
+    $scope.loadFeed=function(feed, e, custom){
+      $scope.feedSrc = feed;
+      Feed.parseFeed(feed).then(function(res){
+
+        // In case they enter an invalid url
+        if (res.data.responseStatus !== 200){
+          $scope.feeds = [];
+          $scope.error = 'Sorry, this link is not working';
+          $scope.feedDefault='Select Feed';
+        } else{
+          $scope.feedDefault=angular.element(e.target).text();
+
+          // If custom URL
+          if (custom){
+            $scope.feedDefault='Custom';
+          } else{
+            $scope.feedDefault=angular.element(e.target).text();
+          }
+          $scope.feeds=res.data.responseData.feed.entries;
+          $scope.error = '';
+        }
+      });
+    };
 
     // If user is not signed in then redirect back home
     if (!Authentication.user) {
@@ -44,7 +83,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
       }
     });*/
 
-    // Get the chat documents on page load
+    // Get the old chat documents on page load
     $http.get('api/chat/docs').success(function (response) {
       for (var i = 0; i < response.length ; i++){
         $scope.messages.push({
@@ -54,10 +93,10 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
           profileImageURL: response[i].img
         });
       }
-      }).error(function (response) {
+    }).error(function (response) {
         //If error on chat fetch, what to do?
         // push an error message to $scope.messages
-      });
+    });
 
 
 
