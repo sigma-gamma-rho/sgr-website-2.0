@@ -5,7 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  SGR_Event = mongoose.model('Event'),
+  sgrEvent = mongoose.model('SgrEvent'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -13,7 +13,7 @@ var path = require('path'),
  * Create a Event
  */
 exports.create = function (req, res) {
-  var event = new SGR_Event(req.body);
+  var event = new sgrEvent(req.body);
   event.user = req.user;
   console.log('~~~~~~~~ READING ~~~~~~~~');
   event.save(function (err) {
@@ -101,15 +101,15 @@ exports.eventByID = function (req, res, next, id) {
     });
   }
 
-  Event.findById(id).populate('user', 'displayName').exec(function (err, SGR_events) {
+  Event.findById(id).populate('user', 'displayName').exec(function (err, sgrEvents) {
     if (err) {
       return next(err);
-    } else if (!SGR_events) {
+    } else if (!sgrEvents) {
       return res.status(404).send({
         message: 'No event with that identifier has been found'
       });
     }
-    req.SGR_event = SGR_events;
+    req.sgrEvent = sgrEvents;
     next();
   });
 };

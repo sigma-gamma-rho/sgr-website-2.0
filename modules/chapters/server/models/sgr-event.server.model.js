@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Event Schema
+ * SgrEvent Schema
  */
-var EventSchema = new Schema({
+var SgrEventSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
@@ -43,4 +43,4 @@ var EventSchema = new Schema({
   }
 });
 
-mongoose.model('Event', EventSchema);
+mongoose.model('SgrEvent', SgrEventSchema);

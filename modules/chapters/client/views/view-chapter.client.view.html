@@ -1,29 +1,54 @@
-<section class="container" ng-controller="ChaptersController" ng-init="findOne()">
-  <div class="page-header">
-    <h1 ng-bind="chapter.title"></h1>
-  </div>
-
-    Eboard:<p></p>
-    President: <p class= "lead" ng-bind="chapter.president"></p>
-    President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
-    Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
-   Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
-    
-    Location:
-    <p class="lead" ng-bind="chapter.location"></p>
-  <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
-    <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-    Description:
-  <p class="lead" ng-bind="chapter.content"></p>
-  <small>
-    <em class="text-muted">
+<section class="container" ng-controller="ChaptersController">
+  <!-- Chapter -->
+  <div class="col-md-6" ng-init="findOneChapter()">
+    <div class="page-header">
+      <h1 ng-bind="chapter.title"></h1>
+    </div>
+    <div>
+      Eboard:<p></p>
+      President: <p class= "lead" ng-bind="chapter.president"></p>
+      President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
+      Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
+     Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
       
-    </em>
-  </small>
+      Location:
+      <p class="lead" ng-bind="chapter.location"></p>
+    </div>
+      Description:
+    <p class="lead" ng-bind="chapter.content"></p>
+
+
+    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
+      <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})">
+        <i class="glyphicon glyphicon-edit"></i>
+      </a>
+      <a class="btn btn-primary" ng-click="removeChapter();">
+        <i class="glyphicon glyphicon-trash"></i>
+      </a>
+    </div>
+  </div>
+  <!-- Event List -->
+  <div class="col-md-6" ng-init="findEvent()">
+    <div class="page-header">
+      <h1>List of Events</h1>
+    </div>
+    <div class="list-group">
+      <a ng-repeat="sgrEvent in sgrEvents" ui-sref="view-sgr-event({sgrEventId: sgrEvent._id})" class="list-group-item">
+        <small class="list-group-item-text">
+          Posted on
+          <span ng-bind="sgrEvent.created | date:'mediumDate'"></span>
+          by
+          <span ng-bind="sgrEvent.user.displayName"></span>
+        </small>
+        <h4 class="list-group-item-heading" ng-bind="sgrEvent.title"></h4>
+        <p class="list-group-item-text" ng-bind="sgrEvent.content"></p>
+      </a>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="sgrEvents.$resolved && !sgrEvents.length">
+      No chapters yet, why don't you <a ui-sref="create-event">create one</a>?
+    </div>
+    <p>{{sgrEvents}}</p>
+    <p>{{sgrEvents.length}}</p>
+    <p>{{sgrEvents.$resolved}}</p>
+  </div>
 </section>

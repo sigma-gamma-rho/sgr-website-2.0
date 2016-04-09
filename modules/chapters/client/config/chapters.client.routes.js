@@ -5,6 +5,14 @@ angular.module('chapters').config(['$stateProvider',
   function ($stateProvider) {
     // chapters state routing
     $stateProvider
+      .state('create-event', {
+        url: '/create-event',
+        templateUrl: 'modules/chapters/client/views/create-event.client.view.html',
+      })
+      .state('view-sgr-event', {
+        url: '/sgrevent',
+        templateUrl: 'modules/chapters/client/views/view-sgrevent.client.view.html',
+      })
       .state('chapters', {
         abstract: true,
         url: '/chapters',
