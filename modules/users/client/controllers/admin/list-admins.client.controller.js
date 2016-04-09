@@ -65,9 +65,8 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
           oldAdmin.roles.splice(index, 1);
         }
         oldAdmin.$update(function(res) {
-          console.log(res);
-          location.reload();
-          $location.path('/');
+          // Redirect to home page
+          $window.location.href = '/';
         });
       });
     };
