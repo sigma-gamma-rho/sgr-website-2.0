@@ -19,21 +19,33 @@
   height: inherit;
   border-radius: 25px;
   border: 2px solid #f2f2f2;
+  height: 440px;
 }
 
 .text-area{
   height: inherit;
   overflow-y: scroll;
+  max-height: 315px;
+}
+.feed-area{
+  height: inherit;
+  overflow-y: scroll;
+  max-height: 350px;
 }
 
 .news-wrapper{
   display: block;
-  height: 630px;
+  height: 440px;
   border-radius: 25px;
   border: 2px solid #f2f2f2;
-  overflow-y: scroll; 
+  overflow-y: scroll;
 }
 
-.content-wrapper{
-  height: 600px;
+.title{
+  padding: 0px;
+  margin: 0px;
+}
+
+.inline-block{
+  display: inline-block;
 }

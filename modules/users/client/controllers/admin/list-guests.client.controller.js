@@ -30,7 +30,7 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
 
     // Approve the guests request to join
     $scope.approve = function (user) {
-      if (confirm('Are you sure you want to approve this user?')){
+      if (confirm('Are you sure you want to promote this account to "user" privileges"?')){
         if (user) {
           $scope.entry = Admin.get({ userId: user._id }, function() {
 

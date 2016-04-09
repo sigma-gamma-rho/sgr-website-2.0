@@ -19,11 +19,11 @@ angular.module('users').service('Notifications', ['Menus', 'Authentication', 'Ad
       });
     };
 
-    self.update = function(){
-      // Get the topbar menu
+    // If admin exists in the menu + and we have permissions, get the num of notifications
+    self.updateCount = function(){
+
       self.menu = Menus.getMenu('topbar');
 
-      // If admin exists in the menu + and we have permissions, get the num of notifications
       for (var i = 0; i < self.menu.items.length; i ++){
         var obj = self.menu.items[i];
         for (var prop in obj){
@@ -34,6 +34,10 @@ angular.module('users').service('Notifications', ['Menus', 'Authentication', 'Ad
           }
         }
       }
+    };
+
+    self.update = function(){
+      self.updateCount();
     };
   }
 ]);

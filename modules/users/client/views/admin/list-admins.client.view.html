@@ -11,8 +11,20 @@
   </div>
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
-      <button type="button" class="btn btn-info pull-right" ng-click="info(user._id);">
-        <span class="glyphicon glyphicon-search"></span>
+      <button ng-if="isSuperAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
+        <span class="glyphicon glyphicon-ban-circle"></span> Promote
+      </button>
+      <button ng-if="!isSuperAdmin(user.roles)" type="button" class="btn btn-success pull-right" ng-click="promote(user);">
+        <span class="glyphicon glyphicon-arrow-up"></span> Promote
+      </button>
+      <button ng-if="isSuperAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
+        <span class="glyphicon glyphicon-arrow-down"></span> Demote
+      </button>
+      <button ng-if="!isSuperAdmin(user.roles)" type="button" class="btn btn-danger pull-right" ng-click="demote(user);">
+        <span class="glyphicon glyphicon-arrow-down"></span> Demote
+      </button>
+      <button type="button" class="btn btn-primary pull-right" ng-click="info(user._id);">
+        <span class="glyphicon glyphicon-search"></span> Info
       </button>
 
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
@@ -21,6 +33,8 @@
       <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>-->
     </a>
   </div>
-
+  <div ng-show="error" class="text-danger">
+    <strong ng-bind="error"></strong>
+  </div>
   <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
 </section>
