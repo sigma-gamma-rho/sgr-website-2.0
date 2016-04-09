@@ -163,6 +163,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     // Find a list of Articles
     $scope.findEvent = function () {
+      console.log('~~~~~~~~2~~~~~~~~~');
       $scope.sgrEvents = SgrEvents.query();
     };
 

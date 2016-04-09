@@ -8,6 +8,9 @@ angular.module('chapters').config(['$stateProvider',
       .state('create-event', {
         url: '/create-event',
         templateUrl: 'modules/chapters/client/views/create-event.client.view.html',
+        data: {
+          roles: ['user', 'admin']
+        }
       })
       .state('view-sgr-event', {
         url: '/sgrevent',

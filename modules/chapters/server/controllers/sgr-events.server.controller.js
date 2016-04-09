@@ -5,7 +5,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  sgrEvent = mongoose.model('SgrEvent'),
+  SgrEvent = mongoose.model('SgrEvent'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -13,9 +13,9 @@ var path = require('path'),
  * Create a Event
  */
 exports.create = function (req, res) {
-  var event = new sgrEvent(req.body);
-  event.user = req.user;
-  console.log('~~~~~~~~ READING ~~~~~~~~');
+  var sgrEvent = new SgrEvent(req.body);
+  sgrEvent.user = req.user;
+  console.log('~~~~~~~~ CREATING ~~~~~~~~');
   event.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -39,20 +39,20 @@ exports.read = function (req, res) {
  * Update a Event
  */
 exports.update = function (req, res) {
-  var event = req.event;
+  var sgrEvent = req.event;
 
-  event.title = req.body.title;
-  event.time = req.body.time;
-  event.location = req.body.location;
-  event.content = req.body.content;
+  sgrEvent.title = req.body.title;
+  sgrEvent.time = req.body.time;
+  sgrEvent.location = req.body.location;
+  sgrEvent.content = req.body.content;
 
-  event.save(function (err) {
+  sgrEvent.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(event);
+      res.json(sgrEvent);
     }
   });
 };
@@ -61,15 +61,15 @@ exports.update = function (req, res) {
  * Delete an Event
  */
 exports.delete = function (req, res) {
-  var event = req.event;
+  var sgrEvent = req.sgrEvent;
 
-  event.remove(function (err) {
+  sgrEvent.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(event);
+      res.json(sgrEvent);
     }
   });
 };
@@ -84,7 +84,7 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(events);
+      res.json(sgrEvents);
     }
   });
 };
@@ -106,7 +106,7 @@ exports.eventByID = function (req, res, next, id) {
       return next(err);
     } else if (!sgrEvents) {
       return res.status(404).send({
-        message: 'No event with that identifier has been found'
+        message: 'No sgrEvent with that identifier has been found'
       });
     }
     req.sgrEvent = sgrEvents;
