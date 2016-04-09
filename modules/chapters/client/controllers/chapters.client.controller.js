@@ -152,7 +152,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
         return false;
       }
 
-      var sgrEvent = $scope.article;
+      var sgrEvent = $scope.sgrEvent;
 
       sgrEvent.$update(function () {
         $location.path('sgrEvents/' + sgrEvent._id);
