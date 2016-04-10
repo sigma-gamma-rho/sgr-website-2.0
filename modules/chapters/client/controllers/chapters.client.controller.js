@@ -4,6 +4,7 @@
 angular.module('chapters').controller('ChaptersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Chapters', 'SgrEvents',
   function ($scope, $stateParams, $location, Authentication, Chapters, SgrEvents) {
     $scope.authentication = Authentication;
+    $scope.sgrEvents = [];
 
     /**************** Chapter Angular Methods **************/
     $scope.createChapter = function (isValid) {
@@ -17,7 +18,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       // Create new Chapter object
       var chapter = new Chapters({
         title: this.title,
-        president: this.president, 
+        president: this.president,
         presidentemail: this.presidentemail,
         vice: this.vice,
         viceemail: this.viceemail,
@@ -78,7 +79,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       });
     };
 
-    
+
     // Find a list of Articles
     $scope.findChapter = function () {
       $scope.chapters = Chapters.query();
@@ -164,18 +165,18 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       });
     };
 
-    // Find a list of Events
+    // Find a list of Events for this chapter
     $scope.findEvent = function () {
-      $scope.sgrEvents = SgrEvents.query($stateParams.chapterId);
-      for (var i in $scope.sgrEvents) {
-        if($scope.sgrEvents[i]){
-          console.log(1);
+      SgrEvents.query(function (data) {
+        // Get the events that match this chapter
+        for (var i = 0; i < data.length; i ++){
+          if (data[i].chapterId === $stateParams.chapterId){
+            $scope.sgrEvents.push(data[i]);
+          }
         }
-      }
-      console.log($scope.sgrEvents);
-      //console.log($scope.sgrEvents.chapterId);
-      console.log($stateParams.chapterId);
+      });
     };
+
 
     // Find existing Event
     $scope.findOneEvent = function () {

@@ -1,12 +1,8 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular
-    .module('chapters').factory('SgrEvents', EventsService);
-
-  EventsService.$inject = ['$resource'];
-  function EventsService($resource) {
-
+//SgrEvents service used for communicating with the SgrEvents REST endpoints
+angular.module('chapters').factory('SgrEvents', ['$resource',
+  function ($resource) {
     return $resource('api/sgrEvents/:sgrEventId', {
       sgrEventId: '@_id'
     }, {
@@ -15,4 +11,4 @@
       }
     });
   }
-})();
+]);

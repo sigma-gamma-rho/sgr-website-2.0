@@ -23,7 +23,7 @@ exports.create = function (req, res) {
     } else {
       res.json(sgrEvent);
     }
-  });	
+  });
 };
 
 /**
