@@ -1,3 +1,28 @@
-<section>
-  This is the View sgr event view
+<section class="container" ng-controller="ChaptersController" ng-init="findOneEvent()">
+  <div class="page-header">
+    <h1 ng-bind="sgrEvent.title"></h1>
+  </div>
+    Time:
+    <p class="lead" ng-bind="sgrEvent.time"></p>
+    Location:
+    <p class="lead" ng-bind="sgrEvent.location"></p>
+  <div class="pull-right" ng-show="authentication.user._id == sgrEvent.user._id">
+    <a class="btn btn-primary" ui-sref="edit-sgr-event({sgrEventId: sgrEvent._id})" tooltip="Edit Event">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="removeEvent();" tooltip="Remove Event">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+    Description
+  <p class="lead" ng-bind="sgrEvent.content"></p>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="sgrEvent.created | date:'mediumDate'"></span>
+      by
+      <span ng-bind="sgrEvent.user.displayName"></span>
+    </em>
+  </small>
+  <h1>{{chapId}}</h1>
 </section>

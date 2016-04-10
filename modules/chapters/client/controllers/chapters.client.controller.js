@@ -14,7 +14,6 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
         return false;
       }
-
       // Create new Chapter object
       var chapter = new Chapters({
         title: this.title,
@@ -92,8 +91,11 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       });
     };
 
+    $scope.checkSGREvent = function(){
+      return $scope.sgrEvents;
+    };
     /**************** Event Angular Methods **************/
-        // Create new Article
+        // Create new Events
     $scope.createEvent = function (isValid) {
       $scope.error = null;
 
@@ -108,12 +110,13 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
         title: this.title,
         time: this.time,
         location: this.location,
-        content: this.content
+        content: this.content,
+        chapterId: $stateParams.chapterId
       });
 
       // Redirect after save
       sgrEvent.$save(function (response) {
-        $location.path('chapters/' + response._id);
+       // $location.path('chapters/');
 
         // Clear form fields
         $scope.title = '';
@@ -125,7 +128,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       });
     };
 
-    // Remove existing Article
+    // Remove existing Events
     $scope.removeEvent = function (sgrEvent) {
       if (sgrEvent) {
         sgrEvent.$remove();
@@ -136,13 +139,13 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
           }
         }
       } else {
-        $scope.article.$remove(function () {
-          $location.path('sgrEvents');
+        $scope.sgrEvent.$remove(function () {
+          $location.path('chapters');
         });
       }
     };
 
-    // Update existing Article
+    // Update existing Events
     $scope.updateEvent = function (isValid) {
       $scope.error = null;
 
@@ -161,14 +164,22 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       });
     };
 
-    // Find a list of Articles
+    // Find a list of Events
     $scope.findEvent = function () {
-      console.log('~~~~~~~~2~~~~~~~~~');
-      $scope.sgrEvents = SgrEvents.query();
+      $scope.sgrEvents = SgrEvents.query($stateParams.chapterId);
+      for (var i in $scope.sgrEvents) {
+        if($scope.sgrEvents[i]){
+          console.log(1);
+        }
+      }
+      console.log($scope.sgrEvents);
+      //console.log($scope.sgrEvents.chapterId);
+      console.log($stateParams.chapterId);
     };
 
-    // Find existing Article
+    // Find existing Event
     $scope.findOneEvent = function () {
+      //$scope.chapId = $stateParams.chapterId;
       $scope.sgrEvent = SgrEvents.get({
         sgrEventId: $stateParams.sgrEventId
       });

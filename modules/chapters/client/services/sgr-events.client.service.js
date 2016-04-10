@@ -6,7 +6,7 @@
 
   EventsService.$inject = ['$resource'];
   function EventsService($resource) {
-    console.log('~~~~~~~~1~~~~~~~~~');
+
     return $resource('api/sgrEvents/:sgrEventId', {
       sgrEventId: '@_id'
     }, {

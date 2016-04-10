@@ -19,10 +19,10 @@
 
 
     <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
-      <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})">
+      <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})" tooltip="Edit Chapter Info">
         <i class="glyphicon glyphicon-edit"></i>
       </a>
-      <a class="btn btn-primary" ng-click="removeChapter();">
+      <a class="btn btn-primary" ng-click="removeChapter();" tooltip="Remove Chapter">
         <i class="glyphicon glyphicon-trash"></i>
       </a>
     </div>
@@ -47,8 +47,10 @@
     <div class="alert alert-warning text-center" ng-if="sgrEvents.$resolved && !sgrEvents.length">
       No chapters yet, why don't you <a ui-sref="create-event">create one</a>?
     </div>
-    <p>{{sgrEvents}}</p>
-    <p>{{sgrEvents.length}}</p>
-    <p>{{sgrEvents.$resolved}}</p>
+    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id" ng-if="sgrEvents.length">
+      <a class="btn btn-primary" ui-sref="create-event({chapterId: chapter._id})" tooltip="Create New Event">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </a>
+    </div>
   </div>
 </section>

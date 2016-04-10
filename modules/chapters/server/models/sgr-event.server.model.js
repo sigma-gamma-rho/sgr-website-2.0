@@ -40,6 +40,11 @@ var SgrEventSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  chapterId: {
+    type: String,
+    default: '',
+    trim: true
   }
 });
 

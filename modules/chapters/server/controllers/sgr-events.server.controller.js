@@ -15,14 +15,13 @@ var path = require('path'),
 exports.create = function (req, res) {
   var sgrEvent = new SgrEvent(req.body);
   sgrEvent.user = req.user;
-  console.log('~~~~~~~~ CREATING ~~~~~~~~');
-  event.save(function (err) {
+  sgrEvent.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(event);
+      res.json(sgrEvent);
     }
   });	
 };
@@ -31,8 +30,7 @@ exports.create = function (req, res) {
  * Show the current Event
  */
 exports.read = function (req, res) {
-  console.log('~~~~~~~~ READING ~~~~~~~~');
-  res.json(req.event);
+  res.json(req.sgrEvent);
 };
 
 /**
@@ -78,7 +76,7 @@ exports.delete = function (req, res) {
  * List of Events
  */
 exports.list = function (req, res) {
-  Event.find().sort('-created').populate('user', 'displayName').exec(function (err, sgrEvents) {
+  SgrEvent.find().sort('-created').populate('user', 'displayName').exec(function (err, sgrEvents) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -94,22 +92,21 @@ exports.list = function (req, res) {
  * Event middleware
  */
 exports.eventByID = function (req, res, next, id) {
-
+  //console.log(id);
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Chapter is invalid'
+      message: 'SgrEvent is invalid'
     });
   }
-
-  Event.findById(id).populate('user', 'displayName').exec(function (err, sgrEvents) {
+  SgrEvent.findById(id).populate('user', 'displayName').exec(function (err, sgrEvent) {
     if (err) {
       return next(err);
-    } else if (!sgrEvents) {
+    } else if (!sgrEvent) {
       return res.status(404).send({
         message: 'No sgrEvent with that identifier has been found'
       });
     }
-    req.sgrEvent = sgrEvents;
+    req.sgrEvent = sgrEvent;
     next();
   });
 };
