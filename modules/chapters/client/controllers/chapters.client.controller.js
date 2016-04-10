@@ -105,14 +105,14 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     };
 
     $scope.today = function() {
-       $scope.date = new Date();
-     };
+      $scope.date = new Date();
+    };
      
-     $scope.today();
+    $scope.today();
 
-     $scope.clear = function() {
-       $scope.date = null;
-     };
+    $scope.clear = function() {
+      $scope.date = null;
+    };
 
       // Disable weekend selection
     function disabled(data) {
@@ -124,7 +124,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     $scope.open1 = function() {
       $scope.popup1.opened = true;
-     };
+    };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
@@ -161,7 +161,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
       // Redirect after save
       sgrEvent.$save(function (response) {
-       $location.path('chapters/'+ $stateParams.chapterId);
+        $location.path('chapters/'+ $stateParams.chapterId);
 
         // Clear form fields
         $scope.title = '';
