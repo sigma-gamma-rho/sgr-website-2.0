@@ -4,6 +4,9 @@
   </div>
     Time:
     <p class="lead" ng-bind="sgrEvent.time"></p>
+    Date:
+    <p class="lead" ng-bind="sgrEvent.date | date:'medium'"></p>
+
     Location:
     <p class="lead" ng-bind="sgrEvent.location"></p>
   <div class="pull-right" ng-show="authentication.user._id == sgrEvent.user._id">
@@ -24,5 +27,4 @@
       <span ng-bind="sgrEvent.user.displayName"></span>
     </em>
   </small>
-  <h1>{{chapId}}</h1>
 </section>

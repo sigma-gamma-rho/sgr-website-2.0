@@ -24,6 +24,16 @@
           </div>
         </div>
 
+    <form name="sgrEventForm" class="form-horizontal" ng-submit="createEvent(sgrEventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="date">Date</label>
+          <input name="date" type="text" ng-model="date" id="date" class="form-control" placeholder="Date" required>
+          <div ng-messages="sgrEventForm.time.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Event date is required.</p>
+          </div>
+        </div>
+
         
     <form name="sgrEventForm" class="form-horizontal" ng-submit="createEvent(sgrEventForm.$valid)" novalidate>
       <fieldset>

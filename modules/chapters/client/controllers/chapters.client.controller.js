@@ -96,7 +96,50 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       return $scope.sgrEvents;
     };
     /**************** Event Angular Methods **************/
-        // Create new Events
+    $scope.dateOptions = {
+      dateDisabled: disabled,
+      formatYear: 'yy',
+      maxDate: new Date(2020, 5, 22),
+      minDate: new Date(),
+      startingDay: 1
+    };
+
+    $scope.today = function() {
+       $scope.date = new Date();
+     };
+     
+     $scope.today();
+
+     $scope.clear = function() {
+       $scope.date = null;
+     };
+
+      // Disable weekend selection
+    function disabled(data) {
+      console.log('Testing: ');
+      var date = data.date,
+        mode = data.mode;
+      return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    }
+
+    $scope.open1 = function() {
+      $scope.popup1.opened = true;
+     };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+      opened: false
+    };
+
+    $scope.popup2 = {
+      opened: false
+    };
+
+
+    // Create new Events
     $scope.createEvent = function (isValid) {
       $scope.error = null;
 
@@ -105,11 +148,12 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
         return false;
       }
-
+      console.log($stateParams.chapterId);
       // Create new Article object
       var sgrEvent = new SgrEvents({
         title: this.title,
         time: this.time,
+        date: this.date,
         location: this.location,
         content: this.content,
         chapterId: $stateParams.chapterId
@@ -117,7 +161,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
       // Redirect after save
       sgrEvent.$save(function (response) {
-       // $location.path('chapters/');
+       $location.path('chapters/'+ $stateParams.chapterId);
 
         // Clear form fields
         $scope.title = '';
@@ -141,7 +185,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
         }
       } else {
         $scope.sgrEvent.$remove(function () {
-          $location.path('chapters');
+          $location.path('chapters/'+ $stateParams.chapterId);
         });
       }
     };
@@ -180,7 +224,6 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     // Find existing Event
     $scope.findOneEvent = function () {
-      //$scope.chapId = $stateParams.chapterId;
       $scope.sgrEvent = SgrEvents.get({
         sgrEventId: $stateParams.sgrEventId
       });

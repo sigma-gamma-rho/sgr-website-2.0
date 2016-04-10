@@ -33,7 +33,7 @@
       <h1>List of Events</h1>
     </div>
     <div class="list-group">
-      <a ng-repeat="sgrEvent in sgrEvents" ui-sref="view-sgr-event({sgrEventId: sgrEvent._id})" class="list-group-item">
+      <a ng-repeat="sgrEvent in sgrEvents" ui-sref="view-sgr-event({sgrEventId: sgrEvent._id, chapterId: chapter._id})" class="list-group-item">
         <small class="list-group-item-text">
           Posted on
           <span ng-bind="sgrEvent.created | date:'mediumDate'"></span>
@@ -44,8 +44,8 @@
         <p class="list-group-item-text" ng-bind="sgrEvent.content"></p>
       </a>
     </div>
-    <div class="alert alert-warning text-center" ng-if="sgrEvents.$resolved && !sgrEvents.length">
-      No chapters yet, why don't you <a ui-sref="create-event">create one</a>?
+    <div class="alert alert-warning text-center" ng-if="!sgrEvents.length">
+      No events yet, why don't you <a ui-sref="create-event({chapterId: chapter._id})">create one</a>?
     </div>
     <div class="pull-right" ng-show="authentication.user._id == chapter.user._id" ng-if="sgrEvents.length">
       <a class="btn btn-primary" ui-sref="create-event({chapterId: chapter._id})" tooltip="Create New Event">

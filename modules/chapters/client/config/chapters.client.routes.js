@@ -17,7 +17,7 @@ angular.module('chapters').config(['$stateProvider',
         }
       })
       .state('view-sgr-event', {
-        url: '/event/:sgrEventId',
+        url: '/event/:sgrEventId/:chapterId',
         templateUrl: 'modules/chapters/client/views/view-sgrevent.client.view.html',
       })
       .state('chapters', {

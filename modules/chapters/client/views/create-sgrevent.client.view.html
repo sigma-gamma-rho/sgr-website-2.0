@@ -13,7 +13,7 @@
             <p class="help-block error-text" ng-message="required">Event title is required.</p>
           </div>
         </div>
-
+      </fieldset>
     <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
@@ -23,6 +23,24 @@
             <p class="help-block error-text" ng-message="required">Event time is required.</p>
           </div>
         </div>
+      </fieldset>
+      <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="date">Date</label>
+          <p class= "input-group">
+            
+            <input name="date" type="text" datepicker-popup="{{format}}" ng-model="date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" id="date" class="form-control" placeholder="Date" required>
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </p>
+          {{date}}
+          <div ng-messages="eventForm.date.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Event date is required.</p>
+          </div>
+        </div>      
+      </fieldset>
 
     <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
       <fieldset>
