@@ -58,7 +58,7 @@
                 </button>
                 <ul class="dropdown-menu" dropdown-menu role="menu" aria-labelledby="single-button">
                   <li ng-repeat="feed in RSSfeeds" role="menuitem">
-                    <a href="#" ng-click="loadFeed(feed.content, $event, false);">{{feed.title}}</a></li>
+                    <a href="#" ng-click="loadFeed(feed.content, $event, null);">{{feed.title}}</a></li>
                 </ul>
               </div>
             </span>
