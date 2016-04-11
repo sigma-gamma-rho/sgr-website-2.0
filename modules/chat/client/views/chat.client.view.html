@@ -70,7 +70,7 @@
       <div class="feed-area">
         <ul class="list-group">
           <li ng-repeat="feed in feeds | filter:filterText" class="list-group-item">
-            <a href="{{feed.link}}" class="list-group-item">
+            <a href="{{feed.link}}" class="list-group-item" target="_blank">
               <h4 class="list-group-item-heading">{{feed.title}}</h4>
               <p class="list-group-item-text">{{feed.contentSnippet}}</p>
               <span class="small">{{feed.publishedDate}}</span>

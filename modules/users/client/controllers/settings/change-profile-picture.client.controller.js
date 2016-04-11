@@ -1,10 +1,37 @@
 'use strict';
 
-angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader',
-  function ($scope, $timeout, $window, Authentication, FileUploader) {
+angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader', 'Users',
+  function ($scope, $timeout, $window, Authentication, FileUploader, Users) {
     $scope.user = Authentication.user;
-    $scope.imageURL = $scope.user.profileImageURL;
+    // Default imageURL, the current users image
+    $scope.imageURL  = $scope.user.profileImageURL;
 
+    $scope.uploadProfilePicture = function (isValid) {
+
+      $scope.success = $scope.error = null;
+
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'userForm');
+        return false;
+      }
+
+      var user = new Users($scope.user);
+      user.profileImageURL = $scope.imageURL;
+
+      user.$update(function (response) {
+        $scope.$broadcast('show-errors-reset', 'userForm');
+
+        $scope.success = true;
+        Authentication.user = response;
+        $scope.user.profileImageURL = response.profileImageURL;
+
+      }, function (response) {
+        $scope.error = response.data.message;
+      });
+    };
+
+
+    /* Previous implementation, using file system
     // Create file uploader instance
     $scope.uploader = new FileUploader({
       url: 'api/users/picture',
@@ -68,6 +95,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     $scope.cancelUpload = function () {
       $scope.uploader.clearQueue();
       $scope.imageURL = $scope.user.profileImageURL;
-    };
+    };*/
+
   }
 ]);

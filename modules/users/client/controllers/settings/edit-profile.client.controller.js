@@ -6,7 +6,9 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     $scope.user = Authentication.user;
 
     // On load, get the list of chapters for which to populate the dropdown
-    $scope.data = { availableOptions: [] };
+    $scope.chapters = [];
+    $scope.usersChapter= { id : null };
+
     $http.get('api/chapters').success(function (response) {
       // If no chapters exist, then do not allow signup until resolved
       if (!response.length){
@@ -15,7 +17,10 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
       // Populate the data array
       else {
         for (var i = 0; i < response.length; i ++){
-          $scope.data.availableOptions.push(response[i].title);
+          if (response[i].title === $scope.user.affiliation ){
+            $scope.usersChapter = { id : i };
+          }
+          $scope.chapters.push({id : i, name: response[i].title});
         }
       }
     }).error(function (response) {
@@ -24,7 +29,7 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     });
 
     // Update a user profile
-    $scope.updateUserProfile = function (isValid) {
+    $scope.uploadProfilePicture = function (isValid) {
       $scope.success = $scope.error = null;
 
       if (!isValid) {
