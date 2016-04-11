@@ -17,10 +17,10 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
       // Populate the data array
       else {
         for (var i = 0; i < response.length; i ++){
-          if (response[i].title === $scope.user.affiliation ){
+          if (response[i].title === $scope.user.affiliation){
             $scope.usersChapter = { id : i };
           }
-          $scope.chapters.push({id : i, name: response[i].title});
+          $scope.chapters.push({ id : i, name: response[i].title });
         }
       }
     }).error(function (response) {

@@ -5,23 +5,29 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
+
     // On load, get the list of chapters for which to populate the dropdown
     $scope.chapters = [];
+    // must give an id to set default for ng-options select menu
     $scope.usersChapter= { id : null };
-
     $http.get('api/chapters').success(function (response) {
-      // If no chapters exist, then do not allow signup until resolved
+
       if (!response.length){
         $location.path('/server-error');
-      }
-      // Populate the data array
-      else {
-        for (var i = 0; i < response.length; i ++){
-          if (response[i].title === $scope.user.affiliation ){
-            $scope.usersChapter = { id : i };
-          }
-          $scope.chapters.push({id : i, name: response[i].title});
-        }
+      } else {
+
+          // wrap in .then() for odd issue with failing promises
+          $scope.user.$promise.then(function (res){
+
+            $scope.user.affiliation = res.affiliation;
+
+            for (var i = 0; i < response.length; i ++){
+              if (response[i].title === $scope.user.affiliation){
+                $scope.usersChapter = { id : i };
+              }
+              $scope.chapters.push({ id : i, name: response[i].title });
+            }
+          });
       }
     }).error(function (response) {
       // If error on chapter fetch, do not allow signup until resolved
