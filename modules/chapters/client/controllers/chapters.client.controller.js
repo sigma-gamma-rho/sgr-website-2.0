@@ -6,10 +6,21 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     $scope.authentication = Authentication;
     $scope.sgrEvents = [];
 
+    /**************** Alerts *****************************/
+    $scope.alerts = [];
+
+    $scope.addAlert = function() {
+      $scope.alerts.push({ type: 'success', msg: 'Success! Your new event has been created.' });
+    };
+
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    };
+
     /**************** Chapter Angular Methods **************/
     $scope.createChapter = function (isValid) {
       $scope.error = null;
-
+      $scope.alerts.push({ type: 'success', msg: 'Success! Your new event has been created.' });
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'chapterForm');
 
@@ -28,7 +39,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
       // Redirect after save
       chapter.$save(function (response) {
-        $location.path('chapters/' + response._id);
+        //$location.path('chapters/' + response._id);
 
         // Clear form fields
         $scope.title = '';
@@ -95,35 +106,55 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     $scope.checkSGREvent = function(){
       return $scope.sgrEvents;
     };
+
     /**************** Event Angular Methods **************/
-    $scope.dateOptions = {
-      dateDisabled: disabled,
-      formatYear: 'yy',
-      maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
-      startingDay: 1
-    };
 
     $scope.today = function() {
       $scope.date = new Date();
     };
-     
+
     $scope.today();
 
     $scope.clear = function() {
-      $scope.date = null;
+      $scope.dt = null;
     };
 
-      // Disable weekend selection
+    $scope.inlineOptions = {
+      customClass: getDayClass,
+      minDate: new Date(),
+      showWeeks: true
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      minDate: new Date(),
+      startingDay: 1
+    };
+
+    // Disable weekend selection
     function disabled(data) {
-      console.log('Testing: ');
       var date = data.date,
         mode = data.mode;
       return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
     }
 
+    $scope.toggleMin = function() {
+      $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+      $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+    };
+
+    $scope.toggleMin();
+
     $scope.open1 = function() {
       $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function() {
+      $scope.popup2.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+      $scope.dt = new Date(year, month, day);
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -138,8 +169,71 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       opened: false
     };
 
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date();
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+      {
+        date: tomorrow,
+        status: 'full'
+      },
+      {
+        date: afterTomorrow,
+        status: 'partially'
+      }
+    ];
 
-    // Create new Events
+    function getDayClass(data) {
+      var date = data.date,
+        mode = data.mode;
+      if (mode === 'day') {
+        var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+        for (var i = 0; i < $scope.events.length; i++) {
+          var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+          if (dayToCheck === currentDay) {
+            return $scope.events[i].status;
+          }
+        }
+      }
+
+      return '';
+    }
+
+    /************** Time Picker Code *********************/
+    $scope.mytime = new Date();
+
+    $scope.hstep = 1;
+    $scope.mstep = 1;
+
+    $scope.options = {
+      hstep: [1, 2, 3],
+      mstep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.ismeridian = true;
+    $scope.toggleMode = function() {
+      $scope.ismeridian = ! $scope.ismeridian;
+    };
+
+    $scope.update = function() {
+      var d = new Date();
+      d.setHours( 14 );
+      d.setMinutes( 0 );
+      $scope.mytime = d;
+    };
+
+    $scope.changed = function () {
+      $log.log('Time changed to: ' + $scope.mytime);
+    };
+
+    $scope.clear = function() {
+      $scope.mytime = null;
+    }
+
+    /************** Create new Events *************/
     $scope.createEvent = function (isValid) {
       $scope.error = null;
 
@@ -153,7 +247,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       var sgrEvent = new SgrEvents({
         title: this.title,
         time: this.time,
-        date: this.date,
+        date: $scope.dt,
         location: this.location,
         content: this.content,
         chapterId: $stateParams.chapterId

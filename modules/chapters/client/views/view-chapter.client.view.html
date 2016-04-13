@@ -1,6 +1,7 @@
 <section class="container" ng-controller="ChaptersController">
   <!-- Chapter -->
   <div class="col-md-6" ng-init="findOneChapter()">
+    <alert collapse="{{alert.show}}" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
     <div class="page-header">
       <h1 ng-bind="chapter.title"></h1>
     </div>
