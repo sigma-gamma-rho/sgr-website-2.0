@@ -1,12 +1,20 @@
 <div class="container" ng-controller="AuthenticationController">
   <h3 class="col-md-12 text-center">Sign in using your social accounts</h3>
   <div class="col-md-12 text-center">
-    <img ng-click="callOauthProvider('/api/auth/facebook')" ng-src="/modules/users/client/img/buttons/facebook.png">
-    <img ng-click="callOauthProvider('/api/auth/twitter')" ng-src="/modules/users/client/img/buttons/twitter.png">
-    <img ng-click="callOauthProvider('/api/auth/google')" ng-src="/modules/users/client/img/buttons/google.png">
+    <button class="btn btn-default inline-block">
+      <img ng-click="callOauthProvider('/api/auth/facebook')" ng-src="/modules/users/client/img/buttons/facebook.png">
+    </button>
+    <button class="btn btn-default inline-block">
+      <img ng-click="callOauthProvider('/api/auth/twitter')" ng-src="/modules/users/client/img/buttons/twitter.png">
+    </button>
+    <button class="btn btn-default inline-block">
+      <img ng-click="callOauthProvider('/api/auth/google')" ng-src="/modules/users/client/img/buttons/google.png">
+    </button>
+    <!--
     <img ng-click="callOauthProvider('/api/auth/linkedin')" ng-src="/modules/users/client/img/buttons/linkedin.png">
     <img ng-click="callOauthProvider('/api/auth/github')" ng-src="/modules/users/client/img/buttons/github.png">
     <img ng-click="callOauthProvider('/api/auth/paypal')"  ng-src="/modules/users/client/img/buttons/paypal.png">
+    -->
   </div>
   <h3 class="col-md-12 text-center">Or sign up using your email</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">

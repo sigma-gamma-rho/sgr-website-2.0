@@ -1,11 +1,42 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin', '$state', 'Notifications',
-  function ($scope, $filter, Admin, $state, Notifications) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin', '$state', 'Notifications', 'Authentication',
+  function ($scope, $filter, Admin, $state, Notifications, Authentication) {
+
+    $scope.authentication = Authentication;
+    $scope.users = [];
+
     Admin.query(function (data) {
-      $scope.users = data;
+      $scope.filterUsers(data);
+      //$scope.users = data;
       $scope.buildPager();
     });
+
+    $scope.filterUsers = function (data) {
+      // if the user is a super admin, show all
+      if ($scope.isSuperAdmin($scope.authentication.user.roles)){
+        console.log('You are a superadmin. Showing all users.');
+        $scope.users = data;
+      } else {
+        // only list guests that have all their fields filled out
+        console.log('Only loading guests from the admins chapter, ' + $scope.authentication.user.affiliation);
+        for (var i = 0; i < data.length; i ++){
+          if (data[i].affiliation === $scope.authentication.user.affiliation) {
+            $scope.users.push(data[i]);
+          } else {
+            console.log('Did not load ' + data[i].username + ' because they are affiliated with ' + data[i].affiliation);
+          }
+        }
+      }
+    };
+
+    $scope.isSuperAdmin = function(roles) {
+      return roles.indexOf('superadmin') !== -1;
+    };
+
+    $scope.isAdmin = function(roles) {
+      return roles.indexOf('admin') !== -1;
+    };
 
     $scope.buildPager = function () {
       $scope.pagedItems = [];

@@ -1,11 +1,41 @@
 'use strict';
 
-angular.module('users.admin').controller('UserGuestController', ['$scope', '$filter', 'AdminGuests', '$state', 'Admin', 'Notifications',
-  function ($scope, $filter, AdminGuests, $state, Admin, Notifications) {
+angular.module('users.admin').controller('UserGuestController', ['$scope', '$filter', 'AdminGuests', '$state', 'Admin', 'Notifications', 'Authentication', 
+  function ($scope, $filter, AdminGuests, $state, Admin, Notifications, Authentication) {
+
+    $scope.authentication = Authentication;
+    $scope.users = [];
+
     AdminGuests.query(function (data) {
-      $scope.users = data;
+      $scope.filterUsers(data);
       $scope.buildPager();
     });
+
+    $scope.filterUsers = function (data) {
+      // if the user is a super admin, show all
+      if ($scope.isSuperAdmin($scope.authentication.user.roles)){
+        console.log('You are a superadmin. Showing all guests.');
+        $scope.users = data;
+      } else{
+        // only list guests that have all their fields filled out
+        console.log('Only loading guests from the admins chapter, ' + $scope.authentication.user.affiliation);
+        for (var i = 0; i < data.length; i ++){
+          if (data[i].firstName && data[i].lastName && data[i].email && data[i].affiliation && data[i].username){
+            if (data[i].affiliation === $scope.authentication.user.affiliation) {
+              $scope.users.push(data[i]);
+            } else {
+              console.log('Did not load ' + data[i].username + ' because they are affiliated with ' + data[i].affiliation);
+            }
+          } else{
+            console.log('Did not load ' + data[i].username + ' because they are missing information.');
+          }
+        }
+      }
+    };
+
+    $scope.isSuperAdmin = function(roles) {
+      return roles.indexOf('superadmin') !== -1;
+    };
 
     $scope.buildPager = function () {
       $scope.pagedItems = [];
@@ -30,22 +60,29 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
 
     // Approve the guests request to join
     $scope.approve = function (user) {
-      if (confirm('Are you sure you want to promote this account to "user" privileges"?')){
-        if (user) {
-          $scope.entry = Admin.get({ userId: user._id }, function() {
 
-            // change the guests role to user
-            $scope.entry.roles = ['user'];
+      if (user.firstName && user.lastName && user.affiliation && user.email && user.username){
+        if (confirm('Are you sure you want to promote this account to "user" privileges"?')){
+          if (user) {
+            $scope.entry = Admin.get({ userId: user._id }, function() {
 
-            // update the guest, rebuild the page, update the # of notificaitons
-            $scope.entry.$update(function() {
-              $scope.users.splice($scope.users.indexOf(user), 1);
-              $scope.buildPager();
-              Notifications.update();
+              // change the guests role to user
+              $scope.entry.roles = ['user'];
+
+              // update the guest, rebuild the page, update the # of notificaitons
+              $scope.entry.$update(function() {
+                $scope.users.splice($scope.users.indexOf(user), 1);
+                $scope.buildPager();
+                Notifications.update();
+              });
             });
-          });
+          }
         }
+      } else {
+        alert('Guests missing information cannot be promoted. Try again when this user has filled out their profile completely.');
       }
+
+
     };
 
     // Deny the guests request to join
@@ -64,5 +101,12 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
     $scope.info = function (user) {
       $state.go('admin.user', { 'userId': user._id });
     };
+
+    // ------------------------------------------------------------------
+
+
+
+
+
   }
 ]);

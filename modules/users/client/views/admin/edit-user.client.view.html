@@ -1,3 +1,4 @@
+<!------------>
 <section class="container">
   <div class="page-header">
     <h1>User <span ng-bind="user.username"></span></h1>
@@ -19,8 +20,10 @@
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group" ng-if = "isAuthAdmin && authentication.user._id !== user._id" show-errors>
+          <!-- Super admin, but the user isn't the super admin -->
           <label class="control-label" for="roles">Roles</label>
+          {{isAuthAdmin}}
           <div class="controls">
             <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple required >
               <option value="guest">Guest</option>
@@ -32,26 +35,17 @@
             </div>
           </div>
         </div>
-
-        <!--
-        <label for="roles"> Roles: </label><br>
-        <select name="roles" id="roles" ng-model="user.roles" multiple>
-          <option value="guest">Guest</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select><br>
-        <tt>multipleSelect = {{user.roles}}</tt><br/>-->
-
-        <!--
-        <div class="form-group" show-errors>
+        <div class="form-group" ng-if = "isAuthAdmin && authentication.user._id === user._id">
+          <!-- Super admin, and this is the profile of the super admin -->
           <label class="control-label" for="roles">Roles</label>
           <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required />
-            <div ng-messages="userForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
-            </div>
+            <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple disabled>
+              <option value="guest">Guest</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
-        </div>-->
+        </div>
         <div class="form-group" show-errors>
           <label for="affiliation"> Chapter Affiliation: </label>
             <select id="affiliation"

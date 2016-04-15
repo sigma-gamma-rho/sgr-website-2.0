@@ -11,8 +11,10 @@
   </div>
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
-
-      <button type="button" class="btn btn-success pull-right" ng-click="promote(user);">
+      <button ng-if="isAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
+        <span class="glyphicon glyphicon-ban-circle"></span> Promote
+      </button>
+      <button ng-if="!isAdmin(user.roles)" type="button" class="btn btn-success pull-right" ng-click="promote(user);">
         <span class="glyphicon glyphicon-arrow-up"></span> Promote
       </button>
       <button type="button" class="btn btn-danger pull-right" ng-click="demote(user);">

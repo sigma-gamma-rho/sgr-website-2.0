@@ -14,7 +14,6 @@ angular.module('core').controller('HeaderController', ['$scope', '$state', 'Auth
       function(){ return Notifications.count; },
 
       function(newVal) {
-        console.log('Notifications count has changed to: ' + newVal);
         $scope.notifications= newVal;
       }
     );

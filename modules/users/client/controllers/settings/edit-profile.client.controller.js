@@ -29,13 +29,20 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     });
 
     // Update a user profile
-    $scope.uploadProfilePicture = function (isValid) {
+    $scope.updateUserProfile = function (isValid) {
       $scope.success = $scope.error = null;
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
 
         return false;
+      }
+
+      // must update the affiliation by checking as ng-model is not user.affiliation
+      for (var i = 0; i < $scope.chapters.length ; i++){
+        if ($scope.chapters[i].id === $scope.usersChapter.id){
+          $scope.user.affiliation = $scope.chapters[i].name;
+        }
       }
 
       var user = new Users($scope.user);
@@ -45,7 +52,6 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
         $scope.success = true;
         Authentication.user = response;
-
 
       }, function (response) {
         $scope.error = response.data.message;

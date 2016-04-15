@@ -9,15 +9,18 @@
         <div class="col-lg-12 small">
           <h1 class="inline-block"><small>Chat</small></h1>
         </div>
-        <div class="col-sm-12 col-md-12 input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-search"></i>
-          </span>
-          <input type="text" ng-disabled="!(messages.length > 0)" class="form-control" placeholder="Search" data-ng-model="filterMessages"/>
-          <span class="input-group-addon">
-            {{(messages | filter:filterMessages).length}} Items
-          </span>
-        </div>
+        <div class="col-xs-12 col-md-12">
+          <form ng-submit="sendMessage();">
+            <fieldset class="row">
+              <div class="input-group">
+                <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary" ng-disabled="!messageText.length">Submit</button>
+                </span>
+              </div>
+            </fieldset>
+          </form>
+        </div> <!-- message form -->
       </div> <!-- page-header-->
       <div class="text-area">
         <ul class="list-unstyled">
@@ -32,18 +35,15 @@
           </li>
         </ul>
       </div> <!-- text area -->
-      <div class="col-xs-12 col-md-12">
-        <form ng-submit="sendMessage();">
-          <fieldset class="row">
-            <div class="input-group">
-              <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" ng-disabled="!messageText.length">Submit</button>
-              </span>
-            </div>
-          </fieldset>
-        </form>
-      </div> <!-- message form -->
+      <div class="col-sm-12 col-md-12 input-group">
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </span>
+        <input type="text" ng-disabled="!(messages.length > 0)" class="form-control" placeholder="Search" data-ng-model="filterMessages"/>
+        <span class="input-group-addon">
+          {{(messages | filter:filterMessages).length}} Items
+        </span>
+      </div>
     </div> <!-- chat wrapper -->
 
 
@@ -55,15 +55,32 @@
           <h1 class="inline-block"><small>News Feed</small></h1>
         </div>
         <!-- Search through feeds-->
-        <div class="col-sm-12 col-md-12 input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-search"></i>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <div class="btn-group" dropdown is-open="status.isopen">
+              <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+                {{feedDefault}} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" dropdown-menu role="menu" aria-labelledby="single-button">
+                <li ng-repeat="feed in RSSfeeds" role="menuitem">
+                  <a href="#" ng-click="loadFeed(feed.content, $event, null);">{{feed.title}}</a></li>
+              </ul>
+            </div>
           </span>
-          <input type="text" ng-disabled="!(feeds.length > 0)" class="form-control" placeholder="Search" data-ng-model="filterText"/>
-          <span class="input-group-addon">
-            {{(feeds | filter:filterText).length}} Items
+          <input type="text" class="form-control" id="inputFeedURL" autocomplete="off" placeholder="Enter Feed URL" data-ng-model="feedSrc" />
+          <span class="input-group-btn">
+            <div class="btn-group">
+              <button id="single-button"
+                      type="button"
+                      ng-disabled="!feedSrc.length"
+                      class="btn btn-primary"
+                      ng-click="loadFeed(feedSrc, $event, 'Custom');">
+                Go
+              </button>
+            </div>
           </span>
-        </div>
+        </div><!-- input-group -->
+
       </div> <!-- page-header-->
 
 
@@ -82,31 +99,16 @@
         </div>
       </div> <!-- feed area-->
 
-      <div class="input-group">
-        <span class="input-group-btn">
-          <div class="btn-group dropup" dropdown is-open="status.isopen">
-            <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-              {{feedDefault}} <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" dropdown-menu role="menu" aria-labelledby="single-button">
-              <li ng-repeat="feed in RSSfeeds" role="menuitem">
-                <a href="#" ng-click="loadFeed(feed.content, $event, null);">{{feed.title}}</a></li>
-            </ul>
-          </div>
+
+      <div class="col-sm-12 col-md-12 input-group">
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
         </span>
-        <input type="text" class="form-control" id="inputFeedURL" autocomplete="off" placeholder="Enter Feed URL" data-ng-model="feedSrc" />
-        <span class="input-group-btn">
-          <div class="btn-group">
-            <button id="single-button"
-                    type="button"
-                    ng-disabled="!feedSrc.length"
-                    class="btn btn-primary"
-                    ng-click="loadFeed(feedSrc, $event, 'Custom');">
-              Go
-            </button>
-          </div>
+        <input type="text" ng-disabled="!(feeds.length > 0)" class="form-control" placeholder="Search" data-ng-model="filterText"/>
+        <span class="input-group-addon">
+          {{(feeds | filter:filterText).length}} Items
         </span>
-      </div><!-- input-group -->
+      </div>
     </div><!-- news wrapper -->
 
 
