@@ -11,8 +11,17 @@
   </div>
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
+
       <button type="button" class="btn btn-info pull-right" ng-click="info(user._id);" tooltip="View User">
         <span class="glyphicon glyphicon-search"></span>
+      <button type="button" class="btn btn-success pull-right" ng-click="promote(user);">
+        <span class="glyphicon glyphicon-arrow-up"></span> Promote
+      </button>
+      <button type="button" class="btn btn-danger pull-right" ng-click="demote(user);">
+        <span class="glyphicon glyphicon-arrow-down"></span> Demote
+      </button>
+      <button type="button" class="btn btn-primary pull-right" ng-click="info(user._id);">
+        <span class="glyphicon glyphicon-search"></span> Info
       </button>
 
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>

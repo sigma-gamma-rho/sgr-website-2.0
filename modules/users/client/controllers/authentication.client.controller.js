@@ -31,55 +31,49 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $location.path('/server-error');
     });
 
+    $scope.sendMail = function(){
+
+      var data = {
+        firstName: $scope.credentials.firstName,
+        lastName: $scope.credentials.lastName,
+        email: $scope.credentials.email
+      };
+
+      $http.post('api/auth/processing', data).then(function (res){
+        console.log(res);
+      });
+
+    };
+
+    $scope.postUser = function(){
+      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
+
+        // Only send email on successful posting of user
+        $scope.sendMail();
+
+        // If successful we assign the response to the global user model
+        $scope.authentication.user = response;
+
+        // And redirect to the previous or home page
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+      }).error(function (response) {
+        $scope.error = response.message;
+      });
+    };
+
 
 
     $scope.signup = function (isValid) {
       $scope.error = null;
 
+      // Check if the form is valid
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
-
-
-      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
-        // If successful we assign the response to the global user model
-        console.log('Testing 1 2 3');
-        $scope.authentication.user = response;
-
-        // And redirect to the previous or home page
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
-      }).error(function (response) {
-        if (response.processing){
-          $state.go('authentication.processing');
-        }else{
-          $scope.error = response.message;
-        }
-        //$scope.error = response.message;
-      });
-
-      this.sendMail = function(){
-
-
-        var data = ({
-          firstName: this.credentials.firstName,
-          lastName: this.credentials.lastName,
-          email: this.credentials.email
-        });
-
-        console.log(this.firstName);
-        console.log(this.credentials.email);
-
-        $http.post('api/auth/processing', data).
-          success(function(data,status,headers,config){
-            console.log('email should have been sent');
-          }).
-          error(function(data,status,headers,config){
-            console.log('email didnt send');
-          });
-
-      };
+      // Post the user
+      $scope.postUser();
     };
 
     $scope.signin = function (isValid) {
@@ -103,18 +97,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
 
       }).error(function (response) {
-        /*
-        if (response.processing){
-          $state.go('authentication.processing');
-        }else{
-          $scope.error = response.message;
-        }*/
         $scope.error = response.message;
       });
     };
 
     // OAuth provider request
     $scope.callOauthProvider = function (url) {
+
+
       if ($state.previous && $state.previous.href) {
         url += '?redirect_to=' + encodeURIComponent($state.previous.href);
       }

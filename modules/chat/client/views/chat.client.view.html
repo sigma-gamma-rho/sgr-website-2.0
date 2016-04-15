@@ -1,12 +1,18 @@
   <!-- Content Wrapper -->
 <section class="container" ng-controller="ChatController">
-  <!-- Site Header -->
-  <div class="page-header">
-    <h1>Sigma Gamma Rho Regional</h1>
-  </div>
-  <div class="row content-wrapper">
-    <!-- Chat Wrapper -->
-    <div class="col-md-8 chat-wrapper">
+
+  <div class="row content-wrapper" style="padding-top: 40px;">
+
+    <!-- Wrapper-->
+    <div class="col-md-5 chat-wrapper">
+
+      <!--Title-->
+      <div class="row page-header title">
+        <div class="col-md-5 small">
+          <h1><small>Chat</small></h1>
+        </div>
+      </div>
+
       <!-- Chat Text Area -->
       <div class="text-area">
         <ul class="list-unstyled">
@@ -37,8 +43,70 @@
         </div>
     </div>
     <!-- News Feed Wrapper -->
-    <div class="col-md-4 news-wrapper">
-      <feed id="news-feed" url="http://news.google.com/news?cf=all&hl=en&pz=1&ned=us&output=rss" summary="true"></feed>
+    <div class="col-md-7 news-wrapper">
+      <!--Title-->
+      <div class="row page-header title">
+        <div class="col-lg-12 small">
+          <h1 class="inline-block"><small>News Feed</small></h1>
+
+          <!-- Drop down buttons -->
+          <div class="input-group">
+            <span class="input-group-btn">
+              <div class="btn-group" dropdown is-open="status.isopen">
+                <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
+                  {{feedDefault}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li ng-repeat="feed in RSSfeeds" role="menuitem">
+                    <a href="#" ng-click="loadFeed(feed.content, $event, false);">{{feed.title}}</a></li>
+                </ul>
+              </div>
+            </span>
+
+            <!-- Search box -->
+            <input type="text" class="form-control" id="inputFeedURL" autocomplete="off" placeholder="Enter Feed URL" data-ng-model="feedSrc" />
+
+            <!-- Custom search -->
+            <span class="input-group-btn">
+              <div class="btn-group">
+                <button id="single-button"
+                        type="button"
+                        class="btn btn-primary"
+                        ng-click="loadFeed(feedSrc, $event, true);">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </div>
+            </span>
+          </div><!-- /input-group -->
+        </div>
+      </div>
+
+      <!-- Feed stories-->
+      <div class="feed-area">
+
+        <!-- Search through feeds-->
+        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3 input-group" ng-show="feeds.length > 0">
+          <span class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search" data-ng-model="filterText"/>
+          <span class="input-group-addon">
+            {{(feeds | filter:filterText).length}} Items
+          </span>
+        </div>
+
+        <!-- list feeds -->
+        <ul class="unstyled">
+          <li ng-repeat="feed in feeds | filter:filterText">
+            <h5><a href="{{feed.link}}">{{feed.title}}</a></h5>
+            <p class="text-left">{{feed.contentSnippet}}</p>
+              <span class="small">{{feed.publishedDate}}</span>
+          </li>
+        </ul>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </div>
     </div>
   </div>
 </section>
