@@ -12,6 +12,8 @@
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
 
+      <button type="button" class="btn btn-info pull-right" ng-click="info(user._id);" tooltip="View User">
+        <span class="glyphicon glyphicon-search"></span>
       <button type="button" class="btn btn-success pull-right" ng-click="promote(user);">
         <span class="glyphicon glyphicon-arrow-up"></span> Promote
       </button>

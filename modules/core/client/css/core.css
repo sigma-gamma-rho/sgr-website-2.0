@@ -90,3 +90,11 @@ footer{
 footer li{
   padding-top: 5px;
 }
+
+/*********************************/
+
+.event-scroller{
+  max-height: 450px;
+  overflow-y: scroll;
+}
+

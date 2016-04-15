@@ -15,13 +15,13 @@
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
 
-      <button type="button" class="btn btn-success pull-right" ng-click="approve(user);">
+      <button type="button" class="btn btn-success pull-right" ng-click="approve(user);" tooltip="Approve Guest">
         <span class="glyphicon glyphicon-ok"></span> Approve
       </button>
-      <button type="button" class="btn btn-danger pull-right" ng-click="deny(user);">
+      <button type="button" class="btn btn-danger pull-right" ng-click="deny(user);" tooltip="Deny Guest">
         <span class="glyphicon glyphicon-remove"></span> Deny
       </button>
-      <button type="button" class="btn btn-primary pull-right" ng-click="info(user);">
+      <button type="button" class="btn btn-primary pull-right" ng-click="info(user);" tooltip="View Guest">
         <span class="glyphicon glyphicon-search"></span> Info
       </button>
 

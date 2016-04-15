@@ -11,6 +11,7 @@
   </div>
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
+
       <button ng-if="isSuperAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
         <span class="glyphicon glyphicon-ban-circle"></span> Promote
       </button>
