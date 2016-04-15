@@ -19,5 +19,5 @@ module.exports = function(app) {
     .delete(sgrEvents.delete);
 
   // Finish by binding the event middleware
-  app.param('sgrEventId', sgrEvents.eventByID);
+  app.param('sgrEventId', sgrEvents.sgrEventByID);
 };

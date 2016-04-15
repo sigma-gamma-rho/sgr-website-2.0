@@ -7,7 +7,7 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label for="title">Chapter</label>
-          <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+          <input name="title" type="text" ng-model="chapter.title" id="title" class="form-control" placeholder="Title" required>
           <div ng-messages="chapterForm.title.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter title is required.</p>
           </div>
@@ -15,7 +15,7 @@
 
         <div class="form-group" show-errors>
           <label for="president">President</label>
-          <input name="president" type="text" ng-model="president" id="president" class="form-control" placeholder="President" required>
+          <input name="president" type="text" ng-model="chapter.president" id="president" class="form-control" placeholder="President" required>
           <div ng-messages="chapterForm.president.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter President is required.</p>
           </div>
@@ -23,7 +23,7 @@
 
         <div class="form-group" show-errors>
           <label for="presidentemail">President Email</label>
-          <input name="presidentemail" type="text" ng-model="presidentemail" id="presidentemail" class="form-control" placeholder="Title" required>
+          <input name="presidentemail" type="text" ng-model="chapter.presidentemail" id="presidentemail" class="form-control" placeholder="Title" required>
           <div ng-messages="chapterForm.presidentemail.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter President Email is required.</p>
           </div>
@@ -31,7 +31,7 @@
 
         <div class="form-group" show-errors>
           <label for="vice">Vice President</label>
-          <input name="vice" type="text" ng-model="vice" id="vice" class="form-control" placeholder="Vice President" required>
+          <input name="vice" type="text" ng-model="chapter.vice" id="vice" class="form-control" placeholder="Vice President" required>
           <div ng-messages="chapterForm.vice.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter Vice President is required.</p>
           </div>
@@ -39,18 +39,16 @@
 
         <div class="form-group" show-errors>
           <label for="viceemail">Chapter</label>
-          <input name="viceemail" type="text" ng-model="viceemail" id="viceemail" class="form-control" placeholder="Title" required>
+          <input name="viceemail" type="text" ng-model="chapter.viceemail" id="viceemail" class="form-control" placeholder="Title" required>
           <div ng-messages="chapterForm.viceemail.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter Vice President Email is required.</p>
           </div>
         </div>
-      </fieldset>
               
-    <form name="chapterForm" class="form-horizontal" ng-submit="updateChapter(chapterForm.$valid)" novalidate>
-      <fieldset>
+        <form name="chapterForm" class="form-horizontal" ng-submit="updateChapter(chapterForm.$valid)" novalidate>
         <div class="form-group" show-errors>
           <label for="location">Location</label>
-          <input name="location" type="text" ng-model="location" id="location" class="form-control" placeholder="Location" required>
+          <input name="location" type="text" ng-model="chapter.location" id="location" class="form-control" placeholder="Location" required>
           <div ng-messages="chapterForm.location.$error" role="alert">
             <p class="help-block error-text" ng-message="required">chapter location is required.</p>
           </div>
@@ -58,7 +56,7 @@
 
         <div class="form-group">
           <label for="content">Content</label>
-          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+          <textarea name="content" ng-model="chapter.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-default">

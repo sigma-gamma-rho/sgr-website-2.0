@@ -18,17 +18,16 @@
      <!-- Event Time --> 
     <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
       <fieldset>
-        <div class="row" show-errors>
+        <div class="row">
           <!-- Start Time -->
           <div class="col-sm-6 form-group">
-          <label for="time">Start Time</label>
-            <timepicker ng-model="mytimeS" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+          <label for="time">Start Time:</label>
+            <timepicker ng-model="sTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
           </div>
-
-          <!-- Start Time -->
+          <!-- End Time -->
           <div class="col-sm-6 form-group">
-          <label for="time">End Time</label>
-            <timepicker ng-model="mytimeE" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+          <label for="time">End Time:</label>
+            <timepicker ng-model="eTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
           </div>
 
           <div ng-messages="eventForm.time.$error" role="alert">
@@ -79,8 +78,9 @@
         </div>
 
         <alert collapse="{{alert.show}}" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+<!--
         <button type="button" class='btn btn-default' ng-click="addAlert()">Add Alert</button>
-
+-->
 <!--
         Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>

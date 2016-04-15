@@ -39,7 +39,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
       // Redirect after save
       chapter.$save(function (response) {
-        //$location.path('chapters/' + response._id);
+        $location.path('chapters/' + response._id);
 
         // Clear form fields
         $scope.title = '';
@@ -116,7 +116,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     $scope.today();
 
     $scope.clear = function() {
-      $scope.dt = null;
+      $scope.date = null;
     };
 
     $scope.inlineOptions = {
@@ -154,7 +154,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     };
 
     $scope.setDate = function(year, month, day) {
-      $scope.dt = new Date(year, month, day);
+      $scope.date = new Date(year, month, day);
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -203,7 +203,8 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     }
 
     /************** Time Picker Code *********************/
-    $scope.mytime = new Date();
+    $scope.sTime = new Date();
+    $scope.eTime = new Date();
 
     $scope.hstep = 1;
     $scope.mstep = 1;
@@ -213,25 +214,22 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
       mstep: [1, 5, 10, 15, 25, 30]
     };
 
+    // Not used Toggle if 12/24 clock
     $scope.ismeridian = true;
     $scope.toggleMode = function() {
       $scope.ismeridian = ! $scope.ismeridian;
     };
-
+    // Not used Set the time to 2:00 PM
     $scope.update = function() {
       var d = new Date();
-      d.setHours( 14 );
-      d.setMinutes( 0 );
+      d.setHours(14);
+      d.setMinutes(0);
       $scope.mytime = d;
     };
-
-    $scope.changed = function () {
-      $log.log('Time changed to: ' + $scope.mytime);
-    };
-
+    // Not used Clears the input field
     $scope.clear = function() {
       $scope.mytime = null;
-    }
+    };
 
     /************** Create new Events *************/
     $scope.createEvent = function (isValid) {
@@ -242,12 +240,17 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
         return false;
       }
-      console.log($stateParams.chapterId);
+      /*
+      if(sTime- eTime < 0){
+        $scope.alerts.push({ type: 'warning', msg: 'Length in time is incorrect.' });
+      }
+      */
       // Create new Article object
       var sgrEvent = new SgrEvents({
         title: this.title,
-        time: this.time,
-        date: $scope.dt,
+        startTime: $scope.sTime,
+        endTime: $scope.eTime,
+        date: $scope.date,
         location: this.location,
         content: this.content,
         chapterId: $stateParams.chapterId
@@ -259,9 +262,10 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
         // Clear form fields
         $scope.title = '';
-        $scope.time = '';
+        $scope.date = '';
         $scope.location = '';
         $scope.content = '';
+
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -287,17 +291,17 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     // Update existing Events
     $scope.updateEvent = function (isValid) {
       $scope.error = null;
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'sgrEventForm');
 
         return false;
       }
-
       var sgrEvent = $scope.sgrEvent;
-
+      console.log(sgrEvent.chapterId);
+      console.log(sgrEvent._id);
+      //chapters/
       sgrEvent.$update(function () {
-        $location.path('sgrEvents/' + sgrEvent._id);
+        $location.path('chapters/' + sgrEvent.chapterId);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });

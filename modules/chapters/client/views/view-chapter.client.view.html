@@ -6,7 +6,6 @@
       <h1 ng-bind="chapter.title"></h1>
     </div>
     <div>
-      Eboard:<p></p>
       President: <p class= "lead" ng-bind="chapter.president"></p>
       President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
       Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
@@ -33,7 +32,7 @@
     <div class="page-header">
       <h1>List of Events</h1>
     </div>
-    <div class="list-group">
+    <div class="list-group event-scroller">
       <a ng-repeat="sgrEvent in sgrEvents" ui-sref="view-sgr-event({sgrEventId: sgrEvent._id, chapterId: chapter._id})" class="list-group-item">
         <small class="list-group-item-text">
           Posted on

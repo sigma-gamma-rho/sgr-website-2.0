@@ -6,7 +6,7 @@ angular.module('chapters').config(['$stateProvider',
     // chapters state routing
     $stateProvider
       .state('edit-sgr-event', {
-        url: '/edit-sgrevent',
+        url: '/edit-sgrevent/:sgrEventId',
         templateUrl: 'modules/chapters/client/views/edit-sgrevent.client.view.html',
       })
       .state('create-event', {

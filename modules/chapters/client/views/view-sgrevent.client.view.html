@@ -2,8 +2,13 @@
   <div class="page-header">
     <h1 ng-bind="sgrEvent.title"></h1>
   </div>
-    Time:
-    <p class="lead" ng-bind="sgrEvent.time"></p>
+  <div col="row">
+      Start Time:
+      <p class="lead" ng-bind="sgrEvent.startTime | date:'shortTime'"></p>
+      End Time:
+      <p class="lead" ng-bind="sgrEvent.endTime | date:'shortTime'"></p>
+  </div>
+
     Date:
     <p class="lead" ng-bind="sgrEvent.date  | date:'fullDate'"></p>
 

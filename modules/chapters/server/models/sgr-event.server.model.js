@@ -20,11 +20,15 @@ var SgrEventSchema = new Schema({
     trim: true,
     required: 'Title cannot be blank'
   },
-  time: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Time cannot be blank'
+  startTime: {
+    type: Date,
+    default: Date.now,
+    required: 'Start time cannot be blank'
+  },
+  endTime: {
+    type: Date,
+    default: Date.now,
+    required: 'End time cannot be blank'
   },
   date: {
     type: Date,

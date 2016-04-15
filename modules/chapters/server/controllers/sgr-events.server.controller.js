@@ -37,12 +37,17 @@ exports.read = function (req, res) {
  * Update a Event
  */
 exports.update = function (req, res) {
-  var sgrEvent = req.event;
+  var sgrEvent = req.sgrEvent;
 
   sgrEvent.title = req.body.title;
-  sgrEvent.time = req.body.time;
+
+  sgrEvent.startTime = req.body.startTime;
+  sgrEvent.endTime = req.body.endTime;
+  sgrEvent.date = req.body.date;
+
   sgrEvent.location = req.body.location;
   sgrEvent.content = req.body.content;
+  sgrEvent.chapterId = req.body.chapterId;
 
   sgrEvent.save(function (err) {
     if (err) {
@@ -91,7 +96,7 @@ exports.list = function (req, res) {
 /**
  * Event middleware
  */
-exports.eventByID = function (req, res, next, id) {
+exports.sgrEventByID = function (req, res, next, id) {
   //console.log(id);
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
