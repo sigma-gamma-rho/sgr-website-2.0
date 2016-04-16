@@ -7,7 +7,11 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     $scope.chapters = [];
     $scope.usersChapter= { id : null };
 
-    // check if a given array contains admin
+
+    $scope.isSuperAdmin = function(roles) {
+      return roles.indexOf('superadmin') !== -1;
+    };
+
     $scope.isAdmin = function(roles) {
       return roles.indexOf('admin') !== -1;
     };
@@ -24,8 +28,6 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
 
     // initialize view
     $scope.init = function (){
-      $scope.isAuthAdmin = $scope.isAdmin($scope.authentication.user.roles);
-
       $http.get('api/chapters').success(function (response) {
 
         if (!response.length){

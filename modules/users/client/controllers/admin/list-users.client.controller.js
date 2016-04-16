@@ -13,12 +13,22 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     });
 
     $scope.filterUsers = function (data) {
-      // if the user is a super admin, show all
+
+      // Remove the superadmin, if present
+      for (var i = 0; i < data.length; i++ ) {
+        if ($scope.isSuperAdmin(data[i].roles)){
+          console.log('Removing the superadmin from data');
+          data.splice(i, 1);
+        }
+      }
+
+
+      // if the user is a super admin, show all users from all chapters
       if ($scope.isSuperAdmin($scope.authentication.user.roles)){
         console.log('You are a superadmin. Showing all users.');
         $scope.users = data;
       } else {
-        // only list guests that have all their fields filled out
+        // only list guests from the admins chapter
         console.log('Only loading guests from the admins chapter, ' + $scope.authentication.user.affiliation);
         for (var i = 0; i < data.length; i ++){
           if (data[i].affiliation === $scope.authentication.user.affiliation) {
@@ -59,48 +69,47 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       $scope.figureOutItemsToDisplay();
     };
 
-    // Promote the user to an admin
-    $scope.promote = function (user) {
-      if (confirm('Are you sure you want to promote this account to "admin" privileges"?')){
-        if (user) {
-          $scope.entry = Admin.get({ userId: user._id }, function() {
-
-            // change the guests role to user
-            $scope.entry.roles = ['admin'];
-
-            // update the guest, rebuild the page, update the # of notificaitons
-            $scope.entry.$update(function() {
-              $scope.users.splice($scope.users.indexOf(user), 1);
-              $scope.buildPager();
-              Notifications.update();
-            });
-          });
-        }
-      }
-    };
-
-    // Deny the guests request to join
-    $scope.demote = function (user) {
-      if (confirm('Are you sure you want to demote this account to "guest" privileges?')){
-        if (user) {
-          $scope.entry = Admin.get({ userId: user._id }, function() {
-
-            // change the guests role to user
-            $scope.entry.roles = ['guest'];
-
-            // update the guest, rebuild the page, update the # of notificaitons
-            $scope.entry.$update(function() {
-              $scope.users.splice($scope.users.indexOf(user), 1);
-              $scope.buildPager();
-              Notifications.update();
-            });
-          });
-        }
-      }
-    };
-
     $scope.info = function (userId) {
       $state.go('admin.user', { userId: userId });
+    };
+
+    // *********************
+    // Modal Stuff
+    // Promote the user to an admin
+    $scope.setModalInformation = function (title, body, user, method){
+      $scope.modalHeader = title;
+      $scope.modalBody = body;
+      $scope.user = user;
+      $scope.modalMethod = method;
+    };
+
+    $scope.promote = function () {
+      $scope.entry = Admin.get({ userId: $scope.user._id }, function() {
+        // change the guests role to user
+        $scope.entry.roles = ['admin'];
+
+        // update the guest, rebuild the page, update the # of notificaitons
+        $scope.entry.$update(function() {
+          $scope.users.splice($scope.users.indexOf($scope.user), 1);
+          $scope.buildPager();
+          Notifications.update();
+        });
+      });
+    };
+
+    $scope.demote = function () {
+      $scope.entry = Admin.get({ userId: $scope.user._id }, function() {
+
+        // change the guests role to user
+        $scope.entry.roles = ['guest'];
+
+        // update the guest, rebuild the page, update the # of notificaitons
+        $scope.entry.$update(function() {
+          $scope.users.splice($scope.users.indexOf($scope.user), 1);
+          $scope.buildPager();
+          Notifications.update();
+        });
+      });
     };
   }
 ]);

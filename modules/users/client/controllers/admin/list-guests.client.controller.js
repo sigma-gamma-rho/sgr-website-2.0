@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('users.admin').controller('UserGuestController', ['$scope', '$filter', 'AdminGuests', '$state', 'Admin', 'Notifications', 'Authentication', 
+angular.module('users.admin').controller('UserGuestController', ['$scope', '$filter', 'AdminGuests', '$state', 'Admin', 'Notifications', 'Authentication',
   function ($scope, $filter, AdminGuests, $state, Admin, Notifications, Authentication) {
 
     $scope.authentication = Authentication;
@@ -58,55 +58,45 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
       $scope.figureOutItemsToDisplay();
     };
 
-    // Approve the guests request to join
-    $scope.approve = function (user) {
-
-      if (user.firstName && user.lastName && user.affiliation && user.email && user.username){
-        if (confirm('Are you sure you want to promote this account to "user" privileges"?')){
-          if (user) {
-            $scope.entry = Admin.get({ userId: user._id }, function() {
-
-              // change the guests role to user
-              $scope.entry.roles = ['user'];
-
-              // update the guest, rebuild the page, update the # of notificaitons
-              $scope.entry.$update(function() {
-                $scope.users.splice($scope.users.indexOf(user), 1);
-                $scope.buildPager();
-                Notifications.update();
-              });
-            });
-          }
-        }
-      } else {
-        alert('Guests missing information cannot be promoted. Try again when this user has filled out their profile completely.');
-      }
-
-
-    };
-
-    // Deny the guests request to join
-    $scope.deny = function (user) {
-      if (confirm('Are you sure you want to delete this user?')){
-        if (user) {
-          Admin.remove({ userId : user._id }, function (data) {
-            $scope.users.splice($scope.users.indexOf(user), 1);
-            $scope.buildPager();
-            Notifications.update();
-          });
-        }
-      }
-    };
-
     $scope.info = function (user) {
       $state.go('admin.user', { 'userId': user._id });
     };
 
     // ------------------------------------------------------------------
+    // Modal Stuff
+    $scope.setModalInformation = function (title, body, user, method){
+      $scope.modalHeader = title;
+      $scope.modalBody = body;
+      $scope.user = user;
+      $scope.modalMethod = method;
+    };
 
+    $scope.approve = function (){
+      if ($scope.user.firstName && $scope.user.lastName && $scope.user.affiliation && $scope.user.email && $scope.user.username){
+        $scope.entry = Admin.get({ userId: $scope.user._id }, function() {
 
+          // change the guests role to user
+          $scope.entry.roles = ['user'];
 
+          // update the guest, rebuild the page, update the # of notificaitons
+          $scope.entry.$update(function() {
+            $scope.users.splice($scope.users.indexOf($scope.user), 1);
+            $scope.buildPager();
+            Notifications.update();
+          });
+        });
 
+      } else {
+        alert('Guests missing information cannot be promoted. Try again when this user has filled out their profile completely.');
+      }
+    };
 
+    $scope.deny = function (){
+      Admin.remove({ userId : $scope.user._id }, function (data) {
+        $scope.users.splice($scope.users.indexOf($scope.user), 1);
+        $scope.buildPager();
+        Notifications.update();
+    });
   }
+}
 ]);
