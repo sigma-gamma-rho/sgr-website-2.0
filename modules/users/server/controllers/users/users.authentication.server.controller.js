@@ -312,6 +312,6 @@ exports.sendEmails = function(req, res){
     }
   });
 
-  res.json({status: 'OK'});
+  res.json({ status: 'OK' });
 
 };

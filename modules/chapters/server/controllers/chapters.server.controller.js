@@ -45,6 +45,7 @@ exports.update = function (req, res) {
   chapter.vice= req.body.viceemail;
   chapter.location = req.body.location;
   chapter.content = req.body.content;
+  chapter.profileImageURL = req.body.profileImageURL;
 
   chapter.save(function (err) {
     if (err) {

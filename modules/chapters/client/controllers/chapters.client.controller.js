@@ -1,10 +1,11 @@
 'use strict';
 
 // Articles controller
-angular.module('chapters').controller('ChaptersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Chapters', 'SgrEvents',
-  function ($scope, $stateParams, $location, Authentication, Chapters, SgrEvents) {
+angular.module('chapters').controller('ChaptersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Chapters', 'SgrEvents', '$filter',
+  function ($scope, $stateParams, $location, Authentication, Chapters, SgrEvents, $filter) {
     $scope.authentication = Authentication;
     $scope.sgrEvents = [];
+    $scope.imageURL = 'modules/chapters/client/img/default.jpeg';
 
     /**************** Alerts *****************************/
     $scope.alerts = [];
@@ -18,6 +19,38 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     };
 
     /**************** Chapter Angular Methods **************/
+    $scope.buildPager = function () {
+      $scope.pagedItems = [];
+      $scope.itemsPerPage = 15;
+      $scope.currentPage = 1;
+      $scope.figureOutItemsToDisplay();
+    };
+
+    $scope.figureOutItemsToDisplay = function () {
+      $scope.filteredItems = $filter('filter')($scope.chapters, {
+        $: $scope.search
+      });
+      $scope.filterLength = $scope.filteredItems.length;
+      var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+      var end = begin + $scope.itemsPerPage;
+      $scope.pagedItems = $scope.filteredItems.slice(begin, end);
+    };
+
+    $scope.pageChanged = function () {
+      $scope.figureOutItemsToDisplay();
+    };
+
+
+    $scope.resetImageURL = function () {
+      $scope.imageURL = 'modules/chapters/client/img/default.jpeg';
+    }
+    $scope.resetExistingImageURL = function () {
+      $scope.chapter.profileImageURL = $scope.revert;
+    }
+    $scope.resetExistingDefault = function () {
+      $scope.chapter.profileImageURL = 'modules/chapters/client/img/default.jpeg';
+    }
+
     $scope.createChapter = function (isValid) {
       $scope.error = null;
       $scope.alerts.push({ type: 'success', msg: 'Success! Your new event has been created.' });
@@ -26,6 +59,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
         return false;
       }
+
       // Create new Chapter object
       var chapter = new Chapters({
         title: this.title,
@@ -34,7 +68,8 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
         vice: this.vice,
         viceemail: this.viceemail,
         location: this.location,
-        content: this.content
+        content: this.content,
+        profileImageURL: $scope.imageURL
       });
 
       // Redirect after save
@@ -93,13 +128,20 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     // Find a list of Articles
     $scope.findChapter = function () {
-      $scope.chapters = Chapters.query();
+
+      Chapters.query(function (data) {
+        $scope.chapters = data;
+        console.log('chapters');
+        console.log($scope.chapters);
+        $scope.buildPager();
+      });
     };
 
     // Find existing Chapter
     $scope.findOneChapter = function () {
-      $scope.chapter = Chapters.get({
-        chapterId: $stateParams.chapterId
+      $scope.chapter = Chapters.get({ chapterId: $stateParams.chapterId}, function () {
+        $scope.revert = $scope.chapter.profileImageURL;
+        console.log($scope.revert);
       });
     };
 
