@@ -1,3 +1,4 @@
+<!------------>
 <section class="container">
   <div class="page-header">
     <h1>User <span ng-bind="user.username"></span></h1>
@@ -19,7 +20,9 @@
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+
+        <!-- If I am a superadmin, and this isn't me, I can set permissions -->
+        <div class="form-group" ng-if = "isSuperAdmin(authentication.user.roles) && authentication.user._id !== user._id" show-errors>
           <label class="control-label" for="roles">Roles</label>
           <div class="controls">
             <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple required >
@@ -33,33 +36,53 @@
           </div>
         </div>
 
-        <!--
-        <label for="roles"> Roles: </label><br>
-        <select name="roles" id="roles" ng-model="user.roles" multiple>
-          <option value="guest">Guest</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select><br>
-        <tt>multipleSelect = {{user.roles}}</tt><br/>-->
-
-        <!--
-        <div class="form-group" show-errors>
+        <!-- If I am a superadmin, and this is me, I cannot set permissions -->
+        <div class="form-group" ng-if = "isSuperAdmin(authentication.user.roles) && authentication.user._id === user._id">
           <label class="control-label" for="roles">Roles</label>
           <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required />
+            <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple disabled>
+              <option value="guest">Guest</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- If I am not a superadmin, and this is an admin, I cannot set permissions -->
+        <div class="form-group" ng-if = "!isSuperAdmin(authentication.user.roles) && isAdmin(user.roles)">
+          <!-- Super admin, and this is the profile of the super admin -->
+          <label class="control-label" for="roles">Roles</label>
+          <div class="controls">
+            <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple disabled>
+              <option value="guest">Guest</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- If I am not a superadmin, and this is not an admin, I can set permissions -->
+        <div class="form-group" ng-if = "!isSuperAdmin(authentication.user.roles) && !isAdmin(user.roles)">
+          <label class="control-label" for="roles">Roles</label>
+          <div class="controls">
+            <select class="form-control" name="roles" id="roles" ng-model="user.roles" multiple required >
+              <option value="guest">Guest</option>
+              <option value="user">User</option>
+            </select>
             <div ng-messages="userForm.roles.$error" role="alert">
               <p class="help-block error-text" ng-message="required">At least one role is required.</p>
             </div>
           </div>
-        </div>-->
+        </div>
+
         <div class="form-group" show-errors>
           <label for="affiliation"> Chapter Affiliation: </label>
             <select id="affiliation"
                     class="form-control"
                     name="affiliation"
-                    ng-model="user.affiliation"
+                    ng-model="usersChapter.id"
+                    ng-options="chapter.id as chapter.name for chapter in chapters"
                     required>
-                    <option ng-repeat="option in data.availableOptions">{{option}}</option>
             </select>
           <div ng-messages="userForm.affiliation.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Affiliation is required.</p>

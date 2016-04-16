@@ -34,22 +34,27 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
       $scope.figureOutItemsToDisplay();
     };
 
-    // Promote the user to an admin
-    $scope.promote = function (user) {
-      if (confirm('Are you sure you want to promote this account to "superadmin" privileges"?')){
-        if (user) {
-          $scope.promoteNewSuperAdmin(user);
-          $scope.demoteCurrentSuperAdmin();
-        }
-      }
+    $scope.info = function (userId) {
+      $state.go('admin.user', { userId: userId });
     };
 
-    $scope.promoteNewSuperAdmin = function (user) {
-      $scope.entry = Admin.get({ userId: user._id }, function() {
+    // ------------------------------------------------------------------
+    // Modal Stuff
+    $scope.setModalInformation = function (title, body, user, method){
+      $scope.modalHeader = title;
+      $scope.modalBody = body;
+      $scope.user = user;
+      $scope.modalMethod = method;
+    };
 
-        // change the guests role to user
+    $scope.promote = function () {
+        $scope.promoteNewSuperAdmin();
+        $scope.demoteCurrentSuperAdmin();
+    };
+
+    $scope.promoteNewSuperAdmin = function () {
+      $scope.entry = Admin.get({ userId: $scope.user._id }, function() {
         $scope.entry.roles.push('superadmin');
-        // update the guest, rebuild the page, update the # of notificaitons
         $scope.entry.$update(function(res) {
           console.log(res);
         });
@@ -57,9 +62,7 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
     };
 
     $scope.demoteCurrentSuperAdmin = function () {
-
       var oldAdmin = Admin.get({ userId: Authentication.user._id }, function() {
-
         var index = oldAdmin.roles.indexOf('superadmin');
         if (index > -1) {
           oldAdmin.roles.splice(index, 1);
@@ -71,29 +74,21 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
       });
     };
 
-
     // Deny the guests request to join
-    $scope.demote = function (user) {
-      if (confirm('Are you sure you want to demote this account to "user" privileges?')){
-        if (user) {
-          $scope.entry = Admin.get({ userId: user._id }, function() {
+    $scope.demote = function () {
+      $scope.entry = Admin.get({ userId: $scope.user._id }, function() {
 
-            // change the guests role to user
-            $scope.entry.roles = ['user'];
+        // change the guests role to user
+        $scope.entry.roles = ['user'];
 
-            // update the guest, rebuild the page, update the # of notificaitons
-            $scope.entry.$update(function() {
-              $scope.users.splice($scope.users.indexOf(user), 1);
-              $scope.buildPager();
-              Notifications.update();
-            });
-          });
-        }
-      }
+        // update the guest, rebuild the page, update the # of notificaitons
+        $scope.entry.$update(function() {
+          $scope.users.splice($scope.users.indexOf($scope.user), 1);
+          $scope.buildPager();
+          Notifications.update();
+        });
+      });
     };
 
-    $scope.info = function (userId) {
-      $state.go('admin.user', { userId: userId });
-    };
   }
 ]);

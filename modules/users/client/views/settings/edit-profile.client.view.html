@@ -1,22 +1,8 @@
-<div ng-if="!user.firstName" class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span>Please enter your first name.</span>
-</div>
-<div ng-if="!user.lastName" class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span>Please enter your last name.</span>
-</div>
-<div ng-if="!user.email" class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span>Please provide an email address.</span>
-</div>
-<div ng-if="!user.affiliation" class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span>Please choose your chapter affiliation.</span>
-</div>
-
-
 <section class="row" ng-controller="EditProfileController">
+  <div ng-if="!user.firstName || !user.lastName || !user.email || !user.affiliation || !user.username" class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span>Please ensure that all fields below are filled out and submited.</span>
+  </div>
   <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
     <form name="userForm" ng-submit="updateUserProfile(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
@@ -47,9 +33,9 @@
             <select id="affiliation"
                     class="form-control"
                     name="affiliation"
-                    ng-model="user.affiliation"
+                    ng-model="usersChapter.id"
+                    ng-options="chapter.id as chapter.name for chapter in chapters"
                     required>
-                    <option ng-repeat="option in data.availableOptions">{{option}}</option>
             </select>
           <div ng-messages="userForm.affiliation.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Affiliation is required.</p>

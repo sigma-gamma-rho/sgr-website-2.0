@@ -1,4 +1,25 @@
 <section class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{modalHeader}}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{modalBody}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="modalMethod()" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="page-header">
     <div class="row">
       <div class="col-md-4">
@@ -9,33 +30,34 @@
       </div>
     </div>
   </div>
-
-
-
   <div class="list-group">
     <a ng-repeat="user in pagedItems" class="list-group-item">
 
-      <button type="button" class="btn btn-success pull-right" ng-click="approve(user);" tooltip="Approve Guest">
-        <span class="glyphicon glyphicon-ok"></span> Approve
-      </button>
-      <button type="button" class="btn btn-danger pull-right" ng-click="deny(user);" tooltip="Deny Guest">
-        <span class="glyphicon glyphicon-remove"></span> Deny
-      </button>
-      <button type="button" class="btn btn-primary pull-right" ng-click="info(user);" tooltip="View Guest">
+      <!-- Approve the user -->
+      <button type="button"
+              class="btn btn-success pull-right"
+              data-toggle="modal"
+              data-target="#myModal"
+              ng-click="setModalInformation('Confirmation', 'Are you sure you want to approve this user, granting them user privileges?', user, approve)">
+              <span class="glyphicon glyphicon-ok"></span> Approve</button>
+
+      <!-- Deny the user -->
+      <button type="button"
+              class="btn btn-danger pull-right"
+              data-toggle="modal"
+              data-target="#myModal"
+              ng-click="setModalInformation('Confirmation', 'Are you sure you want to deny this user, deleting their account?', user, deny)">
+              <span class="glyphicon glyphicon-remove"></span> Deny</button>
+
+      <!-- Get user info -->
+      <button type="button" class="btn btn-primary pull-right" ng-click="info(user);">
         <span class="glyphicon glyphicon-search"></span> Info
       </button>
-
 
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
       <p class="list-group-item-text" ng-bind="user.email"></p>
       <p ng-if="!user.email" class="list-group-item-text">(no email provided)</p>
-      <!--<p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>-->
     </a>
-
-
-
   </div>
-
-
   <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
 </section>

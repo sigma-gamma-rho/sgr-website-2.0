@@ -30,12 +30,15 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
           $scope.feeds = [];
           $scope.error = 'Sorry, this link is not working';
           $scope.feedDefault='Select Feed';
-        } else{
-          $scope.feedDefault=angular.element(e.target).text();
+        }
 
-          // If custom URL
+        // If they entered a valid url
+        if (res.data.responseStatus === 200){
+          if (e){
+            $scope.feedDefault=angular.element(e.target).text();
+          }
           if (custom){
-            $scope.feedDefault='Custom';
+            $scope.feedDefault = custom;
           } else{
             $scope.feedDefault=angular.element(e.target).text();
           }
@@ -44,6 +47,10 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
         }
       });
     };
+    $scope.loadFeed($scope.RSSfeeds[0].content, null, 'Select Feed');
+
+
+
 
     // If user is not signed in then redirect back home
     if (!Authentication.user) {

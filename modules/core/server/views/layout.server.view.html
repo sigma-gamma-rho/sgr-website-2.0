@@ -28,6 +28,11 @@
   <meta name="twitter:url" content="{{url}}">
   <meta name="twitter:image" content="{{logo}}">
 
+  <!-- jQuery and Bootstrapjs-->
+  <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.js"></script>
+
+
   <!-- Fav Icon -->
   <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
 
@@ -51,8 +56,6 @@
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
-  <!--Load The Socket.io File-->
-  <script type="text/javascript" src="modules/chat/client/js/chat.js"></script>
 
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
@@ -96,5 +99,13 @@
       </div>
     </div>
   </footer>
+
+  <!--Load The Socket.io File-->
+  <script type="text/javascript" src="modules/users/client/js/users.js"></script>
+
+  <!--Load The Socket.io File-->
+  <script type="text/javascript" src="modules/chat/client/js/chat.js"></script>
+
+
 </body>
 </html>

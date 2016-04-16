@@ -15,7 +15,7 @@
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">
 
         <!-- Special case: Admin - due to requiring the # of notifications from the server-->
-        <a ng-if="item.title === 'Admin' && notifications!==0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="label label-pill label-danger">{{notifications}}</span><span class="caret"></span></a>
+        <a ng-if="item.title === 'Admin' && notifications!==0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="badge danger">{{notifications}}</span><!--<span class="label label-pill label-danger">{{notifications}}</span>--><span class="caret"></span></a>
         <a ng-if="item.title === 'Admin' && notifications===0" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
 
         <a ng-if="item.title !== 'Admin'" ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
@@ -23,13 +23,11 @@
           <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">
 
             <!-- Special case: Guests - due to requiring the # of notifications from the server-->
-            <a ng-if="subitem.state === 'admin.guests' && notifications!==0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;<span class="label label-pill label-danger">{{notifications}}</span></a>
+            <a ng-if="subitem.state === 'admin.guests' && notifications!==0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;<span class="badge danger">{{notifications}}</span><!--<span class="label label-pill label-danger">{{notifications}}</span>--></a>
             <a ng-if="subitem.state === 'admin.guests' && notifications===0" ui-sref="{{subitem.state}}">{{::subitem.title}}&nbsp;</a>
-
             <a ng-if="subitem.state !== 'admin.guests'" ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
           </li>
         </ul>
-
 
         <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
       </li>
@@ -45,54 +43,13 @@
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
       <li class="dropdown" dropdown>
-
-
-        <!-- If they are missing profile information-->
-        <a ng-if="!authentication.user.email ||
-                  !authentication.user.affiliation ||
-                  !authentication.user.firstName ||
-                  !authentication.user.lastName ||
-                  !authentication.user.username"
-                  class="dropdown-toggle user-header-dropdown-toggle"
-                  dropdown-toggle role="button">
-          <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
-          <span ng-bind="authentication.user.displayName"></span>
-          <span class="label label-pill label-danger"><i class="glyphicon glyphicon-alert"></i></span>
-          <b class="caret"></b>
-        </a>
-
-        <a ng-if="authentication.user.email &&
-                  authentication.user.affiliation &&
-                  authentication.user.firstName &&
-                  authentication.user.lastName &&
-                  authentication.user.username"
-                  class="dropdown-toggle user-header-dropdown-toggle"
-                  dropdown-toggle role="button">
+        <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
           <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
         </a>
-
-
         <ul class="dropdown-menu" role="menu">
           <li ui-sref-active="active">
-            <a ng-if="!authentication.user.email ||
-                      !authentication.user.affiliation ||
-                      !authentication.user.firstName ||
-                      !authentication.user.lastName ||
-                      !authentication.user.username"
-                      ui-sref="settings.profile">
-              Edit Profile
-              <span class="label label-pill label-danger"><i class="glyphicon glyphicon-alert"></i></span>
-            </a>
-
-            <a ng-if="authentication.user.email &&
-                      authentication.user.affiliation &&
-                      authentication.user.firstName &&
-                      authentication.user.lastName &&
-                      authentication.user.username"
-                      ui-sref="settings.profile">
-              Edit Profile
-            </a>
+            <a ui-sref="settings.profile">Edit Profile</a>
           </li>
           <li ui-sref-active="active">
             <a ui-sref="settings.picture">Change Profile Picture</a>

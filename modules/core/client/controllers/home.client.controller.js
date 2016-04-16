@@ -2,18 +2,18 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication',
   function ($scope, Authentication) {
+
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
+    // Set up carousel
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
     var slides = $scope.slides = [];
     var currIndex = 0;
-
     $scope.addSlide = function() {
       var newWidth = 1800 + slides.length + 1;
-      console.log(newWidth);
       slides.push({
         image: 'http://lorempixel.com/' + newWidth + '/600',
         text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],

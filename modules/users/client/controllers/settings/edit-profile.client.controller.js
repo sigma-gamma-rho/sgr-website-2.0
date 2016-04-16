@@ -6,7 +6,9 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
     $scope.user = Authentication.user;
 
     // On load, get the list of chapters for which to populate the dropdown
-    $scope.data = { availableOptions: [] };
+    $scope.chapters = [];
+    $scope.usersChapter= { id : null };
+
     $http.get('api/chapters').success(function (response) {
       // If no chapters exist, then do not allow signup until resolved
       if (!response.length){
@@ -15,7 +17,10 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
       // Populate the data array
       else {
         for (var i = 0; i < response.length; i ++){
-          $scope.data.availableOptions.push(response[i].title);
+          if (response[i].title === $scope.user.affiliation){
+            $scope.usersChapter = { id : i };
+          }
+          $scope.chapters.push({ id : i, name: response[i].title });
         }
       }
     }).error(function (response) {
@@ -33,6 +38,13 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
         return false;
       }
 
+      // must update the affiliation by checking as ng-model is not user.affiliation
+      for (var i = 0; i < $scope.chapters.length ; i++){
+        if ($scope.chapters[i].id === $scope.usersChapter.id){
+          $scope.user.affiliation = $scope.chapters[i].name;
+        }
+      }
+
       var user = new Users($scope.user);
 
       user.$update(function (response) {
@@ -40,7 +52,6 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
         $scope.success = true;
         Authentication.user = response;
-
 
       }, function (response) {
         $scope.error = response.data.message;

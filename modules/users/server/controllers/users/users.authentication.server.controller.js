@@ -21,6 +21,10 @@ var transporter = nodemailer.createTransport(local.emailProtocol);
 
 // Function to send mail
 var mailHelper = function(f, t, s, m){
+  console.log(f);
+  console.log(t);
+  console.log(s);
+  console.log(m);
   var mailOptions = {
     from: f,
     to: t,
@@ -141,9 +145,15 @@ exports.oauthCallback = function (strategy) {
         if (err) {
           return res.redirect('/authentication/signin');
         }
-
         //return res.redirect(redirectURL || sessionRedirectURL || '/');
-        return res.redirect('/');
+
+        // due to social signup, if they are missing fields, redirect to holds page
+        if (!user.firstName || !user.lastName || !user.email || !user.username || !user.affiliation){
+          res.redirect('/settings/profile');
+        } else {
+          return res.redirect('/');
+        }
+
       });
     })(req, res, next);
   };
@@ -195,7 +205,10 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
             // And save the user
             user.save(function (err) {
               console.log(err);
-              mailHelper(local.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+              if (!err){
+                console.log('no err');
+                mailHelper(local.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+              }
               return done(err, user);
             });
           });
