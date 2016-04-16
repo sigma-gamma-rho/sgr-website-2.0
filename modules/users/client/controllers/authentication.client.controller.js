@@ -33,14 +33,16 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.sendMail = function(){
 
+      // Send emails to superadmin, admin, and guest on signup
       var data = {
         firstName: $scope.credentials.firstName,
         lastName: $scope.credentials.lastName,
+        affiliation: $scope.credentials.affiliation,
         email: $scope.credentials.email
       };
 
-      $http.post('api/auth/processing', data).then(function (res){
-        console.log(res);
+      $http.post('api/auth/sendEmails', data).then(function (res){
+        //console.log(res);
       });
 
     };

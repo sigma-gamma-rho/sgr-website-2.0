@@ -26,7 +26,7 @@ exports.update = function (req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
   user.affiliation = req.body.affiliation;
-  
+
   user.save(function (err) {
     if (err) {
       console.log(err);
@@ -102,7 +102,6 @@ exports.guestcount = function (req, res) {
  * List of Guests
  */
 exports.adminlist = function (req, res) {
-  console.log('hallo!');
   User.find({ roles: 'admin' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({

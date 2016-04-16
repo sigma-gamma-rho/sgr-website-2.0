@@ -4,8 +4,18 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
   function ($scope, $http, $location, Users, Authentication, $interval) {
 
     $scope.user = Authentication.user;
-    if (!user.firstName || !user.lastName || !user.email || !user.affiliation || !user.username){
+    $scope.missing = false;
+    $scope.isAGuest = false;
+
+    // if they are missing information
+    // this only ever can happen on a social singup
+    // or by modifying the database directly
+    if (!$scope.user.firstName || !$scope.user.lastName || !$scope.user.email || !$scope.user.affiliation || !$scope.user.username){
       $scope.missing = true;
+      // if they are also a guest
+      if ($scope.user.roles.indexOf('guest') !== -1){
+        $scope.isAGuest = true;
+      }
     }
 
     // On load, get the list of chapters for which to populate the dropdown
@@ -57,6 +67,19 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
         Authentication.user = response;
         if ($scope.missing){
           $scope.missing = false;
+          // Send email after they fill everything out
+          if ($scope.isAGuest){
+            // Send emails to superadmin, admin, and guest
+            var data = {
+              firstName: $scope.user.firstName,
+              lastName: $scope.user.lastName,
+              affiliation: $scope.user.affiliation,
+              email: $scope.user.email
+            };
+            $http.post('api/auth/sendEmails', data).then(function (res){
+              //console.log(res);
+            });
+          }
         }
 
       }, function (response) {
