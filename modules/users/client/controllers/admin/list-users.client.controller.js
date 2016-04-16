@@ -15,13 +15,12 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     $scope.filterUsers = function (data) {
 
       // Remove the superadmin, if present
-      for (var i = 0; i < data.length; i++ ) {
+      for (var i = 0; i < data.length; i++) {
         if ($scope.isSuperAdmin(data[i].roles)){
           console.log('Removing the superadmin from data');
           data.splice(i, 1);
         }
       }
-
 
       // if the user is a super admin, show all users from all chapters
       if ($scope.isSuperAdmin($scope.authentication.user.roles)){
@@ -30,7 +29,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       } else {
         // only list guests from the admins chapter
         console.log('Only loading guests from the admins chapter, ' + $scope.authentication.user.affiliation);
-        for (var i = 0; i < data.length; i ++){
+        for (i = 0; i < data.length; i ++){
           if (data[i].affiliation === $scope.authentication.user.affiliation) {
             $scope.users.push(data[i]);
           } else {

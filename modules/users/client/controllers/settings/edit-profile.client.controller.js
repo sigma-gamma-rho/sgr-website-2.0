@@ -4,6 +4,9 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
   function ($scope, $http, $location, Users, Authentication, $interval) {
 
     $scope.user = Authentication.user;
+    if (!user.firstName || !user.lastName || !user.email || !user.affiliation || !user.username){
+      $scope.missing = true;
+    }
 
     // On load, get the list of chapters for which to populate the dropdown
     $scope.chapters = [];
@@ -52,6 +55,9 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
         $scope.success = true;
         Authentication.user = response;
+        if ($scope.missing){
+          $scope.missing = false;
+        }
 
       }, function (response) {
         $scope.error = response.data.message;

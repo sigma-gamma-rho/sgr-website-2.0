@@ -48,8 +48,8 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
     };
 
     $scope.promote = function () {
-        $scope.promoteNewSuperAdmin();
-        $scope.demoteCurrentSuperAdmin();
+      $scope.promoteNewSuperAdmin();
+      $scope.demoteCurrentSuperAdmin();
     };
 
     $scope.promoteNewSuperAdmin = function () {
