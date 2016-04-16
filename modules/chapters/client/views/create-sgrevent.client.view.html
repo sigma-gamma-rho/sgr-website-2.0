@@ -1,10 +1,11 @@
-<section class="container" ng-controller="ChaptersController">
+<section class="container" ng-controller="ChaptersController" ng-init="findOneChapter()">
   <div class="page-header">
     <h1>Create New Event</h1>
   </div>
   <!-- Create Event Form -->
   <div class="col-md-12">
     <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
+      <!-- Event Name -->
       <fieldset>
         <div class="form-group" show-errors>
           <label for="title">Event</label>
@@ -13,17 +14,48 @@
             <p class="help-block error-text" ng-message="required">Event title is required.</p>
           </div>
         </div>
-
+      </fieldset>
+     <!-- Event Time --> 
     <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group" show-errors>
-          <label for="time">Time</label>
-          <input name="time" type="text" ng-model="time" id="time" class="form-control" placeholder="Time" required>
+        <div class="row">
+          <!-- Start Time -->
+          <div class="col-sm-6 form-group">
+          <label for="time">Start Time:</label>
+            <timepicker ng-model="sTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+          </div>
+          <!-- End Time -->
+          <div class="col-sm-6 form-group">
+          <label for="time">End Time:</label>
+            <timepicker ng-model="eTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+          </div>
+
           <div ng-messages="eventForm.time.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Event time is required.</p>
           </div>
         </div>
+      </fieldset>
 
+      <!-- Event Date -->
+      <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="date">Date</label>
+          <p class= "input-group">
+            
+            <input name="date" type="text" datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" id="date" class="form-control" placeholder="Date">
+
+            <span class="input-group-btn">
+            
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </p>
+          <div ng-messages="eventForm.date.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Event date is required.</p>
+          </div>
+        </div>      
+      </fieldset>
+    <!-- Event Location -->
     <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
@@ -33,7 +65,7 @@
             <p class="help-block error-text" ng-message="required">Event location is required.</p>
           </div>
         </div>
-
+        <!-- Event Content -->
         <div class="form-group">
           <label for="content">Content</label>
           <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
@@ -45,8 +77,10 @@
           <strong ng-bind="error"></strong>
         </div>
 
-        
-
+        <alert collapse="{{alert.show}}" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+<!--
+        <button type="button" class='btn btn-default' ng-click="addAlert()">Add Alert</button>
+-->
 <!--
         Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
@@ -57,5 +91,4 @@
       </fieldset>
     </form>
   </div>
-  
 </section>

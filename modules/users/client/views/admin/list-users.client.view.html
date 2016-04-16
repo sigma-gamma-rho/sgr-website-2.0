@@ -34,53 +34,54 @@
     <a ng-repeat="user in pagedItems" class="list-group-item">
 
       <!-- If I am a superadmin and they are not an admin, I can promote them -->
-      <button ng-if="isSuperAdmin(authentication.user.roles) && !isAdmin(user.roles)"
-              type="button"
-              class="btn btn-success pull-right"
-              data-toggle="modal"
-              data-target="#myModal"
-              ng-click="setModalInformation('Confirmation', 'Are you sure you want to promote this user to admin privileges?', user, promote)">
-              <span class="glyphicon glyphicon-arrow-up"></span> Promote</button>
-      <!-- If I am a superadmin and they are an admin, I cannot promote them -->
-      <button ng-if="isSuperAdmin(authentication.user.roles) && isAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
-          <span class="glyphicon glyphicon-ban-circle"></span> Promote
-      </button>
-      <!-- If I am a superadmin, I can demote anybody -->
-      <button ng-if="isSuperAdmin(authentication.user.roles)"
-              type="button"
-              class="btn btn-danger pull-right"
-              data-toggle="modal"
-              data-target="#myModal"
-              ng-click="setModalInformation('Confirmation', 'Are you sure you want to demote this user to guest privileges?', user, demote)">
-              <span class="glyphicon glyphicon-arrow-down"></span> Demote</button>
+            <button ng-if="isSuperAdmin(authentication.user.roles) && !isAdmin(user.roles)"
+                    type="button"
+                    class="btn btn-success pull-right"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    ng-click="setModalInformation('Confirmation', 'Are you sure you want to promote this user to admin privileges?', user, promote)">
+                    <span class="glyphicon glyphicon-arrow-up"></span> Promote</button>
+            <!-- If I am a superadmin and they are an admin, I cannot promote them -->
+            <button ng-if="isSuperAdmin(authentication.user.roles) && isAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
+                <span class="glyphicon glyphicon-ban-circle"></span> Promote
+            </button>
+            <!-- If I am a superadmin, I can demote anybody -->
+            <button ng-if="isSuperAdmin(authentication.user.roles)"
+                    type="button"
+                    class="btn btn-danger pull-right"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    ng-click="setModalInformation('Confirmation', 'Are you sure you want to demote this user to guest privileges?', user, demote)">
+                    <span class="glyphicon glyphicon-arrow-down"></span> Demote</button>
 
-      <!-- If I am not a superadmin, I cannot promote anybody -->
-      <button ng-if="!isSuperAdmin(authentication.user.roles)" type="button" class="btn btn-default pull-right" disabled>
-        <span class="glyphicon glyphicon-ban-circle"></span> Promote
-      </button>
+            <!-- If I am not a superadmin, I cannot promote anybody -->
+            <button ng-if="!isSuperAdmin(authentication.user.roles)" type="button" class="btn btn-default pull-right" disabled>
+              <span class="glyphicon glyphicon-ban-circle"></span> Promote
+            </button>
 
-      <!-- If I am not a superadmin, I cannot demote myself -->
-      <button ng-if="!isSuperAdmin(authentication.user.roles) && authentication.user._id === user._id" type="button" class="btn btn-default pull-right" disabled>
-        <span class="glyphicon glyphicon-ban-circle"></span> Demote
-      </button>
+            <!-- If I am not a superadmin, I cannot demote myself -->
+            <button ng-if="!isSuperAdmin(authentication.user.roles) && authentication.user._id === user._id" type="button" class="btn btn-default pull-right" disabled>
+              <span class="glyphicon glyphicon-ban-circle"></span> Demote
+            </button>
 
-      <!-- If I am not a superadmin, I cannot demote other admins -->
-      <button ng-if="!isSuperAdmin(authentication.user.roles) && authentication.user._id !== user._id && isAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
-        <span class="glyphicon glyphicon-ban-circle"></span> Demote
-      </button>
+            <!-- If I am not a superadmin, I cannot demote other admins -->
+            <button ng-if="!isSuperAdmin(authentication.user.roles) && authentication.user._id !== user._id && isAdmin(user.roles)" type="button" class="btn btn-default pull-right" disabled>
+              <span class="glyphicon glyphicon-ban-circle"></span> Demote
+            </button>
 
-      <!-- If I am not a superadmin, I can demote users -->
-      <button ng-if="!isSuperAdmin(authentication.user.roles) && !isAdmin(user.roles)"
-              type="button"
-              class="btn btn-danger pull-right"
-              data-toggle="modal"
-              data-target="#myModal"
-              ng-click="setModalInformation('Confirmation', 'Are you sure you want to demote this user to guest privileges?', user, demote)">
-              <span class="glyphicon glyphicon-arrow-down"></span> Demote</button>
+            <!-- If I am not a superadmin, I can demote users -->
+            <button ng-if="!isSuperAdmin(authentication.user.roles) && !isAdmin(user.roles)"
+                    type="button"
+                    class="btn btn-danger pull-right"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    ng-click="setModalInformation('Confirmation', 'Are you sure you want to demote this user to guest privileges?', user, demote)">
+                    <span class="glyphicon glyphicon-arrow-down"></span> Demote</button>
 
-      <button type="button" class="btn btn-primary pull-right" ng-click="info(user._id);">
-        <span class="glyphicon glyphicon-search"></span> Info
-      </button>
+            <button type="button" class="btn btn-primary pull-right" ng-click="info(user._id);">
+              <span class="glyphicon glyphicon-search"></span> Info
+            </button>
+
 
 
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
