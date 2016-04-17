@@ -26,7 +26,7 @@ angular.module('users.admin').controller('ContentController', ['$scope','Authent
       }
 
       if($scope.rss[$scope.rss.length-1].title && $scope.rss[$scope.rss.length-1].content){
-        $scope.rss.push({title : '', content: ''});
+        $scope.rss.push({ title : '', content: '' });
       } else{
         $scope.rssError= 'Please fill the last item before trying to add more.';
       }
@@ -57,7 +57,7 @@ angular.module('users.admin').controller('ContentController', ['$scope','Authent
 
 
       if($scope.carousel[$scope.carousel.length-1].image && $scope.carousel[$scope.carousel.length-1].text){
-        $scope.carousel.push({image : '', text: ''});
+        $scope.carousel.push({ image : '', text: '' });
       } else{
         $scope.carouselError= 'Please fill the last item before trying to add more.';
       }
@@ -91,7 +91,7 @@ angular.module('users.admin').controller('ContentController', ['$scope','Authent
         id: $scope.schemaId,
         rss: $scope.rss,
         carousel: $scope.carousel
-      }
+      };
 
       $http.put('api/content', data).then(function (res){
         $scope.rssError = null;
@@ -100,6 +100,6 @@ angular.module('users.admin').controller('ContentController', ['$scope','Authent
         $scope.rss = res.data.rss;
         $scope.carousel = res.data.carousel;
       });
-    }
+    };
   }
 ]);
