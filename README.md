@@ -24,8 +24,31 @@ Current Features
 Wanted Features
 - A well designed calandar view, showing all upcoming events
 - News feed for chapters where users can post pictures, comments
-- 
+
 
 ![homepage1] (http://i.imgur.com/pEQKE3H.jpg)
 *picture of homepage with carousel*
 
+![homepage2] (http://i.imgur.com/i4YzcIm.png)
+*picture of bottom portion of homepage*
+
+![approvalpage] (http://i.imgur.com/CK5WFv2.png)
+*picture of guest approval page*
+
+![contenteditingpage] (http://i.imgur.com/v32pGWO.png)
+*page where super admin can edit rss feeds and carousel content*
+
+![regionalchatpage] (http://i.imgur.com/adka15B.png)
+*page for chat and rss feed*
+
+![chapterselectionpage] (http://i.imgur.com/1M5m7Eh.png)
+*page where you can look at a specific chpater*
+
+![createchapterpage] (http://i.imgur.com/yN2DBU3.png)
+*page where you can create a new chapter*
+
+![chapterpage] (http://i.imgur.com/wmmxVNn.png)
+*example of a specific chapter page*
+
+![eventpage] (http://i.imgur.com/FiF36O7.png)
+*page where you can create an event*
