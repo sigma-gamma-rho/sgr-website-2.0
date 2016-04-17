@@ -12,16 +12,20 @@ Essentially, this could be a preliminary trial for a Sorority-wide Social media 
 Current Features
 - [x] homepage with carousal, about text, etc
 	- [x] Super Admin can edit carousel pictures
-- [x]Super Admin can assign and promote admins for seperate chapters
+- [x] Super Admin can assign and promote admins for seperate chapters
 - [x] Admins can then approve potential Users who have tried to sign up to a specific chapter
 - [x] Admins can create events with time, and all users of that chapter can see the events.
 - [x] Admins can manage their own assigned chapter
 - [x] There is live chat for the whole site where users, admins can communicate
 	- [x] There is also an RSS feed on the chat page that the Super Admin can edit and change
-- [x]Emails are sent out to users
+- [x] Emails are sent out to users
 - [x]You can login and sign up with Twitter, Google+, and facebook
-- 
+
 Wanted Features
 - A well designed calandar view, showing all upcoming events
 - News feed for chapters where users can post pictures, comments
+- 
+
+![homepage1] (http://i.imgur.com/pEQKE3H.jpg)
+*picture of homepage with carousel*
 
