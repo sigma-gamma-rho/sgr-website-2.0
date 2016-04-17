@@ -43,13 +43,13 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     $scope.resetImageURL = function () {
       $scope.imageURL = 'modules/chapters/client/img/default.jpeg';
-    }
+    };
     $scope.resetExistingImageURL = function () {
       $scope.chapter.profileImageURL = $scope.revert;
-    }
+    };
     $scope.resetExistingDefault = function () {
       $scope.chapter.profileImageURL = 'modules/chapters/client/img/default.jpeg';
-    }
+    };
 
     $scope.createChapter = function (isValid) {
       $scope.error = null;
@@ -139,7 +139,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     // Find existing Chapter
     $scope.findOneChapter = function () {
-      $scope.chapter = Chapters.get({ chapterId: $stateParams.chapterId}, function () {
+      $scope.chapter = Chapters.get({ chapterId: $stateParams.chapterId }, function () {
         $scope.revert = $scope.chapter.profileImageURL;
         console.log($scope.revert);
       });
