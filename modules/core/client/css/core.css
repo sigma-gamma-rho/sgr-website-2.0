@@ -14,6 +14,19 @@
   color: #998100 !important;
 }
 
+.modal-footer, .modal-header{
+  background-image: -webkit-linear-gradient(top, #002366 0%, #011133 100%) !important;
+  background-image: -o-linear-gradient(top, #002366 0%, #011133 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#002366), to(#011133));
+  background-image: linear-gradient(to bottom, #002366 0%, #011133 100%);
+}
+.modal-title{
+  color: #998100
+}
+.modal-close{
+  color: black !important;
+}
+
 
 .content {
   margin-top: 50px;
@@ -97,4 +110,3 @@ footer li{
   max-height: 450px;
   overflow-y: scroll;
 }
-

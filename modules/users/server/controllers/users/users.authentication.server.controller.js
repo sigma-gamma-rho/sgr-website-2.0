@@ -21,10 +21,6 @@ var transporter = nodemailer.createTransport(local.emailProtocol);
 
 // Function to send mail
 var mailHelper = function(f, t, s, m){
-  console.log(f);
-  console.log(t);
-  console.log(s);
-  console.log(m);
   var mailOptions = {
     from: f,
     to: t,
@@ -36,7 +32,7 @@ var mailHelper = function(f, t, s, m){
     if(err){
       return console.log('Error:' + err);
     }
-    console.log('Message sent: ' + info.response);
+    console.log('Message sent to: ' + info.response);
   });
 };
 
@@ -150,7 +146,10 @@ exports.oauthCallback = function (strategy) {
         // due to social signup, if they are missing fields, redirect to holds page
         if (!user.firstName || !user.lastName || !user.email || !user.username || !user.affiliation){
           res.redirect('/settings/profile');
-        } else {
+        }
+        // else, if the social sign up resolved all profile info successfully
+        // essentially, this will never happen because they need to select an affiliation
+        else {
           return res.redirect('/');
         }
 
@@ -204,11 +203,6 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
             var copy = user;
             // And save the user
             user.save(function (err) {
-              console.log(err);
-              if (!err){
-                console.log('no err');
-                mailHelper(local.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
-              }
               return done(err, user);
             });
           });
@@ -283,7 +277,41 @@ exports.removeOAuthProvider = function (req, res, next) {
   });
 };
 
-exports.sendMail = function(req, res){
-  mailHelper(req.body.email, local.email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
-  res.json({ message: 'Response' });
+exports.sendEmails = function(req, res){
+
+
+  // Send an email to the user that has just signed up
+  console.log('Sending mail to the guest:' + req.body.email);
+  mailHelper(local.email, req.body.email, 'You have successfully signed up', 'Thanks for registering! Please make sure to fill out all of your profile information, if you have not already done so.');
+
+  // Send an email to the admins of the chapter the guest has signed up for
+  User.find({ roles: 'admin', affiliation: req.body.affiliation }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    for (var i = 0; i < users.length; i++){
+      if (users[i].roles.indexOf('superadmin') === -1){
+        console.log('Sending mail to admin of ' + users[i].affiliation + ': ' + users[i].email);
+        mailHelper(local.email, users[i].email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+      }
+    }
+  });
+
+  // Send an email to the superadmin
+  User.find({ roles: 'superadmin' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    for (var i = 0; i < users.length; i++){
+      console.log('Sending mail to superadmin: ' + users[i].email);
+      mailHelper(local.email, users[i].email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+    }
+  });
+
+  res.json({ status: 'OK' });
+
 };

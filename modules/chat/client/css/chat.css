@@ -25,12 +25,14 @@
 .text-area{
   height: inherit;
   overflow-y: scroll;
-  max-height: 320px;
+  padding-top: 20px;
+  max-height: 350px;
 }
 .feed-area{
   height: inherit;
   overflow-y: scroll;
-  max-height: 320px;
+  padding-top: 20px;
+  max-height: 350px;
 }
 
 .news-wrapper{

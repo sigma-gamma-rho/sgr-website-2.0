@@ -1,3 +1,11 @@
+<div ng-controller="ChaptersController" class="home-slider" ng-init="findOneChapter()">
+  <carousel active="active">
+    <slide>
+      <img ng-src="{{chapter.profileImageURL}}" style="margin:auto; width: 100%; height: 300px;">
+    </slide>
+  </carousel>
+</div>
+
 <section class="container" ng-controller="ChaptersController">
   <!-- Chapter -->
   <div class="col-md-6" ng-init="findOneChapter()">
@@ -9,8 +17,8 @@
       President: <p class= "lead" ng-bind="chapter.president"></p>
       President Email: <p class= "lead" ng-bind="chapter.presidentemail"></p>
       Vice President: <p class= "lead" ng-bind="chapter.vice"></p>
-     Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
-      
+      Vice President Email: <p class= "lead" ng-bind="chapter.viceemail"></p>
+
       Location:
       <p class="lead" ng-bind="chapter.location"></p>
     </div>

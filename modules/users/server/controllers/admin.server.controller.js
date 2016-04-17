@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Content = mongoose.model('Content'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -14,6 +15,51 @@ var path = require('path'),
 exports.read = function (req, res) {
   res.json(req.model);
 };
+
+/**
+ * Get site content
+ */
+exports.content = function (req, res) {
+  Content.find().sort('-created').populate('user', 'displayName').exec(function (err, content) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(content);
+    }
+  });
+};
+
+exports.putContent = function (req, res) {
+
+
+  Content.findById(req.body.id, function(err, schema) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+
+      schema.rss = req.body.rss;
+      schema.carousel = req.body.carousel;
+      schema.save(function(err) {
+        if (err) {
+          console.log(err);
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.json(schema);
+        }
+      });
+    }
+  });
+};
+
+
+
 
 /**
  * Update a User
@@ -26,7 +72,7 @@ exports.update = function (req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
   user.affiliation = req.body.affiliation;
-  
+
   user.save(function (err) {
     if (err) {
       console.log(err);
@@ -102,7 +148,6 @@ exports.guestcount = function (req, res) {
  * List of Guests
  */
 exports.adminlist = function (req, res) {
-  console.log('hallo!');
   User.find({ roles: 'admin' }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({

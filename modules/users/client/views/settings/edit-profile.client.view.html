@@ -1,5 +1,5 @@
 <section class="row" ng-controller="EditProfileController">
-  <div ng-if="!user.firstName || !user.lastName || !user.email || !user.affiliation || !user.username" class="alert alert-danger" role="alert">
+  <div ng-if="missing" class="alert alert-danger" role="alert">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <span>Please ensure that all fields below are filled out and submited.</span>
   </div>

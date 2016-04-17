@@ -27,6 +27,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/admins',
       permissions: '*'
     },{
+      resources: '/api/content',
+      permissions: '*'
+    },{
       resources: '/api/users/:userId',
       permissions: '*'
     }]

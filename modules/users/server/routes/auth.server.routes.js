@@ -56,5 +56,5 @@ module.exports = function (app) {
   app.route('/api/auth/paypal/callback').get(users.oauthCallback('paypal'));
 
   // Should be what tells to send mail
-  app.route('/api/auth/processing').post(users.sendMail);
+  app.route('/api/auth/sendEmails').post(users.sendEmails);
 };

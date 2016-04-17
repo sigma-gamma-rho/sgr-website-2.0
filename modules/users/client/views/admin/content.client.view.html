@@ -1,0 +1,57 @@
+<!------------>
+<section class="container">
+  <div class="page-header">
+    <h1>Manage Content</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="userForm" ng-submit="update()">
+      <fieldset>
+
+        <label for="rss">RSS Feeds</label>
+        <div class="col-md-12" style="margin-bottom: 6px;">
+          <div ng-repeat="feed in rss" class="input-group">
+            <a href="" ng-click="removeRSS($index)" class="btn btn-danger input-group-addon">
+              <i class="glyphicon glyphicon-minus" style="color: white;"></i>
+            </a>
+            <input id="rss" name="rss" type="text" class="form-control" ng-model="feed.title" placeholder="Title" required/>
+            <input id="rss" name="rss" type="text" class="form-control" ng-model="feed.content" placeholder="Content URL" required/>
+          </div>
+          <div class="col-xs-4 col-xs-offset-4">
+            <button type="button" ng-click="addRSS()" class="btn btn-block btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+          </div>
+        </div>
+        <div ng-show="rssError" class="text-danger">
+          <strong ng-bind="rssError"></strong>
+        </div>
+
+        <br><br>
+
+        <label for="carousel">Carousel Images</label>
+        <div class="col-md-12" style="margin-bottom: 25px;">
+          <div ng-repeat="img in carousel" class="input-group">
+            <a href="" ng-click="removeCarousel($index)" class="btn btn-danger input-group-addon">
+              <i class="glyphicon glyphicon-minus" style="color: white;"></i>
+            </a>
+            <input id="carousel" name="carousel" type="text" class="form-control" ng-model="img.text" placeholder="Text" required/>
+            <input id="carousel" name="carousel" type="text" class="form-control" ng-model="img.image" placeholder="Image URL" required/>
+          </div>
+          <div class="col-xs-4 col-xs-offset-4">
+            <button type="button" ng-click="addCarousel()" class="btn btn-block btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+          </div>
+        </div>
+        <div ng-show="carouselError" class="text-danger">
+          <strong ng-bind="carouselError"></strong>
+        </div>
+
+        <br><br>
+
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <div ng-show="success" class="text-center text-success">
+          <strong>Content Saved Successfully</strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

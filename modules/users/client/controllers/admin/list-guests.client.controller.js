@@ -96,7 +96,7 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
         $scope.users.splice($scope.users.indexOf($scope.user), 1);
         $scope.buildPager();
         Notifications.update();
-    });
-  }
-}
+      });
+    };
+  } 
 ]);

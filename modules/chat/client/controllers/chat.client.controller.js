@@ -7,7 +7,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
     $scope.messages = [];
 
     /* RSS Feed Links - Needs to go to DB schema */
-    $scope.RSSfeeds = [
+    /*$scope.RSSfeeds = [
       { title:'Top Stories', content:'http://rss.cnn.com/rss/cnn_topstories.rss' },
       { title:'World', content:'http://rss.cnn.com/rss/cnn_world.rss' },
       { title:'US', content:'http://rss.cnn.com/rss/cnn_us.rss' },
@@ -18,7 +18,22 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
       { title:'Entertainment', content:'http://rss.cnn.com/rss/cnn_showbiz.rss' },
       { title:'Travel', content:'http://rss.cnn.com/rss/cnn_travel.rss' },
       { title:'Living', content:'http://rss.cnn.com/rss/cnn_living.rss' },
-    ];
+    ];*/
+
+    // initialize view
+    $scope.init = function (){
+      $http.get('api/content').success(function (response) {
+        $scope.RSSfeeds = response[0].rss;
+        $scope.loadFeed($scope.RSSfeeds[0].content, null, 'Select Feed');
+      }).error(function (response) {
+        // If error on chapter fetch, do not allow signup until resolved
+        $location.path('/server-error');
+      });
+    };
+    $scope.init();
+
+
+
 
     $scope.feedDefault='Select Feed';
     $scope.loadFeed=function(feed, e, custom){
@@ -47,7 +62,6 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
         }
       });
     };
-    $scope.loadFeed($scope.RSSfeeds[0].content, null, 'Select Feed');
 
 
 

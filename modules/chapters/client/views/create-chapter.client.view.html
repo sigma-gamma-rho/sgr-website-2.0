@@ -5,8 +5,29 @@
   <div class="col-md-12">
     <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
+
+
+        <div class="form-group text-center">
+          <img ng-src="{{imageURL}}" class="img-thumbnail user-profile-picture">
+          <div class="text-center form-group">
+            <button type="button" class="btn btn-primary" ng-click="resetImageURL()">Default</button>
+          </div>
+        </div>
+
+
+
+
         <div class="form-group" show-errors>
-          <label for="title">Chapter</label>
+          <label for="picture">Profile Picture URL (Optional)</label>
+          <input name="picture" type="text" ng-model="imageURL" id="picture" class="form-control" placeholder="Enter a picture URL" required>
+          <div ng-messages="articleForm.picture.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Profile Picture URL is required.</p>
+          </div>
+        </div>
+
+
+        <div class="form-group" show-errors>
+          <label for="title">Chapter Name</label>
           <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
           <div ng-messages="articleForm.title.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter title is required.</p>
@@ -23,9 +44,10 @@
 
         <div class="form-group" show-errors>
           <label for="presidentemail">Chapter President Email</label>
-          <input name="presidentemail" type="text" ng-model="presidentemail" id="presidentemail" class="form-control" placeholder="President Email" required>
+          <input name="presidentemail" type="email" ng-model="presidentemail" id="presidentemail" class="form-control" placeholder="President Email" required>
           <div ng-messages="chapterForm.presidentemail.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter President Email is required.</p>
+            <p class="help-block error-text" ng-message="email">Chapter President Email is invalid.</p>
           </div>
         </div>
 
@@ -39,16 +61,17 @@
 
         <div class="form-group" show-errors>
           <label for="viceemail">Chapter Vice-President Email</label>
-          <input name="viceemail" type="text" ng-model="viceemail" id="viceemail" class="form-control" placeholder="Vice-President Email" required>
+          <input name="viceemail" type="email" ng-model="viceemail" id="viceemail" class="form-control" placeholder="Vice-President Email" required>
           <div ng-messages="chapterForm.viceemail.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Chapter Vice-President Email is required.</p>
+            <p class="help-block error-text" ng-message="email">Chapter Vice-President Email is invalid.</p>
           </div>
         </div>
 <!--
         Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
         <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
--->        
+-->
         <div class="form-group" show-errors>
           <label for="location">Location</label>
           <input name="location" type="text" ng-model="location" id="location" class="form-control" placeholder="Location" required>

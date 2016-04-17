@@ -26,6 +26,10 @@ var ChapterSchema = new Schema({
     trim: true,
     required: 'President cannot be blank'
   },
+  profileImageURL: {
+    type: String,
+    default: 'modules/chapters/client/img/default.jpeg'
+  },
   presidentemail: {
     type: String,
     default: '',
@@ -50,8 +54,6 @@ var ChapterSchema = new Schema({
     trim: true,
     required: 'Location cannot be blank'
   },
-
-  
   content: {
     type: String,
     default: '',

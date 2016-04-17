@@ -1,14 +1,27 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication',
-  function ($scope, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication','$http','$location',
+  function ($scope, Authentication, $http, $location) {
 
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
+    // initialize view
+    $scope.init = function (){
+      $http.get('api/content').success(function (response) {
+        $scope.schemaId = response[0]._id;
+        $scope.carousel = response[0].carousel;
+      }).error(function (response) {
+        // If error on chapter fetch, do not allow signup until resolved
+        $location.path('/server-error');
+      });
+    };
+    $scope.init();
+
     // Set up carousel
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
+    /*
     $scope.active = 0;
     var slides = $scope.slides = [];
     var currIndex = 0;
@@ -60,6 +73,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       }
 
       return array;
-    }
+    }*/
   }
 ]);
