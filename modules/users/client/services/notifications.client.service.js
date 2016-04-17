@@ -17,7 +17,7 @@ angular.module('users').service('Notifications', ['Menus', 'Authentication', 'Ad
         var count = self.getEligibleUsersCount(data);
         self.countChange(count);
       }, function(error){
-        console.log(error);
+        //console.log(error);
       });
     };
 

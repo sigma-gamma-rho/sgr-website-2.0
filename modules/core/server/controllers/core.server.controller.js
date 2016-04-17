@@ -46,7 +46,7 @@ exports.renderNotFound = function (req, res) {
 exports.sendMail = function(req,res){
 
   var data = req.body;
-  console.log('uhh I shoul probably not be here.');
+  //console.log('uhh I shoul probably not be here.');
   transporter.sendMail({
     from: data.email,
     to: 'DNAndyB@gmail.com',

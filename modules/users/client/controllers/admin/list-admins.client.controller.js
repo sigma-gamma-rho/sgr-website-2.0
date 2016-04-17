@@ -56,7 +56,7 @@ angular.module('users.admin').controller('UserAdminController', ['$scope', '$fil
       $scope.entry = Admin.get({ userId: $scope.user._id }, function() {
         $scope.entry.roles.push('superadmin');
         $scope.entry.$update(function(res) {
-          console.log(res);
+          //console.log(res);
         });
       });
     };

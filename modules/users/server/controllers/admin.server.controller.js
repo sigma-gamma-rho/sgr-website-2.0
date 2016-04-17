@@ -36,7 +36,7 @@ exports.putContent = function (req, res) {
 
   Content.findById(req.body.id, function(err, schema) {
     if (err) {
-      console.log(err);
+      //console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -46,7 +46,7 @@ exports.putContent = function (req, res) {
       schema.carousel = req.body.carousel;
       schema.save(function(err) {
         if (err) {
-          console.log(err);
+          //console.log(err);
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
@@ -75,7 +75,7 @@ exports.update = function (req, res) {
 
   user.save(function (err) {
     if (err) {
-      console.log(err);
+      //console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

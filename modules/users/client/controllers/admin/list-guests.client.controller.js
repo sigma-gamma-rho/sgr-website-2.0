@@ -14,20 +14,20 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
     $scope.filterUsers = function (data) {
       // if the user is a super admin, show all
       if ($scope.isSuperAdmin($scope.authentication.user.roles)){
-        console.log('You are a superadmin. Showing all guests.');
+        //console.log('You are a superadmin. Showing all guests.');
         $scope.users = data;
       } else{
         // only list guests that have all their fields filled out
-        console.log('Only loading guests from the admins chapter, ' + $scope.authentication.user.affiliation);
+        //console.log('Only loading guests from the admins chapter, ' + $scope.authentication.user.affiliation);
         for (var i = 0; i < data.length; i ++){
           if (data[i].firstName && data[i].lastName && data[i].email && data[i].affiliation && data[i].username){
             if (data[i].affiliation === $scope.authentication.user.affiliation) {
               $scope.users.push(data[i]);
             } else {
-              console.log('Did not load ' + data[i].username + ' because they are affiliated with ' + data[i].affiliation);
+              //console.log('Did not load ' + data[i].username + ' because they are affiliated with ' + data[i].affiliation);
             }
           } else{
-            console.log('Did not load ' + data[i].username + ' because they are missing information.');
+            //console.log('Did not load ' + data[i].username + ' because they are missing information.');
           }
         }
       }
@@ -98,5 +98,5 @@ angular.module('users.admin').controller('UserGuestController', ['$scope', '$fil
         Notifications.update();
       });
     };
-  } 
+  }
 ]);

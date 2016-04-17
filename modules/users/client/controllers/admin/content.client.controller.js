@@ -19,7 +19,7 @@ angular.module('users.admin').controller('ContentController', ['$scope','Authent
 
     // only add if last position is not null
     $scope.addRSS = function() {
-      console.log($scope.rss[$scope.rss.length-1]);
+      //console.log($scope.rss[$scope.rss.length-1]);
 
       if($scope.rssError){
         $scope.rssError = null;
@@ -53,7 +53,7 @@ angular.module('users.admin').controller('ContentController', ['$scope','Authent
         $scope.carouselError = null;
       }
 
-      console.log($scope.carousel[$scope.carousel.length-1]);
+      //console.log($scope.carousel[$scope.carousel.length-1]);
 
 
       if($scope.carousel[$scope.carousel.length-1].image && $scope.carousel[$scope.carousel.length-1].text){
