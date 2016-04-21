@@ -12,7 +12,7 @@
     Date:
     <p class="lead" ng-bind="sgrEvent.date  | date:'fullDate'"></p>
     Location:
-  <div class="pull-right" ng-show="authentication.user._id == sgrEvent.user._id && chapter.title == authentication.user.affiliation  && (authentication.user.roles == 'admin' || authentication.user.roles == 'superadmin')">
+  <div class="pull-right" ng-show="(((authentication.user.roles == 'user,admin' || authentication.user.roles == 'admin' || authentication.user.roles == 'guest,admin' )  && chapter.title == authentication.user.affiliation) || authentication.user.roles == 'admin,superadmin')">
     <a class="btn btn-primary" ui-sref="edit-sgr-event({sgrEventId: sgrEvent._id})" tooltip="Edit Event">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
