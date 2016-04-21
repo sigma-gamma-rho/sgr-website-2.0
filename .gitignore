@@ -18,6 +18,7 @@ coverage/
 # MEAN.js app and assets
 # ======================
 *.pem
+config/env/local.js
 
 # Ignoring MEAN.JS's gh-pages branch for documenation
 _site/
