@@ -1,7 +1,7 @@
 [![Sigma Gamma Rho Logo](https://celectcdn.s3.amazonaws.com/images/0029/3466/SGRho-Official_Color_ShieldUPDATED_1_.png)](http://www.sgrho1922.org/home)
 
 
-<div style="text-align:center"><img src ="http://dotcms.usca.edu/student-involvement/greek-life/images/SGRho-Official_Color_ShieldUPDATED_1_.png" /></div>
+<p align="center"><img src ="http://dotcms.usca.edu/student-involvement/greek-life/images/SGRho-Official_Color_ShieldUPDATED_1_.png" /></p>
 
 # https://sgr-ne-web-app.herokuapp.com/ 
 Project Description
