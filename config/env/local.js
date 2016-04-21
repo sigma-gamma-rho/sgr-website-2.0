@@ -12,7 +12,7 @@ module.exports = {
 
   db: {
 
-    uri: ,
+    uri: 'mongodb://jeff:cen3031@ds059125.mongolab.com:59125/sisters',
 
     options: {
 

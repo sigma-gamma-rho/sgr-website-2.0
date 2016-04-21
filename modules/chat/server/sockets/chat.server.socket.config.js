@@ -35,6 +35,7 @@ module.exports = function (io, socket) {
     io.emit('chatMessage', message);
   });
 
+  // Loads old message from MongoLab
   var query = Chat.find({});
   query.sort('created').exec(function(err, docs){
     if(err) throw err;

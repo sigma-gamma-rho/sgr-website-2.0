@@ -3,7 +3,7 @@
 // Setting up route
 angular.module('chapters').config(['$stateProvider',
   function ($stateProvider) {
-    // chapters state routing
+    // chapters/event state routing
     $stateProvider
       .state('edit-sgr-event', {
         url: '/edit-sgrevent/:sgrEventId',
