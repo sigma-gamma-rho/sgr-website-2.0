@@ -54,9 +54,10 @@ Wanted Features
 *page where you can create an event*
 
 **credits**
-[bootstrap](http://getbootstrap.com/javascript/)
-[angular](https://angularjs.org/)
 [mean.js](http://meanjs.org/)
+[angular](https://angularjs.org/)
+[bootstrap](http://getbootstrap.com/javascript/)
+[UI Bootstrap](https://angular-ui.github.io/bootstrap/)
 
 In order to run the project locally download the files to your local repository then run "npm install"
 To then run the site, enter command "grunt"
