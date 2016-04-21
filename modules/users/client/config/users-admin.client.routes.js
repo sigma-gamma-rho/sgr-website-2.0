@@ -17,7 +17,18 @@ angular.module('users.admin.routes').config(['$stateProvider',
       .state('admin.admins', {
         url: '/admins',
         templateUrl: 'modules/users/client/views/admin/list-admins.client.view.html',
-        controller: 'UserAdminController'
+        controller: 'UserAdminController',
+        resolve: {
+          resolved: ['Authentication', '$q', '$window', function (Authentication, $q, $window) {
+            var d = $q.defer();
+            if (Authentication.user.roles.indexOf('superadmin') !== -1) {
+              d.resolve(Authentication.user);
+            } else {
+              d.reject('Not a superadmin');
+            }
+            return d.promise;
+          }]
+        }
       })
       .state('admin.content', {
         url: '/content',

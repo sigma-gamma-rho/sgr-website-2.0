@@ -39,7 +39,7 @@ module.exports.start = function start(callback) {
 
     // Start the app by listening on <port>
     app.listen(config.port, function () {
-
+      console.log(config);
       // Logging initialization
       console.log('--');
       console.log(chalk.green(config.app.title));

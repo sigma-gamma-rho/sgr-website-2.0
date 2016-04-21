@@ -7,8 +7,8 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  local = require(path.resolve('./config/env/local.js')),
-  User = mongoose.model('User');
+  User = mongoose.model('User'),
+  config = require(path.resolve('./config/config.js'));
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -17,7 +17,7 @@ var noReturnUrls = [
 ];
 
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport(local.emailProtocol);
+var transporter = nodemailer.createTransport(config.mailer.options.service);
 
 // Function to send mail
 var mailHelper = function(f, t, s, m){
@@ -282,7 +282,7 @@ exports.sendEmails = function(req, res){
 
   // Send an email to the user that has just signed up
   console.log('Sending mail to the guest:' + req.body.email);
-  mailHelper(local.email, req.body.email, 'You have successfully signed up', 'Thanks for registering! Please make sure to fill out all of your profile information, if you have not already done so.');
+  mailHelper(config.mailer.from, req.body.email, 'You have successfully signed up', 'Thanks for registering! Please make sure to fill out all of your profile information, if you have not already done so.');
 
   // Send an email to the admins of the chapter the guest has signed up for
   User.find({ roles: 'admin', affiliation: req.body.affiliation }, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
@@ -294,7 +294,7 @@ exports.sendEmails = function(req, res){
     for (var i = 0; i < users.length; i++){
       if (users[i].roles.indexOf('superadmin') === -1){
         console.log('Sending mail to admin of ' + users[i].affiliation + ': ' + users[i].email);
-        mailHelper(local.email, users[i].email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+        mailHelper(config.mailer.from, users[i].email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
       }
     }
   });
@@ -308,7 +308,7 @@ exports.sendEmails = function(req, res){
     }
     for (var i = 0; i < users.length; i++){
       console.log('Sending mail to superadmin: ' + users[i].email);
-      mailHelper(local.email, users[i].email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
+      mailHelper(config.mailer.from, users[i].email, 'A new user wants to sign up', 'A new user has signed up. Please check the admin guest list to review this user.');
     }
   });
 
