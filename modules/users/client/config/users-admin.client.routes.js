@@ -21,7 +21,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
         resolve: {
           resolved: ['Authentication', '$q', '$window', function (Authentication, $q, $window) {
             var d = $q.defer();
-            if (Authentication.user.roles.indexOf('superadmin') !== -1 ) {
+            if (Authentication.user.roles.indexOf('superadmin') !== -1) {
               d.resolve(Authentication.user);
             } else {
               d.reject('Not a superadmin');

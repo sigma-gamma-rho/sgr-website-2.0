@@ -11,6 +11,6 @@ angular.module('core.admin').run(['Menus', '$rootScope','$window', '$location', 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
       // catch error
       $state.go('forbidden');
-   });
+    });
   }
 ]);
