@@ -1,29 +1,18 @@
 'use strict';
-
 // Rename this file to local.js for having a local configuration variables that
-
 // will not get commited and pushed to remote repositories.
-
 // Use it for your API keys, passwords, etc.
-
 /* For example:*/
-
 module.exports = {
-
   db: {
-
-    uri: ,
-
+    uri: 'mongodb://jeff:cen3031@ds059125.mongolab.com:59125/sisters',
     options: {
-
       user: '',
-
       pass: ''
-
     }
-
   },
-
+  emailProtocol: 'smtps://sororityappemail@gmail.com:ThisPassword@smtp.gmail.com',
+  email:'sororityappemail@gmail.com',
   sessionSecret: process.env.SESSION_SECRET || 'youshouldchangethistosomethingsecret',
   facebook: {
     clientID: process.env.FACEBOOK_ID || '368173530019812',
@@ -40,5 +29,4 @@ module.exports = {
     clientSecret: process.env.GOOGLE_SECRET || 'alEW40Y6ZLcrNG7f82QkBDs1',
     callbackURL: '/api/auth/google/callback'
   }
-
 };
