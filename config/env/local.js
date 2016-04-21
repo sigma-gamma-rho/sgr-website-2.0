@@ -12,7 +12,7 @@ module.exports = {
 
   db: {
 
-    uri: MONGOLAB_URI,
+    uri: ,
 
     options: {
 
