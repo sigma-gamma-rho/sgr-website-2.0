@@ -58,6 +58,7 @@ Wanted Features
 [angular](https://angularjs.org/)
 [bootstrap](http://getbootstrap.com/javascript/)
 [UI Bootstrap](https://angular-ui.github.io/bootstrap/)
+[Angular Feeds](http://siddii.github.io/angular-feeds/app/)
 
 In order to run the project locally download the files to your local repository then run "npm install"
 To then run the site, enter command "grunt"
