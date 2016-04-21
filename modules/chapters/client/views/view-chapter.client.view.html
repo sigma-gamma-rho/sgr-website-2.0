@@ -25,8 +25,8 @@
       Description:
     <p class="lead" ng-bind="chapter.content"></p>
 
-
-    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
+    <!-- Allows only Admin to edit Chapter and events -->
+    <div class="pull-right" ng-show="(((authentication.user.roles == 'user,admin' || authentication.user.roles == 'admin' || authentication.user.roles == 'guest,admin' )  && chapter.title == authentication.user.affiliation) || authentication.user.roles == 'admin,superadmin')">
       <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})" tooltip="Edit Chapter Info">
         <i class="glyphicon glyphicon-edit"></i>
       </a>
@@ -55,7 +55,7 @@
     <div class="alert alert-warning text-center" ng-if="!sgrEvents.length">
       No events yet, why don't you <a ui-sref="create-event({chapterId: chapter._id})">create one</a>?
     </div>
-    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id" ng-if="sgrEvents.length">
+    <div class="pull-right" ng-show="(((authentication.user.roles == 'user,admin' || authentication.user.roles == 'admin' || authentication.user.roles == 'guest,admin' )  && chapter.title == authentication.user.affiliation) || authentication.user.roles == 'admin,superadmin')" ng-if="sgrEvents.length">
       <a class="btn btn-primary" ui-sref="create-event({chapterId: chapter._id})" tooltip="Create New Event">
         <i class="glyphicon glyphicon-pencil"></i>
       </a>

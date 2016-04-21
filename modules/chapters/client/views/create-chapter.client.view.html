@@ -5,17 +5,13 @@
   <div class="col-md-12">
     <form name="chapterForm" class="form-horizontal" ng-submit="createChapter(chapterForm.$valid)" novalidate>
       <fieldset>
-
-
+        <!-- Chapter Image -->
         <div class="form-group text-center">
           <img ng-src="{{imageURL}}" class="img-thumbnail user-profile-picture">
           <div class="text-center form-group">
             <button type="button" class="btn btn-primary" ng-click="resetImageURL()">Default</button>
           </div>
         </div>
-
-
-
 
         <div class="form-group" show-errors>
           <label for="picture">Profile Picture URL (Optional)</label>
@@ -24,8 +20,7 @@
             <p class="help-block error-text" ng-message="required">Profile Picture URL is required.</p>
           </div>
         </div>
-
-
+        <!-- Chapter Name -->
         <div class="form-group" show-errors>
           <label for="title">Chapter Name</label>
           <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
@@ -33,7 +28,7 @@
             <p class="help-block error-text" ng-message="required">Chapter title is required.</p>
           </div>
         </div>
-
+        <!-- Chapter President -->
         <div class="form-group" show-errors>
           <label for="president">Chapter President</label>
           <input name="president" type="text" ng-model="president" id="president" class="form-control" placeholder="President" required>
@@ -41,7 +36,7 @@
             <p class="help-block error-text" ng-message="required">Chapter President is required.</p>
           </div>
         </div>
-
+        <!-- Chapter President -->
         <div class="form-group" show-errors>
           <label for="presidentemail">Chapter President Email</label>
           <input name="presidentemail" type="email" ng-model="presidentemail" id="presidentemail" class="form-control" placeholder="President Email" required>
@@ -50,7 +45,7 @@
             <p class="help-block error-text" ng-message="email">Chapter President Email is invalid.</p>
           </div>
         </div>
-
+        <!-- Chapter Vice President -->
         <div class="form-group" show-errors>
           <label for="vice">Chapter Vice-President</label>
           <input name="vice" type="text" ng-model="vice" id="vice" class="form-control" placeholder="Vice" required>
@@ -58,7 +53,7 @@
             <p class="help-block error-text" ng-message="required">Chapter Vice-President is required.</p>
           </div>
         </div>
-
+        <!-- Chapter Vice-President -->
         <div class="form-group" show-errors>
           <label for="viceemail">Chapter Vice-President Email</label>
           <input name="viceemail" type="email" ng-model="viceemail" id="viceemail" class="form-control" placeholder="Vice-President Email" required>
@@ -72,6 +67,7 @@
         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
         <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
 -->
+        <!-- Chapter Location -->
         <div class="form-group" show-errors>
           <label for="location">Location</label>
           <input name="location" type="text" ng-model="location" id="location" class="form-control" placeholder="Location" required>
@@ -79,7 +75,7 @@
             <p class="help-block error-text" ng-message="required">Chapter location is required.</p>
           </div>
         </div>
-
+        <!-- Chapter Content -->
         <div class="form-group">
           <label for="content">Content</label>
           <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>

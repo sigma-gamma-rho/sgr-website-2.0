@@ -1,6 +1,6 @@
 'use strict';
 
-// Articles controller
+// Chapter controller
 angular.module('chapters').controller('ChaptersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Chapters', 'SgrEvents', '$filter',
   function ($scope, $stateParams, $location, Authentication, Chapters, SgrEvents, $filter) {
     $scope.authentication = Authentication;
@@ -126,13 +126,11 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     };
 
 
-    // Find a list of Articles
+    // Find a list of Chapters
     $scope.findChapter = function () {
 
       Chapters.query(function (data) {
         $scope.chapters = data;
-        console.log('chapters');
-        console.log($scope.chapters);
         $scope.buildPager();
       });
     };
@@ -141,7 +139,6 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
     $scope.findOneChapter = function () {
       $scope.chapter = Chapters.get({ chapterId: $stateParams.chapterId }, function () {
         $scope.revert = $scope.chapter.profileImageURL;
-        console.log($scope.revert);
       });
     };
 
@@ -282,11 +279,7 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
         return false;
       }
-      /*
-      if(sTime- eTime < 0){
-        $scope.alerts.push({ type: 'warning', msg: 'Length in time is incorrect.' });
-      }
-      */
+
       // Create new Article object
       var sgrEvent = new SgrEvents({
         title: this.title,
@@ -332,6 +325,8 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
 
     // Update existing Events
     $scope.updateEvent = function (isValid) {
+      console.log($scope.sgrEvent.date);
+      $scope.sgrEvent.date = ($scope.sgrEvent.date).toString();
       $scope.error = null;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'sgrEventForm');
@@ -339,9 +334,6 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
         return false;
       }
       var sgrEvent = $scope.sgrEvent;
-      console.log(sgrEvent.chapterId);
-      console.log(sgrEvent._id);
-      //chapters/
       sgrEvent.$update(function () {
         $location.path('chapters/' + sgrEvent.chapterId);
       }, function (errorResponse) {
@@ -360,7 +352,6 @@ angular.module('chapters').controller('ChaptersController', ['$scope', '$statePa
         }
       });
     };
-
 
     // Find existing Event
     $scope.findOneEvent = function () {

@@ -21,7 +21,7 @@ angular.module('chapters').run(['Menus',
     Menus.addSubMenuItem('topbar', 'chapters', {
       title: 'Create Chapter',
       state: 'chapters.create',
-      roles: ['user', 'admin']
+      roles: ['admin']
     });
   }
 ]);
