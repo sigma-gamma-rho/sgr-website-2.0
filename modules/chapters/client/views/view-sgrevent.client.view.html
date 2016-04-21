@@ -1,20 +1,18 @@
-<section class="container" ng-controller="ChaptersController" ng-init="findOneEvent()">
+<section class="container" ng-controller="ChaptersController" ng-init="findOneEvent(); findOneChapter()">
   <div class="page-header">
     <h1 ng-bind="sgrEvent.title"></h1>
   </div>
   <div col="row">
-      Start Time:
-      <p class="lead" ng-bind="sgrEvent.startTime | date:'shortTime'"></p>
-      End Time:
-      <p class="lead" ng-bind="sgrEvent.endTime | date:'shortTime'"></p>
+    Start Time:
+    <p class="lead" ng-bind="sgrEvent.startTime | date:'shortTime'"></p>
+    End Time:
+    <p class="lead" ng-bind="sgrEvent.endTime | date:'shortTime'"></p>
   </div>
 
     Date:
     <p class="lead" ng-bind="sgrEvent.date  | date:'fullDate'"></p>
-
     Location:
-    <p class="lead" ng-bind="sgrEvent.location"></p>
-  <div class="pull-right" ng-show="authentication.user._id == sgrEvent.user._id">
+  <div class="pull-right" ng-show="authentication.user._id == sgrEvent.user._id && chapter.title == authentication.user.affiliation  && (authentication.user.roles == 'admin' || authentication.user.roles == 'superadmin')">
     <a class="btn btn-primary" ui-sref="edit-sgr-event({sgrEventId: sgrEvent._id})" tooltip="Edit Event">
       <i class="glyphicon glyphicon-edit"></i>
     </a>

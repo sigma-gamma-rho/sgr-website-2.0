@@ -14,8 +14,6 @@
           </div>
         </div>
 
-    <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
-      <fieldset>
         <div class="form-group" show-errors>
           <label for="time">Time</label>
           <input name="time" type="text" ng-model="time" id="time" class="form-control" placeholder="Time" required>
@@ -24,8 +22,6 @@
           </div>
         </div>
 
-    <form name="eventForm" class="form-horizontal" ng-submit="createEvent(eventForm.$valid)" novalidate>
-      <fieldset>
         <div class="form-group" show-errors>
           <label for="location">Location</label>
           <input name="location" type="text" ng-model="location" id="location" class="form-control" placeholder="Location" required>
@@ -45,17 +41,13 @@
           <strong ng-bind="error"></strong>
         </div>
 
-        
-
 <!--
         Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
         <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
-
 -->
         
       </fieldset>
     </form>
   </div>
-  
 </section>

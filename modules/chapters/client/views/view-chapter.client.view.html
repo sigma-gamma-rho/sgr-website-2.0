@@ -24,9 +24,14 @@
     </div>
       Description:
     <p class="lead" ng-bind="chapter.content"></p>
+    <p>{{authentication.user._id == chapter.user._id}}1</p>
+    <p>{{chapter.title == authentication.user.affiliation}}2</p>
+    <p>{{authentication.user.roles == 'admin'}}</p>
+    <p>{{authentication.user.roles == 'superadmin'}}</p>
+    <p>{{authentication.user.roles}}</p>
 
-
-    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id">
+    <!-- Allows only Admin to edit Chapter and events -->
+    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id && chapter.title == authentication.user.affiliation && (authentication.user.roles == 'admin' || authentication.user.roles == 'superadmin')">
       <a class="btn btn-primary" ui-sref="chapters.edit({chapterId: chapter._id})" tooltip="Edit Chapter Info">
         <i class="glyphicon glyphicon-edit"></i>
       </a>
@@ -55,7 +60,7 @@
     <div class="alert alert-warning text-center" ng-if="!sgrEvents.length">
       No events yet, why don't you <a ui-sref="create-event({chapterId: chapter._id})">create one</a>?
     </div>
-    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id" ng-if="sgrEvents.length">
+    <div class="pull-right" ng-show="authentication.user._id == chapter.user._id && chapter.title == authentication.user.affiliation && (authentication.user.roles == 'admin' || authentication.user.roles == 'superadmin')" ng-if="sgrEvents.length">
       <a class="btn btn-primary" ui-sref="create-event({chapterId: chapter._id})" tooltip="Create New Event">
         <i class="glyphicon glyphicon-pencil"></i>
       </a>
