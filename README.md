@@ -64,4 +64,4 @@ Wanted Features
 In order to run the project locally download the files to your local repository then run "npm install"
 To then run the site, enter command "grunt"
 
-The actual database for the website is exclusively for the sorority. You will have to create your own data base and add in proper credentials for mongoDB in a local.js file. Though do to a glitch, you will not be able to create new users until you manually add a Chapter to the database. Afterwards you would need to upgrade the Guest to a super admin by manually editing the database in order to get full site functionality.
+The actual database for the website is exclusively for the sorority. You will have to create your own data base and add in proper credentials for mongoDB in a local.js file. 
