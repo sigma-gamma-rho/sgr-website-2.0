@@ -8,7 +8,7 @@ module.exports = {
   },
   port: process.env.PORT || 8443,
   db: {
-    uri: 'mongodb://jeff:cen3031@ds059125.mongolab.com:59125/sisters',
+    uri: MONGOLAB_URI,
     options: {
       user: '',
       pass: ''
