@@ -7,11 +7,20 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Chat Schema
+ * Content Schema
  */
 var ContentSchema = new Schema({
-  rss: [{ title: String, content: String }],
-  carousel: [{ id: Number, image: String, text: String }],
+  rss: [
+    { title: String,
+      content: String
+    }
+  ],
+  carousel: [
+    { id: Number,
+      image: String,
+      text: String
+    }
+  ],
   history: {
     type: String,
     required: 'History is required'

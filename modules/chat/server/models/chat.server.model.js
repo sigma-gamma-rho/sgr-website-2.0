@@ -10,10 +10,13 @@ var mongoose = require('mongoose'),
  * Chat Schema
  */
 var ChatSchema = new Schema({
-  	
+
   name: String,
   msg: String,
-  created: { type: Date, default: Date.now },
+  created: {
+    type: Date,
+    default: Date.now
+  },
   img: String
 
 });
